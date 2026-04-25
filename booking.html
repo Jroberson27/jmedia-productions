@@ -336,28 +336,14 @@
       <!-- Row 5: Role needed (full width) -->
       <div class="field full">
         <label>Role Needed <span class="req">*</span></label>
-        <div class="check-group">
-          <label class="check-item">
-            <input type="checkbox" name="roles_needed" value="Camera Operator">
-            <span>Camera Operator — Single &amp; Multi-Camera, Gimbal, Tripod, Handheld</span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" name="roles_needed" value="Camera Utility">
-            <span>Camera Utility — Lens Prep, Cable Management, Equipment Transport</span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" name="roles_needed" value="1st AC Support">
-            <span>1st AC Support — Focus Pull Support, Lens Changes, Camera Department Workflow</span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" name="roles_needed" value="Camera Assist / 2nd AC">
-            <span>Camera Assist / 2nd AC — Slating, Shot Logging, Camera Reports</span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" name="roles_needed" value="Production Assistant">
-            <span>Production Assistant — Set Logistics, Lockup, Talent Movement, AD Support</span>
-          </label>
-        </div>
+        <select name="roles_needed" required>
+          <option value="" disabled selected>Select a role...</option>
+          <option value="Camera Operator">Camera Operator</option>
+          <option value="Camera Utility">Camera Utility</option>
+          <option value="1st AC Support">1st AC Support</option>
+          <option value="Camera Assist / 2nd AC">Camera Assist / 2nd AC</option>
+          <option value="Production Assistant">Production Assistant</option>
+        </select>
       </div>
 
       <!-- Row 6: Project details (full width) -->
@@ -417,8 +403,8 @@
 })();
 
 /* ── FORM SUBMIT → HUBSPOT ── */
-const PORTAL_ID = 'REPLACE_WITH_YOUR_PORTAL_ID';   // e.g. 49139393
-const FORM_GUID = 'REPLACE_WITH_YOUR_FORM_GUID';   // e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+const PORTAL_ID = '49139393';
+const FORM_GUID = 'e3b3b56c-67ad-4bb5-9782-e54313cead9c';
 
 document.getElementById('bookingForm').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -431,8 +417,8 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   const required = form.querySelectorAll('[required]');
   let valid = true;
   required.forEach(field => { if (!field.value.trim()) valid = false; });
-  const rolesChecked = form.querySelectorAll('[name="roles_needed"]:checked');
-  if (rolesChecked.length === 0) valid = false;
+  const rolesSelect = form.querySelector('[name="roles_needed"]');
+  if (!rolesSelect || !rolesSelect.value) valid = false;
 
   if (!valid) {
     err.textContent = 'Please fill in all required fields and select at least one role.';
@@ -447,7 +433,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   err.classList.remove('visible');
 
   // Build HubSpot fields array
-  const roles = [...rolesChecked].map(cb => cb.value).join('; ');
+  const roles = form.querySelector('[name="roles_needed"]').value;
   const fields = [
     { name: 'firstname',      value: form.firstname.value.trim() },
     { name: 'lastname',       value: form.lastname.value.trim() },
