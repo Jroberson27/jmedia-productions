@@ -94,9 +94,7 @@
   /* ── HERO STRIP ── */
   .hero {
     margin-top: 64px;
-    padding: 72px 40px 56px;
-    max-width: 900px;
-    margin-left: auto; margin-right: auto;
+    padding: 72px 6vw 56px;
   }
   .eyebrow {
     font-size: 11px; letter-spacing: 0.35em; color: var(--red-bright);
@@ -124,15 +122,13 @@
   }
   .hero-sub {
     font-size: 17px; color: #d4c8c4; line-height: 1.7;
-    max-width: 560px;
+    max-width: 680px;
   }
   .rule { width: 40px; height: 2px; background: var(--red); margin: 28px 0; }
 
   /* ── FORM WRAP ── */
   .form-wrap {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 40px 100px;
+    padding: 0 0 100px;
   }
 
   .form-grid {
@@ -140,6 +136,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 2px;
     background: var(--border);
+    margin: 0 6vw;
   }
   .form-grid .full { grid-column: 1 / -1; }
 
@@ -208,6 +205,7 @@
     display: flex; align-items: center; justify-content: space-between;
     flex-wrap: wrap; gap: 20px;
     border-top: 1px solid var(--border);
+    margin: 0 6vw;
   }
   .submit-note { font-size: 14px; color: #b0a09d; line-height: 1.6; max-width: 320px; }
   .btn-submit {
@@ -235,7 +233,7 @@
     border-left: 3px solid var(--red-bright);
     background: var(--red-dim);
     color: var(--text-mid);
-    margin-top: 2px;
+    margin: 2px 6vw 0;
   }
   .msg.success { border-color: #4caf50; background: rgba(76,175,80,0.06); }
   .msg.visible { display: block; }
@@ -243,11 +241,10 @@
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--border);
-    padding: 32px 40px;
+    padding: 32px 6vw;
     display: flex; align-items: center; justify-content: space-between;
     flex-wrap: wrap; gap: 16px;
     font-size: 12px; color: var(--text-dim); letter-spacing: 0.1em;
-    max-width: 900px; margin: 0 auto;
   }
   footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
   footer a:hover { color: var(--red-bright); }
@@ -256,12 +253,12 @@
   @media (max-width: 700px) {
     nav { padding: 0 20px; }
     .hero { padding: 60px 20px 40px; }
-    .form-wrap { padding: 0 0 80px; }
-    .form-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; margin: 0; }
     .form-grid .full { grid-column: 1; }
-    footer { padding: 24px 20px; flex-direction: column; }
-    .submit-row { flex-direction: column; align-items: flex-start; }
+    .submit-row { flex-direction: column; align-items: flex-start; margin: 0; }
+    .msg { margin: 2px 0 0; }
     .btn-submit { width: 100%; text-align: center; }
+    footer { padding: 24px 20px; flex-direction: column; }
   }
 </style>
 </head>
