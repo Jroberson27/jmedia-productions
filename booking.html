@@ -25,12 +25,17 @@
     --bg-mid:   #edeae7;
     --bg-light: #e5e1dd;
     --white:    #1a1010;
-    --text-mid: #4a3f3d;
-    --text-dim: #7a6f6d;
+    --text-mid: #2a1f1d;
+    --text-dim: #5a4f4d;
     --border:   rgba(0,0,0,0.08);
     --border2:  rgba(0,0,0,0.14);
     --red-dim:  rgba(180,50,30,0.08);
   }
+  [data-theme="light"] .field input,
+  [data-theme="light"] .field select,
+  [data-theme="light"] .field textarea { color: #1a0a08; }
+  [data-theme="light"] .field input::placeholder,
+  [data-theme="light"] .field textarea::placeholder { color: rgba(0,0,0,0.35); }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -110,7 +115,7 @@
       2px 2px 6px rgba(0,0,0,0.4);
   }
   .hero-sub {
-    font-size: 15px; color: var(--text-mid); line-height: 1.7;
+    font-size: 17px; color: #d4c8c4; line-height: 1.7;
     max-width: 560px;
   }
   .rule { width: 40px; height: 2px; background: var(--red); margin: 28px 0; }
@@ -140,13 +145,13 @@
 
   .field label {
     display: block;
-    font-size: 10px; letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     text-transform: uppercase; color: var(--red-bright);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
+    font-size: 15px;
   }
-  .field label .req { color: var(--text-dim); margin-left: 4px; font-size: 10px; font-family: 'DM Sans', sans-serif; letter-spacing: 0; }
+  .field label .req { color: #d94f3d; margin-left: 4px; font-size: 11px; font-family: 'DM Sans', sans-serif; letter-spacing: 0; }
 
   .field input,
   .field select,
@@ -155,22 +160,22 @@
     background: transparent;
     border: none;
     border-bottom: 1px solid var(--border2);
-    color: var(--white);
+    color: #ffffff;
     font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 300;
-    padding: 8px 0 10px;
+    font-size: 17px;
+    font-weight: 400;
+    padding: 10px 0 12px;
     outline: none;
     transition: border-color 0.2s;
     -webkit-appearance: none;
   }
   .field input::placeholder,
-  .field textarea::placeholder { color: var(--text-dim); }
+  .field textarea::placeholder { color: rgba(255,255,255,0.35); }
   .field input:focus,
   .field select:focus,
   .field textarea:focus { border-bottom-color: var(--red-bright); }
 
-  .field select option { background: #1a0b0e; color: var(--white); }
+  .field select option { background: #1a0b0e; color: #ffffff; font-size: 16px; }
 
   .field textarea { resize: none; min-height: 90px; line-height: 1.6; }
 
@@ -196,7 +201,7 @@
     flex-wrap: wrap; gap: 20px;
     border-top: 1px solid var(--border);
   }
-  .submit-note { font-size: 12px; color: var(--text-dim); line-height: 1.6; max-width: 320px; }
+  .submit-note { font-size: 14px; color: #b0a09d; line-height: 1.6; max-width: 320px; }
   .btn-submit {
     background: var(--red);
     color: #fff;
