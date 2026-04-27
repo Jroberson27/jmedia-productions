@@ -2226,286 +2226,223 @@ window.addEventListener('scroll', () => {
 </html>
 
 <script>
-/* ══════════════════════════════════════════
-   JMEDIA SCROLL SYSTEM
-   Scroll position drives all animations.
-   Each section: sticky 100vh, outer div sets scroll range.
-══════════════════════════════════════════ */
+/* JMEDIA SCROLL SYSTEM v2 — corrected sceneScroll formula */
 (function() {
+  var EOUT = function(t){ return 1-Math.pow(1-Math.max(0,Math.min(1,t)),3); };
+  var EIN  = function(t){ t=Math.max(0,Math.min(1,t)); return t*t*t; };
 
-  var EASE_OUT = function(t){ return 1 - Math.pow(1-t, 3); };
-  var EASE_IN  = function(t){ return t*t*t; };
-  var EASE_IO  = function(t){ return t<0.5 ? 4*t*t*t : 1-(Math.pow(-2*t+2,3))/2; };
-  var clamp    = function(v,a,b){ return Math.max(a,Math.min(b,v)); };
-  function progress(scroll, start, len) { return EASE_OUT(clamp((scroll-start)/len,0,1)); }
-  function progressIn(scroll, start, len) { return EASE_IN(clamp((scroll-start)/len,0,1)); }
+  /* KEY FIX: sceneScroll returns px scrolled INTO the scene (0 at scene top) */
+  function ss(el){ return Math.max(0, -el.getBoundingClientRect().top); }
 
-  /* Apply transforms */
-  function set(id, opts) {
-    var el = typeof id === 'string' ? document.getElementById(id) : id;
-    if (!el) return;
-    var v   = opts.v !== undefined ? opts.v : 1;
-    var tx  = opts.tx || 0;
-    var ty  = opts.ty || 0;
-    var sc  = opts.sc !== undefined ? opts.sc : 1;
-    var rot = opts.rot || 0;
-    el.style.opacity   = v;
-    el.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+sc+') rotate('+rot+'deg)';
+  /* p(scroll_into_scene, start_px, length_px) → 0..1 eased out */
+  function p(s,a,b)  { return EOUT((s-a)/b); }
+  /* po — ease IN (for exits) */
+  function po(s,a,b) { return EIN((s-a)/b);  }
+
+  function set(id,v,tx,ty,sc,rot){
+    var e=typeof id==='string'?document.getElementById(id):id;
+    if(!e)return;
+    e.style.opacity=Math.max(0,Math.min(1,v));
+    e.style.transform='translate('+(tx||0)+'px,'+(ty||0)+'px) scale('+(sc||1)+') rotate('+(rot||0)+'deg)';
+  }
+  /* IN */
+  function fu(id,v,d)  { set(id,v,0,d*(1-v)); }
+  function fl(id,v,d)  { set(id,v,d*(1-v),0); }
+  function fr(id,v,d)  { set(id,v,-d*(1-v),0); }
+  function fsc(id,v)   { set(id,v,0,0,0.84+0.16*v); }
+  /* OUT */
+  function ou(id,v,d)  { set(id,1-v,0,-d*v); }
+  function od(id,v,d)  { set(id,1-v,0,d*v); }
+  function ol(id,v,d)  { set(id,1-v,-d*v,0); }
+  function or2(id,v,d) { set(id,1-v,d*v,0); }
+  function ob(id,v)    { set(id,1-v,0,0,1+v*0.22); }
+  function oi(id,v)    { set(id,1-v,0,0,1-v*0.18); }
+  function orl(id,v,d) { set(id,1-v,0,-d*v,1,0,-5*v); }
+  function orr(id,v,d) { set(id,1-v,0,-d*v,1,0,5*v); }
+
+  function tc(eyeId,bigId,pIn,pOut){
+    var vis=pIn*(1-pOut);
+    var e=document.getElementById(eyeId), b=document.getElementById(bigId);
+    if(e)e.style.opacity=Math.max(0,Math.min(1,vis));
+    if(b){b.style.opacity=Math.max(0,Math.min(1,vis));
+      b.style.transform='scale('+(1+0.09*(1-pIn)-0.14*pOut)+') translateY('+((1-pIn)*28-pOut*20)+'px)';}
   }
 
-  /* IN animations */
-  function fadeUp(id,  p, dy)  { set(id, {v:p, ty:dy*(1-p)}); }
-  function fadeLeft(id,p, dx)  { set(id, {v:p, tx:dx*(1-p)}); }
-  function fadeRight(id,p,dx)  { set(id, {v:p, tx:-dx*(1-p)}); }
-  function fadeScale(id,p)     { set(id, {v:p, sc:0.84+0.16*p}); }
-
-  /* OUT animations */
-  function outUp(id,     p, dy)  { set(id, {v:1-p, ty:-dy*p}); }
-  function outDown(id,   p, dy)  { set(id, {v:1-p, ty:dy*p}); }
-  function outLeft(id,   p, dx)  { set(id, {v:1-p, tx:-dx*p}); }
-  function outRight(id,  p, dx)  { set(id, {v:1-p, tx:dx*p}); }
-  function outBlow(id,   p)      { set(id, {v:1-p, sc:1+p*0.22}); }
-  function outImplode(id,p)      { set(id, {v:1-p, sc:1-p*0.18}); }
-  function outRotLeft(id,p, dy)  { set(id, {v:1-p, ty:-dy*p, rot:-5*p}); }
-  function outRotRight(id,p,dy)  { set(id, {v:1-p, ty:-dy*p, rot:5*p}); }
-
-  /* Title card: big centered title → shrinks to top-left header */
-  function titleCard(eyeId, bigId, p_in, p_out) {
-    var vis = p_in * (1 - p_out);
-    var eye = document.getElementById(eyeId);
-    var big = document.getElementById(bigId);
-    if (eye) eye.style.opacity = vis;
-    if (big) {
-      big.style.opacity = vis;
-      var sc = 1 + 0.09*(1-p_in) - 0.14*p_out;
-      big.style.transform = 'scale('+sc+') translateY('+((1-p_in)*28 - p_out*20)+'px)';
-    }
-  }
-
-  /* Get scroll position relative to a scene's outer wrapper */
-  function sceneScroll(sceneEl) {
-    var rect = sceneEl.getBoundingClientRect();
-    var vh   = window.innerHeight;
-    return -(rect.top - vh) + vh;
-  }
-
-  /* ── HERO parallax on window scroll ── */
-  var heroBg  = document.querySelector('#hero .featured-section') ||
-                document.querySelector('#hero > div:first-child');
+  var heroScene = document.getElementById('scene-hero');
+  var scRoles   = document.getElementById('scene-roles');
+  var scCredits = document.getElementById('scene-credits');
+  var scProjects= document.getElementById('scene-projects');
+  var scServices= document.getElementById('scene-services');
+  var scMtr     = document.getElementById('scene-mtr');
+  var scEquip   = document.getElementById('scene-equipment');
+  var scBooking = document.getElementById('scene-booking');
   var heroVideo = document.querySelector('#hero video');
-  var heroOverlay = document.getElementById('hero-overlay');
+  var progressBar = document.getElementById('js-progress');
+  var prevSy = -1;
 
-  /* ── SCENE ELEMENTS ── */
-  var sceneRoles     = document.getElementById('scene-roles');
-  var sceneCredits   = document.getElementById('scene-credits');
-  var sceneProjects  = document.getElementById('scene-projects');
-  var sceneServices  = document.getElementById('scene-services');
-  var sceneMtr       = document.getElementById('scene-mtr');
-  var sceneEquip     = document.getElementById('scene-equipment');
-  var sceneBooking   = document.getElementById('scene-booking');
-
-  var prevScroll = -1;
-
-  function onScroll() {
+  function draw(){
     var sy = window.scrollY;
-    if (Math.abs(sy - prevScroll) < 0.5) return;
-    prevScroll = sy;
+    if(Math.abs(sy-prevSy)<0.5) return;
+    prevSy = sy;
 
-    /* Progress bar */
-    var totalH = document.body.scrollHeight - window.innerHeight;
-    document.getElementById('js-progress').style.width = clamp(sy/totalH*100,0,100) + '%';
-
-    /* ── HERO: video zoom + element exits ── */
-    var vh = window.innerHeight;
-    var heroRange = vh * 3;
-    var hP = clamp(sy / heroRange, 0, 1);
-
-    if (heroVideo) {
-      var vsc = 1 + hP * 0.08;
-      heroVideo.style.transform = 'scale(' + vsc + ')';
-      heroVideo.style.filter = 'brightness(' + (1 - hP*0.5) + ')';
+    if(progressBar){
+      var tot = document.body.scrollHeight - window.innerHeight;
+      progressBar.style.width = Math.min(100, sy/tot*100)+'%';
     }
-    var hExit = function(id, startFrac, lenFrac, dx, dy, type) {
-      var p = progressIn(sy, heroRange*startFrac, heroRange*lenFrac);
-      if      (type === 'right')   outRight(id, p, dx);
-      else if (type === 'left')    outLeft(id,  p, dx);
-      else if (type === 'down')    outDown(id,  p, dy);
-      else if (type === 'blow')    outBlow(id,  p);
-      else                         outUp(id,    p, dy);
+
+    /* ── HERO ── */
+    var hH = heroScene ? heroScene.offsetHeight - window.innerHeight : window.innerHeight*3;
+    var hs = Math.max(0, Math.min(sy, hH));
+
+    if(heroVideo){
+      heroVideo.style.transform='scale('+(1+hs/hH*0.08)+')';
+      heroVideo.style.filter='brightness('+(1-hs/hH*0.5)+')';
+    }
+    var hx=function(id,s,l,dx,dy,type){
+      var pv=po(hs,hH*s,hH*l);
+      if(type==='r')  or2(id,pv,dx);
+      else if(type==='l') ol(id,pv,dx);
+      else if(type==='d') od(id,pv,dy);
+      else if(type==='b') ob(id,pv);
+      else ou(id,pv,dy);
     };
-    hExit('h-eyebrow', 0.04, 0.13, 60, 0,  'right');
-    hExit('h-title1',  0.07, 0.14, 0,  0,  'blow');
-    hExit('h-title2',  0.11, 0.14, 50, 0,  'left');
-    hExit('h-sub',     0.15, 0.12, 0,  20, 'down');
-    hExit('h-btn1',    0.18, 0.11, 0,  26, 'down');
-    hExit('h-btn2',    0.20, 0.11, 0,  26, 'down');
-    hExit('h-stat1',   0.05, 0.13, 70, 0,  'right');
-    hExit('h-stat2',   0.09, 0.13, 70, 0,  'right');
-    hExit('h-stat3',   0.13, 0.13, 70, 0,  'right');
+    hx('h-eyebrow', 0.04,0.13, 60,0,  'r');
+    hx('h-title1',  0.07,0.15,  0,0,  'b');
+    hx('h-title2',  0.12,0.14, 50,0,  'l');
+    hx('h-sub',     0.16,0.12,  0,20, 'd');
+    hx('h-btn1',    0.19,0.11,  0,26, 'd');
+    hx('h-stat1',   0.05,0.13, 70,0,  'r');
+    hx('h-stat2',   0.09,0.13, 70,0,  'r');
+    hx('h-stat3',   0.13,0.13, 70,0,  'r');
 
     /* ── ROLES ── */
-    if (sceneRoles) {
-      var rs = sceneScroll(sceneRoles);
-      var rVh = sceneRoles.offsetHeight;
-
-      /* Title card in/out */
-      titleCard('tc-roles-eye', 'tc-roles-title',
-        progress(rs, 0, rVh*0.14),
-        progressIn(rs, rVh*0.28, rVh*0.12)
-      );
-      /* Small header reveals after title exits */
-      fadeUp('r-label', progress(rs, rVh*0.42, rVh*0.10), 14);
-      fadeLeft('r-title', progress(rs, rVh*0.46, rVh*0.12), 38);
-
-      /* Role rows stagger in — left col from left, right col from right */
-      var rBase = rVh * 0.52;
-      var rLen  = rVh * 0.10;
-      fadeLeft ('r-row1', progress(rs, rBase,          rLen), 48);
-      fadeRight('r-row2', progress(rs, rBase+rVh*0.05, rLen), 48);
-      fadeLeft ('r-row3', progress(rs, rBase+rVh*0.10, rLen), 48);
-      fadeRight('r-row4', progress(rs, rBase+rVh*0.15, rLen), 48);
-      fadeUp   ('r-row5', progress(rs, rBase+rVh*0.20, rLen), 28);
-
-      /* EXIT: roles — before credits title card takes over */
-      var rOutBase = rVh * 0.78;
-      var rOutLen  = rVh * 0.09;
-      outRotLeft ('r-label',  progressIn(rs, rOutBase,          rOutLen), 20);
-      outRotRight('r-title',  progressIn(rs, rOutBase+rVh*0.02, rOutLen), 20);
-      outLeft    ('r-row1',   progressIn(rs, rOutBase+rVh*0.03, rOutLen), 55);
-      outDown    ('r-row2',   progressIn(rs, rOutBase+rVh*0.04, rOutLen), 30);
-      outImplode ('r-row3',   progressIn(rs, rOutBase+rVh*0.05, rOutLen));
-      outLeft    ('r-row4',   progressIn(rs, rOutBase+rVh*0.06, rOutLen), 40);
-      outUp      ('r-row5',   progressIn(rs, rOutBase+rVh*0.07, rOutLen), 26);
+    if(scRoles){
+      var rs=ss(scRoles), rH=scRoles.offsetHeight-window.innerHeight;
+      tc('tc-roles-eye','tc-roles-title', p(rs,0,rH*0.14), po(rs,rH*0.28,rH*0.12));
+      fu('r-label',  p(rs,rH*0.42,rH*0.10), 14);
+      fl('r-title',  p(rs,rH*0.46,rH*0.12), 38);
+      fl('r-row1',   p(rs,rH*0.52,rH*0.10), 48);
+      fr('r-row2',   p(rs,rH*0.57,rH*0.10), 48);
+      fl('r-row3',   p(rs,rH*0.62,rH*0.10), 48);
+      fr('r-row4',   p(rs,rH*0.67,rH*0.10), 48);
+      fu('r-row5',   p(rs,rH*0.72,rH*0.10), 28);
+      /* exits */
+      orl('r-label', po(rs,rH*0.78,rH*0.09), 20);
+      orr('r-title', po(rs,rH*0.80,rH*0.09), 20);
+      ol ('r-row1',  po(rs,rH*0.82,rH*0.09), 55);
+      od ('r-row2',  po(rs,rH*0.84,rH*0.09), 30);
+      oi ('r-row3',  po(rs,rH*0.86,rH*0.09));
+      ol ('r-row4',  po(rs,rH*0.88,rH*0.09), 40);
+      ou ('r-row5',  po(rs,rH*0.90,rH*0.09), 26);
     }
 
     /* ── CREDITS ── */
-    if (sceneCredits) {
-      var cs = sceneScroll(sceneCredits);
-      var cVh = sceneCredits.offsetHeight;
-
-      titleCard('tc-credits-eye', 'tc-credits-title',
-        progress(cs, 0, cVh*0.14),
-        progressIn(cs, cVh*0.28, cVh*0.11)
-      );
-      fadeUp  ('c-label', progress(cs, cVh*0.41, cVh*0.09), 14);
-      fadeLeft('c-title', progress(cs, cVh*0.44, cVh*0.11), 38);
-
-      /* 10 cards: rows fan in with alt directions */
-      var cBase = cVh * 0.50;
-      var cLen  = cVh * 0.065;
-      fadeLeft ('c-card1',  progress(cs, cBase,           cLen), 52);
-      fadeUp   ('c-card2',  progress(cs, cBase+cVh*0.040, cLen), 28);
-      fadeRight('c-card3',  progress(cs, cBase+cVh*0.080, cLen), 52);
-      fadeRight('c-card4',  progress(cs, cBase+cVh*0.120, cLen), 52);
-      fadeUp   ('c-card5',  progress(cs, cBase+cVh*0.160, cLen), 28);
-      fadeLeft ('c-card6',  progress(cs, cBase+cVh*0.200, cLen), 52);
-      fadeLeft ('c-card7',  progress(cs, cBase+cVh*0.240, cLen), 52);
-      fadeScale('c-card8',  progress(cs, cBase+cVh*0.280, cLen));
-      fadeRight('c-card9',  progress(cs, cBase+cVh*0.320, cLen), 52);
-      fadeUp   ('c-card10', progress(cs, cBase+cVh*0.360, cLen), 24);
-      fadeUp   ('c-card11', progress(cs, cBase+cVh*0.400, cLen), 24);
-      fadeUp   ('c-card12', progress(cs, cBase+cVh*0.440, cLen), 24);
-
-      /* EXIT */
-      var cOut = cVh * 0.82;
-      var cOL  = cVh * 0.07;
-      outBlow    ('c-label',  progressIn(cs, cOut,          cOL));
-      outBlow    ('c-title',  progressIn(cs, cOut+cVh*0.02, cOL));
-      outUp      ('c-card1',  progressIn(cs, cOut+cVh*0.03, cOL), 28);
-      outUp      ('c-card2',  progressIn(cs, cOut+cVh*0.04, cOL), 28);
-      outUp      ('c-card3',  progressIn(cs, cOut+cVh*0.05, cOL), 28);
-      outLeft    ('c-card4',  progressIn(cs, cOut+cVh*0.06, cOL), 46);
-      outImplode ('c-card5',  progressIn(cs, cOut+cVh*0.07, cOL));
-      outRight   ('c-card6',  progressIn(cs, cOut+cVh*0.08, cOL), 46);
-      outRotLeft ('c-card7',  progressIn(cs, cOut+cVh*0.09, cOL), 22);
-      outRotRight('c-card8',  progressIn(cs, cOut+cVh*0.10, cOL), 22);
-      outRotLeft ('c-card9',  progressIn(cs, cOut+cVh*0.11, cOL), 22);
-      outDown    ('c-card10', progressIn(cs, cOut+cVh*0.12, cOL), 28);
-      outDown    ('c-card11', progressIn(cs, cOut+cVh*0.13, cOL), 28);
-      outDown    ('c-card12', progressIn(cs, cOut+cVh*0.14, cOL), 28);
+    if(scCredits){
+      var cs=ss(scCredits), cH=scCredits.offsetHeight-window.innerHeight;
+      tc('tc-credits-eye','tc-credits-title', p(cs,0,cH*0.13), po(cs,cH*0.26,cH*0.11));
+      fu('c-label',  p(cs,cH*0.39,cH*0.09), 14);
+      fl('c-title',  p(cs,cH*0.42,cH*0.10), 38);
+      fl ('c-card1',  p(cs,cH*0.48,cH*0.07), 52);
+      fu ('c-card2',  p(cs,cH*0.52,cH*0.07), 28);
+      fr ('c-card3',  p(cs,cH*0.56,cH*0.07), 52);
+      fr ('c-card4',  p(cs,cH*0.60,cH*0.07), 52);
+      fu ('c-card5',  p(cs,cH*0.63,cH*0.07), 28);
+      fl ('c-card6',  p(cs,cH*0.66,cH*0.07), 52);
+      fl ('c-card7',  p(cs,cH*0.69,cH*0.07), 52);
+      fsc('c-card8',  p(cs,cH*0.72,cH*0.07));
+      fr ('c-card9',  p(cs,cH*0.75,cH*0.07), 52);
+      fu ('c-card10', p(cs,cH*0.78,cH*0.07), 24);
+      fu ('c-card11', p(cs,cH*0.81,cH*0.07), 24);
+      fu ('c-card12', p(cs,cH*0.84,cH*0.07), 24);
+      /* exits */
+      ob ('c-label',  po(cs,cH*0.86,cH*0.06));
+      ob ('c-title',  po(cs,cH*0.87,cH*0.06));
+      ou ('c-card1',  po(cs,cH*0.87,cH*0.06), 28);
+      ou ('c-card2',  po(cs,cH*0.88,cH*0.06), 28);
+      ou ('c-card3',  po(cs,cH*0.88,cH*0.06), 28);
+      ol ('c-card4',  po(cs,cH*0.89,cH*0.06), 46);
+      oi ('c-card5',  po(cs,cH*0.90,cH*0.06));
+      or2('c-card6',  po(cs,cH*0.90,cH*0.06), 46);
+      orl('c-card7',  po(cs,cH*0.91,cH*0.06), 22);
+      orr('c-card8',  po(cs,cH*0.92,cH*0.06), 22);
+      orl('c-card9',  po(cs,cH*0.92,cH*0.06), 22);
+      od ('c-card10', po(cs,cH*0.93,cH*0.06), 28);
+      od ('c-card11', po(cs,cH*0.93,cH*0.06), 28);
+      od ('c-card12', po(cs,cH*0.94,cH*0.06), 28);
     }
 
     /* ── PROJECTS ── */
-    if (sceneProjects) {
-      var ps = sceneScroll(sceneProjects);
-      var pVh = sceneProjects.offsetHeight;
-      titleCard('tc-projects-eye','tc-projects-title',
-        progress(ps, 0, pVh*0.15),
-        progressIn(ps, pVh*0.28, pVh*0.12)
-      );
-      fadeUp  ('p-label', progress(ps, pVh*0.42, pVh*0.10), 14);
-      fadeLeft('p-title', progress(ps, pVh*0.46, pVh*0.12), 38);
-      fadeUp  ('p-vid1',  progress(ps, pVh*0.54, pVh*0.12), 32);
-      fadeLeft('p-vid2',  progress(ps, pVh*0.62, pVh*0.12), 44);
-      fadeRight('p-vid3', progress(ps, pVh*0.68, pVh*0.12), 44);
-      fadeUp  ('p-vid4',  progress(ps, pVh*0.74, pVh*0.12), 32);
+    if(scProjects){
+      var ps=ss(scProjects), pH=scProjects.offsetHeight-window.innerHeight;
+      tc('tc-projects-eye','tc-projects-title', p(ps,0,pH*0.15), po(ps,pH*0.30,pH*0.13));
+      fu('p-label', p(ps,pH*0.45,pH*0.11), 14);
+      fl('p-title', p(ps,pH*0.49,pH*0.12), 38);
+      fu('p-vid1',  p(ps,pH*0.56,pH*0.12), 32);
+      fl('p-vid2',  p(ps,pH*0.64,pH*0.12), 44);
+      fr('p-vid3',  p(ps,pH*0.70,pH*0.12), 44);
+      fu('p-vid4',  p(ps,pH*0.76,pH*0.12), 32);
     }
 
     /* ── SERVICES ── */
-    if (sceneServices) {
-      var svs = sceneScroll(sceneServices);
-      var svVh = sceneServices.offsetHeight;
-      titleCard('tc-services-eye','tc-services-title',
-        progress(svs, 0, svVh*0.14),
-        progressIn(svs, svVh*0.28, svVh*0.12)
-      );
-      fadeUp  ('sv-label', progress(svs, svVh*0.42, svVh*0.10), 14);
-      fadeLeft('sv-title', progress(svs, svVh*0.46, svVh*0.12), 38);
-      var svBase = svVh * 0.52;
-      var svLen  = svVh * 0.08;
-      ['sv-c1','sv-c2','sv-c3','sv-c4','sv-c5','sv-c6'].forEach(function(id,i){
-        var fn = [fadeLeft,fadeUp,fadeRight,fadeRight,fadeUp,fadeLeft][i];
-        fn(id, progress(svs, svBase+i*svVh*0.05, svLen), i%2===0?48:28);
-      });
+    if(scServices){
+      var svs=ss(scServices), svH=scServices.offsetHeight-window.innerHeight;
+      tc('tc-services-eye','tc-services-title', p(svs,0,svH*0.14), po(svs,svH*0.28,svH*0.12));
+      fu('sv-label',p(svs,svH*0.42,svH*0.10),14);
+      fl('sv-title',p(svs,svH*0.46,svH*0.12),38);
+      fl('sv-c1',p(svs,svH*0.52,svH*0.09),48);
+      fu('sv-c2',p(svs,svH*0.57,svH*0.09),28);
+      fr('sv-c3',p(svs,svH*0.62,svH*0.09),48);
+      fr('sv-c4',p(svs,svH*0.67,svH*0.09),48);
+      fu('sv-c5',p(svs,svH*0.72,svH*0.09),28);
+      fl('sv-c6',p(svs,svH*0.77,svH*0.09),48);
     }
 
     /* ── MTR ── */
-    if (sceneMtr) {
-      var ms = sceneScroll(sceneMtr);
-      var mVh = sceneMtr.offsetHeight;
-      fadeLeft ('m-left',  progress(ms, mVh*0.10, mVh*0.18), 44);
-      fadeRight('m-right', progress(ms, mVh*0.16, mVh*0.18), 44);
-      /* exit */
-      outLeft  ('m-left',  progressIn(ms, mVh*0.72, mVh*0.16), 44);
-      outRight ('m-right', progressIn(ms, mVh*0.74, mVh*0.16), 44);
+    if(scMtr){
+      var ms=ss(scMtr), mH=scMtr.offsetHeight-window.innerHeight;
+      fl('m-left',  p(ms,mH*0.10,mH*0.20),44);
+      fr('m-right', p(ms,mH*0.16,mH*0.20),44);
+      ol('m-left',  po(ms,mH*0.72,mH*0.16),44);
+      or2('m-right',po(ms,mH*0.74,mH*0.16),44);
     }
 
     /* ── EQUIPMENT ── */
-    if (sceneEquip) {
-      var es = sceneScroll(sceneEquip);
-      var eVh = sceneEquip.offsetHeight;
-      titleCard('tc-equip-eye','tc-equip-title',
-        progress(es, 0, eVh*0.14),
-        progressIn(es, eVh*0.28, eVh*0.12)
-      );
-      fadeUp  ('eq-label', progress(es, eVh*0.42, eVh*0.10), 14);
-      fadeLeft('eq-title', progress(es, eVh*0.46, eVh*0.12), 38);
-      fadeUp  ('eq-grid',  progress(es, eVh*0.54, eVh*0.18), 28);
+    if(scEquip){
+      var es=ss(scEquip), eH=scEquip.offsetHeight-window.innerHeight;
+      tc('tc-equip-eye','tc-equip-title', p(es,0,eH*0.14), po(es,eH*0.28,eH*0.12));
+      fu('eq-label',p(es,eH*0.42,eH*0.10),14);
+      fl('eq-title',p(es,eH*0.46,eH*0.12),38);
+      fu('eq-grid', p(es,eH*0.54,eH*0.18),28);
     }
 
     /* ── BOOKING ── */
-    if (sceneBooking) {
-      var bs = sceneScroll(sceneBooking);
-      var bVh = sceneBooking.offsetHeight;
-      fadeUp   ('b-eye',  progress(bs, bVh*0.06, bVh*0.16), 16);
-      fadeScale('b-title',progress(bs, bVh*0.14, bVh*0.22));
-      fadeUp   ('b-sub',  progress(bs, bVh*0.34, bVh*0.18), 20);
-      fadeUp   ('b-btn',  progress(bs, bVh*0.50, bVh*0.16), 22);
-      fadeUp   ('b-con',  progress(bs, bVh*0.64, bVh*0.14), 14);
+    if(scBooking){
+      var bs=ss(scBooking), bH=scBooking.offsetHeight-window.innerHeight;
+      fu ('b-eye',  p(bs,bH*0.06,bH*0.16),16);
+      fsc('b-title',p(bs,bH*0.14,bH*0.22));
+      fu ('b-sub',  p(bs,bH*0.34,bH*0.18),20);
+      fu ('b-btn',  p(bs,bH*0.50,bH*0.16),22);
     }
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', function(){ prevScroll = -1; onScroll(); });
+  window.addEventListener('scroll', draw, {passive:true});
+  window.addEventListener('resize', function(){ prevSy=-1; draw(); });
 
-  /* Initialize all js-el elements to opacity:0 */
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.js-el').forEach(function(el) {
-      el.style.opacity = '0';
+  /* Init: hide all js-el, then run draw so hero is immediately visible */
+  function init(){
+    document.querySelectorAll('.js-el').forEach(function(el){
+      el.style.opacity='0';
+      el.style.transform='none';
     });
-    onScroll();
-  });
+    prevSy=-1;
+    draw();
+  }
 
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 </script>
 
