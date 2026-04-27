@@ -973,6 +973,22 @@ footer img { height: 32px; width: auto; }
     border-bottom-color: rgba(0,0,0,0.10);
     box-shadow: 0 2px 16px rgba(0,0,0,0.12);
   }
+  /* Hero always over dark video — keep white text in both modes */
+  [data-theme="light"] .hero-title,
+  [data-theme="light"] .hero-title-red,
+  [data-theme="light"] .hero-sub,
+  [data-theme="light"] .hero-eyebrow,
+  [data-theme="light"] .hstat-num,
+  [data-theme="light"] .hstat-label,
+  [data-theme="light"] .label.reveal-up:first-of-type {
+    color: inherit;
+  }
+  [data-theme="light"] #hero .hero-title     { color: #ffffff; text-shadow: 1px 1px 0 rgba(180,40,20,0.9), 2px 2px 0 rgba(140,25,12,0.7), 3px 3px 0 rgba(100,18,8,0.5), 4px 4px 10px rgba(0,0,0,0.5); }
+  [data-theme="light"] #hero .hero-title-red { color: var(--red-bright); }
+  [data-theme="light"] #hero .hero-sub       { color: rgba(255,255,255,0.75); text-shadow: none; }
+  [data-theme="light"] #hero .hstat-num      { color: #ffffff; text-shadow: 1px 1px 0 rgba(180,40,20,0.7), 2px 2px 0 rgba(140,25,12,0.5); }
+  [data-theme="light"] #hero .hstat-label    { color: rgba(255,255,255,0.6); }
+  [data-theme="light"] #hero                 { color: #ffffff; }
   /* Force all text to dark in light mode */
   [data-theme="light"] .sec-title,
   [data-theme="light"] .hero-title,
