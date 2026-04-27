@@ -949,49 +949,80 @@ footer img { height: 32px; width: auto; }
      LIGHT MODE VARIABLES
   ═══════════════════════════════ */
   [data-theme="light"] {
-    --bg-dark:  #f5f2f0;
-    --bg-mid:   #edeae7;
-    --bg-light: #e5e1dd;
-    --white:    #1a1010;
-    --text-mid: #4a3f3d;
-    --text-dim: #7a6f6d;
+    --bg-dark:  #f0eeec;
+    --bg-mid:   #e8e4e1;
+    --bg-light: #dedad7;
+    --white:    #0f0808;
+    --text-mid: #1e1412;
+    --text-dim: #3a2f2d;
     --border:   rgba(0,0,0,0.10);
-    --border2:  rgba(0,0,0,0.15);
+    --border2:  rgba(0,0,0,0.18);
     --red-glow: rgba(180,50,30,0.08);
     --red-dim:  rgba(180,50,30,0.10);
   }
-  [data-theme="light"] nav { background: rgba(245,242,240,0.94); border-bottom-color: rgba(0,0,0,0.10); }
-  [data-theme="light"] .sec-title {
-    text-shadow: none;
-    color: #1a0a08;
+
+  /* Nav */
+  [data-theme="light"] nav {
+    background: rgba(240,238,236,0.95);
+    border-bottom-color: rgba(0,0,0,0.12);
   }
-  [data-theme="light"] .sec-title em {
-    text-shadow: none;
-    color: var(--red-bright);
-  }
-  [data-theme="light"] .hero-title {
-    text-shadow: none;
-    color: #1a0a08;
-  }
-  [data-theme="light"] .hero-title-red {
-    text-shadow: 1px 1px 0 rgba(120,20,10,0.3);
-  }
-  [data-theme="light"] .credit-title {
-    text-shadow: none;
-    color: #1a0a08;
-  }
-  [data-theme="light"] .hstat-num {
-    text-shadow: none;
-    color: #1a0a08;
-  }
-  [data-theme="light"] .role-num {
-    text-shadow: none;
-  }
-  [data-theme="light"] footer { background: #e5e1dd; }
-  [data-theme="light"] .credit-card { background: var(--bg-mid); }
+  [data-theme="light"] .nav-link { color: #1e1412; }
+
+  /* Hero */
+  [data-theme="light"] .hero-title { text-shadow: none; color: #0f0808; }
+  [data-theme="light"] .hero-title-red { text-shadow: 1px 1px 0 rgba(120,20,10,0.3); }
+  [data-theme="light"] .hero-sub { color: #1e1412; text-shadow: none; }
+  [data-theme="light"] .hstat-num { text-shadow: none; color: #0f0808; }
+  [data-theme="light"] .hstat-label { color: #3a2f2d; }
+
+  /* Section titles */
+  [data-theme="light"] .sec-title { text-shadow: none; color: #0f0808; }
+  [data-theme="light"] .sec-title em { text-shadow: none; color: var(--red-bright); }
+  [data-theme="light"] .label { color: var(--red-bright); }
+
+  /* Roles section */
+  [data-theme="light"] .role-num { text-shadow: none; }
+  [data-theme="light"] .role-name { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .role-desc { color: #2a1f1e; }
+
+  /* Credits section */
+  [data-theme="light"] .credit-title { text-shadow: none; color: #0f0808; }
+  [data-theme="light"] .credit-meta { color: #2a1f1e; }
+  [data-theme="light"] .credit-studio { color: var(--red-bright); }
+  [data-theme="light"] .credit-card { background: var(--bg-mid); box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
   [data-theme="light"] .credit-card:hover { background: var(--bg-light); }
-  [data-theme="light"] .svc-card { background: var(--bg-dark); position: relative; overflow: hidden; }
-  [data-theme="light"] iframe { filter: brightness(0.95); }
+
+  /* Video caption bars */
+  [data-theme="light"] .vid-caption { background: var(--bg-mid); }
+
+  /* Services */
+  [data-theme="light"] .svc-card { background: var(--bg-dark); position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
+  [data-theme="light"] .svc-title { color: #0f0808; }
+  [data-theme="light"] .svc-desc { color: #2a1f1e; }
+
+  /* Credits banner split */
+  [data-theme="light"] .credits-banner-split > div:last-child { background: var(--bg-mid); }
+  [data-theme="light"] .credits-banner-split p,
+  [data-theme="light"] .credits-banner-split div { color: #1e1412; }
+
+  /* MTR section */
+  [data-theme="light"] .mtr-platform-name { color: #0f0808; }
+  [data-theme="light"] .mtr-platform-detail { color: #3a2f2d; }
+
+  /* Filter buttons */
+  [data-theme="light"] .fbtn { color: #2a1f1e; border-color: rgba(0,0,0,0.2); }
+  [data-theme="light"] .fbtn:hover,
+  [data-theme="light"] .fbtn.active { color: var(--red-bright); border-color: var(--red); }
+
+  /* Footer */
+  [data-theme="light"] footer { background: #dedad7; color: #2a1f1e; }
+  [data-theme="light"] footer a { color: #2a1f1e; }
+
+  /* Tag badges readable on light */
+  [data-theme="light"] .tag { filter: saturate(1.2) brightness(0.85); }
+
+  /* iframes */
+  [data-theme="light"] iframe { filter: brightness(0.97); }
 
   /* ═══════════════════════════════
      THEME TOGGLE BUTTON
