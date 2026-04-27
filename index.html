@@ -913,7 +913,15 @@ footer img { height: 32px; width: auto; }
 .reveal-scale { opacity: 0; transform: scale(0.92); transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1); }
 .reveal-fade  { opacity: 0; transition: opacity 1s ease; }
 
-.reveal-up.in, .reveal-left.in, .reveal-right.in, .reveal-scale.in, .reveal-fade.in {
+/* ── Scroll Reveal — hidden states ── */
+  .reveal-up    { opacity: 0; transform: translateY(48px); transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1); }
+  .reveal-left  { opacity: 0; transform: translateX(-48px); transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1); }
+  .reveal-fade  { opacity: 0; transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1); }
+  .stagger .reveal-up,
+  .stagger .reveal-left,
+  .stagger .reveal-fade { transition-duration: 0.65s; }
+
+  .reveal-up.in, .reveal-left.in, .reveal-right.in, .reveal-scale.in, .reveal-fade.in {
   opacity: 1;
   transform: none;
 }
