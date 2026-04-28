@@ -1373,7 +1373,11 @@ footer img { height: 32px; width: auto; }
     top: 0;
     height: 100vh;
     overflow: hidden;
+    background: var(--bg-dark);  /* solid bg prevents bleed-through */
+    z-index: 1;                  /* base — overridden per scene below */
   }
+  /* Hero sticky transparent — video is the background */
+  #scene-hero .js-sticky { background: transparent; }
   /* Title card overlay — centered big title that appears first */
   .tc-overlay {
     position: absolute;
@@ -1467,6 +1471,7 @@ footer img { height: 32px; width: auto; }
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
+    background: var(--bg-dark);
   }
   .js-sticky .section-inner {
     padding-top: 88px; /* clear nav */
@@ -1515,7 +1520,7 @@ footer img { height: 32px; width: auto; }
 <!-- HERO -->
 
 <!-- SCENE: HERO -->
-<div id="scene-hero" class="js-scene" style="height:400vh; position:relative;">
+<div id="scene-hero" class="js-scene" style="height:400vh; position:relative; z-index:1;">
   <div class="js-sticky" style="position:sticky; top:0; height:100vh; overflow:hidden;">
 <div id="hero" style="position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:120px 48px 80px; overflow:hidden;">
 
@@ -1568,7 +1573,7 @@ footer img { height: 32px; width: auto; }
 </div>
 
 <!-- SCENE: ROLES -->
-<div id="scene-roles" class="js-scene" style="height:500vh; position:relative;">
+<div id="scene-roles" class="js-scene" style="height:500vh; position:relative; z-index:2;">
   <div class="js-sticky" style="position:sticky; top:0; height:100vh; overflow:hidden;">
 <!-- ROLES -->
 <div class="roles-section section-wrap bg-2" id="roles">
@@ -1638,7 +1643,7 @@ footer img { height: 32px; width: auto; }
 </div>
 
 <!-- SCENE: CREDITS -->
-<div id="scene-credits" class="js-scene" style="height:800vh; position:relative;">
+<div id="scene-credits" class="js-scene" style="height:800vh; position:relative; z-index:3;">
   <div class="js-sticky" style="position:sticky; top:0; height:100vh; overflow:hidden;">
 <!-- CREDITS -->
 <div class="credits-section section-wrap bg-3" id="credits">
@@ -1790,7 +1795,7 @@ footer img { height: 32px; width: auto; }
 </div>
 
 <!-- SCENE: PROJECTS -->
-<div id="scene-projects" class="js-scene" style="height:400vh; position:relative;">
+<div id="scene-projects" class="js-scene" style="height:400vh; position:relative; z-index:4;">
   <div class="js-sticky" style="position:sticky; top:0; height:100vh; overflow:hidden;">
 <!-- PROJECTS -->
 <div class="section-wrap bg-4" id="projects">
@@ -1910,7 +1915,7 @@ footer img { height: 32px; width: auto; }
 </div>
 
 <!-- SCENE: SERVICES -->
-<div id="scene-services" class="js-scene" style="height:500vh; position:relative;">
+<div id="scene-services" class="js-scene" style="height:500vh; position:relative; z-index:5;">
   <div class="js-sticky" style="position:sticky; top:0; height:100vh; overflow:hidden;">
 <!-- SERVICES -->
 <div class="services-section section-wrap bg-1" id="services">
@@ -1960,7 +1965,7 @@ footer img { height: 32px; width: auto; }
 </div>
 
 <!-- SCENE: MTR -->
-<div id="scene-mtr" class="js-scene" style="height:400vh; position:relative;">
+<div id="scene-mtr" class="js-scene" style="height:400vh; position:relative; z-index:6;">
   <div class="js-sticky" style="position:sticky; top:0; height:100vh; overflow:hidden;">
 <!-- MTR -->
 <div class="mtr-section" id="mtr">
@@ -2019,7 +2024,7 @@ footer img { height: 32px; width: auto; }
 </div>
 
 <!-- SCENE: EQUIPMENT -->
-<div id="scene-equipment" class="js-scene" style="height:400vh; position:relative;">
+<div id="scene-equipment" class="js-scene" style="height:400vh; position:relative; z-index:7;">
   <div class="js-sticky" style="position:sticky; top:0; height:100vh; overflow:hidden;">
 <!-- EQUIPMENT -->
 <div class="equip-section section-wrap bg-2" id="equipment">
@@ -2095,7 +2100,7 @@ footer img { height: 32px; width: auto; }
 </div>
 
 <!-- SCENE: BOOKING -->
-<div id="scene-booking" class="js-scene" style="height:400vh; position:relative;">
+<div id="scene-booking" class="js-scene" style="height:400vh; position:relative; z-index:8;">
   <div class="js-sticky" style="position:sticky; top:0; height:100vh; overflow:hidden;">
 <!-- BOOKING -->
 <div class="booking-section section-wrap bg-5" id="booking" style="display:flex;align-items:center;justify-content:center;text-align:center;">
