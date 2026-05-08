@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>RL Orlando — Stage Navigation</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --red: #e8453a;
+    --red-dim: rgba(232,69,58,0.15);
+    --green: #2ecc71;
+    --yellow: #f39c12;
+    --white: #f0eeec;
+    --dim: rgba(240,238,236,0.45);
+    --card: rgba(255,255,255,0.05);
+    --border: rgba(255,255,255,0.1);
+  }
+
+  html, body { height: 100%; overflow: hidden; background: var(--bg); }
+
+  /* ── HEADER ── */
+  #header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    height: 56px;
+    background: rgba(10,10,10,0.96);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px;
+  }
+  #header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 0.08em; color: var(--white);
+  }
+  #header-title span { color: var(--red); }
+  #status-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; letter-spacing: 0.1em;
+    color: var(--dim);
+    transition: all 0.3s;
+  }
+  #status-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--dim);
+    transition: background 0.3s;
+  }
+  #status-pill.tracking { color: var(--green); border-color: rgba(46,204,113,0.3); }
+  #status-pill.tracking #status-dot { background: var(--green); box-shadow: 0 0 8px var(--green); }
+  #status-pill.off-course { color: var(--red); border-color: rgba(232,69,58,0.5); animation: pulse-border 1s infinite; }
+  #status-pill.off-course #status-dot { background: var(--red); box-shadow: 0 0 10px var(--red); }
+  @keyframes pulse-border { 0%,100%{ box-shadow: 0 0 0 0 rgba(232,69,58,0); } 50%{ box-shadow: 0 0 0 4px rgba(232,69,58,0.2); } }
+
+  /* ── MAP ── */
+  #map {
+    position: fixed;
+    top: 56px; left: 0; right: 0; bottom: 160px;
+    z-index: 1;
+  }
+  .leaflet-tile-pane { filter: saturate(0.7) brightness(0.9); }
+
+  /* ── BOTTOM PANEL ── */
+  #bottom {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: 160px; z-index: 1000;
+    background: rgba(10,10,10,0.96);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  /* Stage cards */
+  #stage-row {
+    display: flex; gap: 8px;
+  }
+  .stage-card {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .stage-card:active { transform: scale(0.97); }
+  .stage-card.active { border-color: var(--red); background: var(--red-dim); }
+  .stage-card-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px; letter-spacing: 0.06em;
+    color: var(--white);
+  }
+  .stage-card-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px; letter-spacing: 0.1em;
+    color: var(--dim); margin-top: 2px;
+  }
+  .stage-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    display: inline-block; margin-right: 5px; vertical-align: middle;
+  }
+
+  /* Info row */
+  #info-row {
+    display: flex; gap: 8px; align-items: center;
+  }
+  .info-chip {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 10px;
+    text-align: center;
+  }
+  .info-chip-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; color: var(--white);
+    letter-spacing: 0.05em;
+  }
+  .info-chip-lbl {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px; letter-spacing: 0.14em;
+    color: var(--dim); text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  /* CTA button */
+  #btn-track {
+    flex: 0 0 auto;
+    background: var(--red);
+    border: none;
+    border-radius: 6px;
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px; letter-spacing: 0.1em;
+    padding: 0 18px; height: 48px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(100,15,8,0.8);
+    transition: all 0.15s;
+  }
+  #btn-track:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(100,15,8,0.8); }
+  #btn-track.active { background: #1a8a4a; box-shadow: 0 4px 0 rgba(0,60,30,0.8); }
+
+  /* ── ALERT BANNER ── */
+  #alert-banner {
+    position: fixed; top: 56px; left: 0; right: 0; z-index: 2000;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px; letter-spacing: 0.14em;
+    text-align: center;
+    padding: 10px;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+  #alert-banner.show { transform: translateY(0); }
+
+  /* ── CUSTOM MARKERS ── */
+  .stage-marker {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.8);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; color: #fff; letter-spacing: 0.06em;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.5);
+  }
+  .you-marker {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #3498db;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 4px rgba(52,152,219,0.3), 0 3px 12px rgba(0,0,0,0.5);
+  }
+  .you-marker.off { background: var(--red); border-color: #fff; box-shadow: 0 0 0 4px rgba(232,69,58,0.4), 0 3px 12px rgba(0,0,0,0.5); }
+
+  /* Accuracy circle */
+  .leaflet-interactive { cursor: default !important; }
+
+  /* ── PERMISSION OVERLAY ── */
+  #permission-overlay {
+    position: fixed; inset: 0; z-index: 3000;
+    background: rgba(10,10,10,0.96);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 20px; padding: 32px;
+  }
+  #permission-overlay.hidden { display: none; }
+  .perm-icon { font-size: 48px; line-height: 1; }
+  .perm-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 0.06em; color: var(--white);
+    text-align: center;
+  }
+  .perm-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--dim); text-align: center; line-height: 1.6;
+    max-width: 300px;
+  }
+  .perm-btn {
+    background: var(--red);
+    border: none; border-radius: 6px;
+    color: #fff; font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 0.12em;
+    padding: 14px 40px; cursor: pointer;
+    box-shadow: 0 4px 0 rgba(100,15,8,0.8);
+  }
+  .perm-skip {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; color: var(--dim);
+    background: none; border: none; cursor: pointer;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<!-- PERMISSION OVERLAY -->
+<div id="permission-overlay">
+  <div class="perm-icon">📍</div>
+  <div class="perm-title">Enable Location</div>
+  <div class="perm-sub">This map uses your live GPS to alert you if you drift off the Stage 1–2–3 golf cart corridor.</div>
+  <button class="perm-btn" onclick="startTracking()">START TRACKING</button>
+  <button class="perm-skip" onclick="skipTracking()">Browse map without GPS</button>
+</div>
+
+<!-- HEADER -->
+<div id="header">
+  <div id="header-title">RL <span>ORLANDO</span> '26</div>
+  <div id="status-pill">
+    <div id="status-dot"></div>
+    <span id="status-text">NO GPS</span>
+  </div>
+</div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<!-- ALERT BANNER -->
+<div id="alert-banner" id="alert">⚠️ OFF COURSE — RETURN TO ROUTE</div>
+
+<!-- BOTTOM PANEL -->
+<div id="bottom">
+  <div id="stage-row">
+    <div class="stage-card" id="card-s1" onclick="flyToStage(0)">
+      <div class="stage-card-label"><span class="stage-dot" style="background:#e8453a"></span>STAGE 1</div>
+      <div class="stage-card-sub">LOWER EAST · LOT 4B</div>
+    </div>
+    <div class="stage-card" id="card-s2" onclick="flyToStage(1)">
+      <div class="stage-card-label"><span class="stage-dot" style="background:#f39c12"></span>STAGE 2</div>
+      <div class="stage-card-sub">WEST SIDE · LOT D</div>
+    </div>
+    <div class="stage-card" id="card-s3" onclick="flyToStage(2)">
+      <div class="stage-card-label"><span class="stage-dot" style="background:#9b59b6"></span>STAGE 3</div>
+      <div class="stage-card-sub">SOUTH · LOT 7</div>
+    </div>
+  </div>
+  <div id="info-row">
+    <div class="info-chip">
+      <div class="info-chip-val" id="dist-val">—</div>
+      <div class="info-chip-lbl">FROM ROUTE (m)</div>
+    </div>
+    <div class="info-chip">
+      <div class="info-chip-val" id="acc-val">—</div>
+      <div class="info-chip-lbl">GPS ACCURACY (m)</div>
+    </div>
+    <div class="info-chip">
+      <div class="info-chip-val" id="nearest-val">—</div>
+      <div class="info-chip-lbl">NEAREST STAGE</div>
+    </div>
+    <button id="btn-track" onclick="toggleTracking()">TRACK</button>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   ROLLING LOUD ORLANDO 2026 — STAGE MAP
+   Camping World Stadium, Orlando FL
+   1 Citrus Bowl Place, 32805
+══════════════════════════════════════════ */
+
+// ── STAGE COORDINATES (from site plan analysis) ──
+const STAGES = [
+  { id: 'S1', label: 'STAGE 1', lat: 28.5328, lng: -81.3987, color: '#e8453a', card: 'card-s1' },
+  { id: 'S2', label: 'STAGE 2', lat: 28.5380, lng: -81.4063, color: '#f39c12', card: 'card-s2' },
+  { id: 'S3', label: 'STAGE 3', lat: 28.5305, lng: -81.4035, color: '#9b59b6', card: 'card-s3' },
+];
+
+// ── GOLF CART ROUTE (following the pink perimeter route between stages) ──
+// Waypoints traced from the site plan, going S2 → around perimeter → S3 → S1
+const ROUTE = [
+  [28.5385, -81.4063], // Stage 2 area
+  [28.5382, -81.4065],
+  [28.5375, -81.4068],
+  [28.5365, -81.4065],
+  [28.5355, -81.4060],
+  [28.5342, -81.4052],
+  [28.5330, -81.4045],
+  [28.5318, -81.4040],
+  [28.5310, -81.4038],
+  [28.5305, -81.4035], // Stage 3
+  [28.5302, -81.4025],
+  [28.5300, -81.4010],
+  [28.5300, -81.3998],
+  [28.5305, -81.3990],
+  [28.5315, -81.3985],
+  [28.5325, -81.3985],
+  [28.5328, -81.3987], // Stage 1
+  [28.5340, -81.3990],
+  [28.5350, -81.3992],
+];
+
+// Alert threshold in meters
+const OFF_COURSE_METERS = 80;
+
+// ── MAP INIT ──
+const map = L.map('map', {
+  center: [28.5345, -81.4020],
+  zoom: 15,
+  zoomControl: false,
+  attributionControl: false,
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  maxZoom: 20,
+}).addTo(map);
+
+// Attribution minimal
+L.control.attribution({ prefix: '' }).addTo(map);
+
+// ── DRAW ROUTE ──
+const routeLine = L.polyline(ROUTE, {
+  color: '#ff6b6b',
+  weight: 5,
+  opacity: 0.85,
+  dashArray: '10, 6',
+  lineJoin: 'round',
+}).addTo(map);
+
+// Route glow
+const routeGlow = L.polyline(ROUTE, {
+  color: 'rgba(255,107,107,0.25)',
+  weight: 16,
+  opacity: 1,
+}).addTo(map);
+
+// ── STAGE MARKERS ──
+const stageMarkers = STAGES.map(s => {
+  const icon = L.divIcon({
+    className: '',
+    html: `<div class="stage-marker" style="background:${s.color}">${s.id}</div>`,
+    iconSize: [38, 38],
+    iconAnchor: [19, 19],
+  });
+  const marker = L.marker([s.lat, s.lng], { icon }).addTo(map);
+  marker.bindPopup(`<b style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.06em">${s.label}</b>`, {
+    className: 'dark-popup',
+  });
+  return marker;
+});
+
+// ── USER LOCATION MARKER ──
+let userMarker = null;
+let accuracyCircle = null;
+
+function updateUserMarker(lat, lng, accuracy, offCourse) {
+  const cls = offCourse ? 'you-marker off' : 'you-marker';
+  const icon = L.divIcon({
+    className: '',
+    html: `<div class="${cls}"></div>`,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+  });
+
+  if (!userMarker) {
+    userMarker = L.marker([lat, lng], { icon, zIndexOffset: 1000 }).addTo(map);
+  } else {
+    userMarker.setLatLng([lat, lng]);
+    userMarker.setIcon(icon);
+  }
+
+  if (accuracyCircle) map.removeLayer(accuracyCircle);
+  accuracyCircle = L.circle([lat, lng], {
+    radius: accuracy,
+    color: offCourse ? 'rgba(232,69,58,0.5)' : 'rgba(52,152,219,0.4)',
+    fillColor: offCourse ? 'rgba(232,69,58,0.1)' : 'rgba(52,152,219,0.1)',
+    fillOpacity: 1,
+    weight: 1,
+  }).addTo(map);
+}
+
+// ── DISTANCE UTILS ──
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371000;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function distanceToSegment(p, a, b) {
+  // p, a, b = [lat, lng]
+  const dx = b[0] - a[0], dy = b[1] - a[1];
+  if (dx === 0 && dy === 0) return haversine(p[0], p[1], a[0], a[1]);
+  const t = Math.max(0, Math.min(1, ((p[0]-a[0])*dx + (p[1]-a[1])*dy) / (dx*dx + dy*dy)));
+  return haversine(p[0], p[1], a[0] + t*dx, a[1] + t*dy);
+}
+
+function distanceToRoute(lat, lng) {
+  let minDist = Infinity;
+  for (let i = 0; i < ROUTE.length - 1; i++) {
+    const d = distanceToSegment([lat, lng], ROUTE[i], ROUTE[i+1]);
+    if (d < minDist) minDist = d;
+  }
+  return Math.round(minDist);
+}
+
+function nearestStage(lat, lng) {
+  let minD = Infinity, nearest = null;
+  STAGES.forEach(s => {
+    const d = haversine(lat, lng, s.lat, s.lng);
+    if (d < minD) { minD = d; nearest = s; }
+  });
+  return nearest;
+}
+
+// ── TRACKING STATE ──
+let watchId = null;
+let isTracking = false;
+let lastOffCourse = false;
+let alertTimeout = null;
+
+function showAlert(msg) {
+  const banner = document.getElementById('alert-banner');
+  banner.textContent = msg;
+  banner.classList.add('show');
+  clearTimeout(alertTimeout);
+  alertTimeout = setTimeout(() => banner.classList.remove('show'), 5000);
+}
+
+function onPosition(pos) {
+  const { latitude: lat, longitude: lng, accuracy } = pos.coords;
+  const dist = distanceToRoute(lat, lng);
+  const offCourse = dist > OFF_COURSE_METERS;
+  const stage = nearestStage(lat, lng);
+
+  // Update marker
+  updateUserMarker(lat, lng, accuracy, offCourse);
+
+  // Update chips
+  document.getElementById('dist-val').textContent = dist;
+  document.getElementById('acc-val').textContent = Math.round(accuracy);
+  document.getElementById('nearest-val').textContent = stage ? stage.id : '—';
+
+  // Status pill
+  const pill = document.getElementById('status-pill');
+  const txt = document.getElementById('status-text');
+  if (offCourse) {
+    pill.className = 'off-course';
+    txt.textContent = 'OFF COURSE';
+    if (!lastOffCourse) showAlert('⚠️  OFF COURSE — RETURN TO ROUTE');
+  } else {
+    pill.className = 'tracking';
+    txt.textContent = 'ON ROUTE';
+    if (lastOffCourse) showAlert('✓  BACK ON ROUTE');
+  }
+  lastOffCourse = offCourse;
+
+  // Highlight nearest stage card
+  STAGES.forEach(s => document.getElementById(s.card).classList.remove('active'));
+  if (stage) document.getElementById(stage.card).classList.add('active');
+}
+
+function onError(err) {
+  const pill = document.getElementById('status-pill');
+  const txt = document.getElementById('status-text');
+  pill.className = '';
+  txt.textContent = 'GPS ERROR';
+  console.warn('Geolocation error:', err.message);
+}
+
+function startTracking() {
+  document.getElementById('permission-overlay').classList.add('hidden');
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported on this device.');
+    return;
+  }
+  isTracking = true;
+  document.getElementById('btn-track').textContent = 'STOP';
+  document.getElementById('btn-track').classList.add('active');
+  const pill = document.getElementById('status-pill');
+  const txt = document.getElementById('status-text');
+  pill.className = 'tracking';
+  txt.textContent = 'ACQUIRING…';
+
+  watchId = navigator.geolocation.watchPosition(onPosition, onError, {
+    enableHighAccuracy: true,
+    maximumAge: 3000,
+    timeout: 10000,
+  });
+}
+
+function stopTracking() {
+  if (watchId !== null) {
+    navigator.geolocation.clearWatch(watchId);
+    watchId = null;
+  }
+  isTracking = false;
+  document.getElementById('btn-track').textContent = 'TRACK';
+  document.getElementById('btn-track').classList.remove('active');
+  const pill = document.getElementById('status-pill');
+  const txt = document.getElementById('status-text');
+  pill.className = '';
+  txt.textContent = 'PAUSED';
+}
+
+function toggleTracking() {
+  if (isTracking) stopTracking();
+  else startTracking();
+}
+
+function skipTracking() {
+  document.getElementById('permission-overlay').classList.add('hidden');
+}
+
+function flyToStage(idx) {
+  const s = STAGES[idx];
+  map.flyTo([s.lat, s.lng], 17, { duration: 1.2 });
+}
+
+// Fit map to route on load
+map.fitBounds(routeLine.getBounds(), { padding: [60, 60] });
+
+// Add zoom control to upper right
+L.control.zoom({ position: 'topright' }).addTo(map);
+
+// Custom popup style
+const style = document.createElement('style');
+style.textContent = `.dark-popup .leaflet-popup-content-wrapper { background: rgba(10,10,10,0.95); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #f0eeec; } .dark-popup .leaflet-popup-tip { background: rgba(10,10,10,0.95); } .dark-popup .leaflet-popup-content { font-family: 'DM Sans',sans-serif; font-size: 13px; }`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
