@@ -1068,6 +1068,62 @@ footer img { height: 32px; width: auto; }
     background: var(--bg-light);
   }
 
+    /* ══ SITE-WIDE LIGHT MODE TEXT FIXES ══ */
+
+  /* Roles section */
+  [data-theme="light"] .role-name        { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .role-desc        { color: #1e1412; }
+  [data-theme="light"] .role-row         { background: var(--bg-mid); border-color: var(--border); }
+  [data-theme="light"] .role-row:hover   { background: var(--bg-light); border-color: var(--red); }
+  [data-theme="light"] .roles-intro      { color: #0f0808; }
+
+  /* Credits section */
+  [data-theme="light"] .credit-title     { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .credit-meta      { color: #1e1412; }
+  [data-theme="light"] .credit-card      { background: var(--bg-mid); border-color: var(--border2); }
+  [data-theme="light"] .credit-card:hover{ background: var(--bg-light); }
+
+  /* Services section */
+  [data-theme="light"] .svc-title        { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .svc-desc         { color: #1e1412; }
+  [data-theme="light"] .svc-card         { background: var(--bg-mid); }
+
+  /* Equipment section */
+  [data-theme="light"] .equip-list li    { color: #1a1210; border-bottom-color: rgba(0,0,0,0.07); }
+  [data-theme="light"] .equip-block      { background: var(--bg-mid); }
+  [data-theme="light"] .equip-block:hover{ background: var(--bg-light); }
+
+  /* Booking section */
+  [data-theme="light"] .booking-desc     { color: #1e1412; }
+  [data-theme="light"] .booking-role-name{ color: #0f0808; }
+  [data-theme="light"] .booking-cta-title{ color: #0f0808; text-shadow: none; }
+
+  /* Nav links */
+  [data-theme="light"] .nav-link         { color: #1e1412; }
+  [data-theme="light"] .nav-cta          { color: #fff; }
+
+  /* Section titles + labels (catch-all) */
+  [data-theme="light"] .sec-title        { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .sec-title em     { color: var(--red-bright); text-shadow: none; }
+  [data-theme="light"] .label            { color: var(--red-bright); }
+
+  /* Filter buttons */
+  [data-theme="light"] .fbtn             { color: #1e1412; border-color: rgba(0,0,0,0.18); }
+  [data-theme="light"] .fbtn.active,
+  [data-theme="light"] .fbtn:hover       { color: var(--red-bright); border-color: var(--red); }
+
+  /* Vid captions */
+  [data-theme="light"] .vid-caption      { background: var(--bg-mid); }
+  [data-theme="light"] .credit-studio    { color: var(--red-bright); }
+
+  /* Footer */
+  [data-theme="light"] footer            { color: #1e1412; }
+  [data-theme="light"] footer a          { color: #1e1412; }
+
+  /* MTR section */
+  [data-theme="light"] .mtr-platform-name  { color: #0f0808; }
+  [data-theme="light"] .mtr-platform-detail{ color: #3d3230; }
+
     @media (max-width: 768px) {
     .credits-banner-split { grid-template-columns: 1fr !important; }
 
@@ -1374,7 +1430,7 @@ footer img { height: 32px; width: auto; }
 
   /* Role row — subtle bottom rule for depth */
   .role-row {
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid var(--border);
   }
 
   /* Nav link active / hover polish */
