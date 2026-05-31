@@ -745,7 +745,7 @@ footer img {
   letter-spacing: 0.06em;
   color: var(--text);
   padding: 9px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -961,6 +961,7 @@ footer img { height: 32px; width: auto; }
     --bg-mid:   #e8e5e2;
     --bg-light: #dedbd8;
     --white:    #0f0808;
+    --text:     #1a1210;
     --text-mid: #1e1412;
     --text-dim: #3d3230;
     --border:   rgba(0,0,0,0.09);
@@ -1055,7 +1056,19 @@ footer img { height: 32px; width: auto; }
   /* ═══════════════════════════════
      MOBILE — base breakpoint 768px
   ═══════════════════════════════ */
-  @media (max-width: 768px) {
+  /* Equipment section light mode */
+  [data-theme="light"] .equip-block {
+    background: var(--bg-mid);
+  }
+  [data-theme="light"] .equip-list li {
+    color: #1a1210;
+    border-bottom-color: rgba(0,0,0,0.08);
+  }
+  [data-theme="light"] .equip-block:hover {
+    background: var(--bg-light);
+  }
+
+    @media (max-width: 768px) {
     .credits-banner-split { grid-template-columns: 1fr !important; }
 
     /* Nav */
