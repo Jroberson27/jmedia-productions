@@ -1068,61 +1068,75 @@ footer img { height: 32px; width: auto; }
     background: var(--bg-light);
   }
 
-    /* ══ SITE-WIDE LIGHT MODE TEXT FIXES ══ */
+    /* ══════════════════════════════════════
+     SITE-WIDE LIGHT MODE — ALL SECTIONS
+  ══════════════════════════════════════ */
 
-  /* Roles section */
-  [data-theme="light"] .role-name        { color: #0f0808; text-shadow: none; }
-  [data-theme="light"] .role-desc        { color: #1e1412; }
-  [data-theme="light"] .role-row         { background: var(--bg-mid); border-color: var(--border); }
-  [data-theme="light"] .role-row:hover   { background: var(--bg-light); border-color: var(--red); }
-  [data-theme="light"] .roles-intro      { color: #0f0808; }
+  /* ── Variables ── */
+  [data-theme="light"] { --text: #1a1210; }
 
-  /* Credits section */
-  [data-theme="light"] .credit-title     { color: #0f0808; text-shadow: none; }
-  [data-theme="light"] .credit-meta      { color: #1e1412; }
-  [data-theme="light"] .credit-card      { background: var(--bg-mid); border-color: var(--border2); }
-  [data-theme="light"] .credit-card:hover{ background: var(--bg-light); }
+  /* ── Section titles & labels ── */
+  [data-theme="light"] .sec-title       { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .sec-title em    { color: var(--red-bright); text-shadow: none; }
+  [data-theme="light"] .label           { color: var(--red-bright); }
 
-  /* Services section */
-  [data-theme="light"] .svc-title        { color: #0f0808; text-shadow: none; }
-  [data-theme="light"] .svc-desc         { color: #1e1412; }
-  [data-theme="light"] .svc-card         { background: var(--bg-mid); }
+  /* ── Nav ── */
+  [data-theme="light"] .nav-link        { color: #1e1412; }
+  [data-theme="light"] .nav-cta         { color: #fff; }
 
-  /* Equipment section */
-  [data-theme="light"] .equip-list li    { color: #1a1210; border-bottom-color: rgba(0,0,0,0.07); }
-  [data-theme="light"] .equip-block      { background: var(--bg-mid); }
-  [data-theme="light"] .equip-block:hover{ background: var(--bg-light); }
+  /* ── Core Roles ── */
+  [data-theme="light"] .role-name       { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .role-desc       { color: #1e1412; }
+  [data-theme="light"] .role-num        { text-shadow: none; }
+  [data-theme="light"] .role-row        { background: var(--bg-mid); border-color: var(--border); }
+  [data-theme="light"] .role-row:hover  { background: var(--bg-light); border-color: var(--red); }
+  [data-theme="light"] .roles-intro     { color: #0f0808; }
 
-  /* Booking section */
-  [data-theme="light"] .booking-desc     { color: #1e1412; }
-  [data-theme="light"] .booking-role-name{ color: #0f0808; }
-  [data-theme="light"] .booking-cta-title{ color: #0f0808; text-shadow: none; }
+  /* ── Production Work ── */
+  [data-theme="light"] .credit-title    { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .credit-meta     { color: #1e1412; }
+  [data-theme="light"] .credit-studio   { color: var(--red-bright); }
+  [data-theme="light"] .credit-card     { background: var(--bg-mid); border-color: var(--border2); }
+  [data-theme="light"] .credit-card:hover { background: var(--bg-light); }
 
-  /* Nav links */
-  [data-theme="light"] .nav-link         { color: #1e1412; }
-  [data-theme="light"] .nav-cta          { color: #fff; }
+  /* ── Featured Productions ── */
+  [data-theme="light"] .vid-caption     { background: var(--bg-mid); }
 
-  /* Section titles + labels (catch-all) */
-  [data-theme="light"] .sec-title        { color: #0f0808; text-shadow: none; }
-  [data-theme="light"] .sec-title em     { color: var(--red-bright); text-shadow: none; }
-  [data-theme="light"] .label            { color: var(--red-bright); }
+  /* ── Services ── */
+  [data-theme="light"] .svc-title       { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .svc-desc        { color: #1e1412; }
+  [data-theme="light"] .svc-card        { background: var(--bg-mid); }
 
-  /* Filter buttons */
+  /* ── Equipment ── */
+  [data-theme="light"] .equip-list li   { color: #1a1210; border-bottom-color: rgba(0,0,0,0.07); }
+  [data-theme="light"] .equip-block     { background: var(--bg-mid); }
+  [data-theme="light"] .equip-block:hover { background: var(--bg-light); }
+
+  /* ── Booking / Let's Work ── */
+  [data-theme="light"] .booking-desc      { color: #1e1412; }
+  [data-theme="light"] .booking-detail    { color: #3d3230; }
+  [data-theme="light"] .booking-role-name { color: #0f0808; }
+  [data-theme="light"] .booking-role      { background: var(--bg-mid); border-color: var(--border2); }
+  [data-theme="light"] .booking-cta       { background: var(--bg-mid); border-color: var(--border2); }
+  [data-theme="light"] .booking-cta-title { color: #0f0808; text-shadow: none; }
+  [data-theme="light"] .booking-cta-sub   { color: #1e1412; }
+
+  /* ── MTR ── */
+  [data-theme="light"] .mtr-platform-name   { color: #0f0808; }
+  [data-theme="light"] .mtr-platform-detail { color: #3d3230; }
+
+  /* ── Filter buttons ── */
   [data-theme="light"] .fbtn             { color: #1e1412; border-color: rgba(0,0,0,0.18); }
   [data-theme="light"] .fbtn.active,
   [data-theme="light"] .fbtn:hover       { color: var(--red-bright); border-color: var(--red); }
 
-  /* Vid captions */
-  [data-theme="light"] .vid-caption      { background: var(--bg-mid); }
-  [data-theme="light"] .credit-studio    { color: var(--red-bright); }
-
-  /* Footer */
+  /* ── Footer ── */
   [data-theme="light"] footer            { color: #1e1412; }
   [data-theme="light"] footer a          { color: #1e1412; }
 
-  /* MTR section */
-  [data-theme="light"] .mtr-platform-name  { color: #0f0808; }
-  [data-theme="light"] .mtr-platform-detail{ color: #3d3230; }
+  /* ── Video caption inline text (uses var(--white)) ── */
+  [data-theme="light"] .vid-studio,
+  [data-theme="light"] .vid-title        { color: #0f0808 !important; }
 
     @media (max-width: 768px) {
     .credits-banner-split { grid-template-columns: 1fr !important; }
@@ -1586,7 +1600,7 @@ footer img { height: 32px; width: auto; }
       </div>
       <div style="background:var(--bg-mid); padding:clamp(32px,5vw,64px) clamp(24px,4vw,56px); display:flex; flex-direction:column; justify-content:center; gap:20px; background:linear-gradient(160deg, rgba(255,255,255,0.03) 0%, var(--bg-mid) 40%); box-shadow: 1px 0 0 rgba(255,255,255,0.04) inset;">
         <div style="font-size:11px; letter-spacing:0.3em; color:var(--red-bright); font-family:'Bebas Neue',sans-serif;">Production Work</div>
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2.8rem,5vw,5.5rem); color:var(--white); line-height:0.95; letter-spacing:0.02em;">Jordan<br>Roberson</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2.8rem,5vw,5.5rem); color:var(--text); line-height:0.95; letter-spacing:0.02em;">Jordan<br>Roberson</div>
         <div style="width:36px; height:2px; background:var(--red); flex-shrink:0;"></div>
         <div style="font-size:13px; letter-spacing:0.12em; color:var(--text-dim); line-height:1.8;">20+ Productions &nbsp;·&nbsp; Universal Orlando Partner<br>Orlando, FL &nbsp;·&nbsp; Available to Book</div>
       </div>
@@ -1729,7 +1743,7 @@ footer img { height: 32px; width: auto; }
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-mid); border-top: 1px solid var(--border);">
             <div>
               <div style="font-size: 11px; letter-spacing: 0.18em; color: var(--red-bright); font-family: 'Bebas Neue', sans-serif; margin-bottom: 3px;">CARVANA</div>
-              <div style="font-size: 13px; color: var(--white); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Intro to Shaqvana · :30 Spot</div>
+              <div style="font-size: 13px; color: var(--text); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Intro to Shaqvana · :30 Spot</div>
             </div>
             <span class="tag tag-pa" style="font-size:10px; letter-spacing:0.15em; padding:4px 10px; border-radius:2px; border:1px solid rgba(126,184,247,0.35); background:rgba(126,184,247,0.07); color:#7eb8f7; font-family:'Bebas Neue',sans-serif; white-space:nowrap;">PA</span>
           </div>
@@ -1750,7 +1764,7 @@ footer img { height: 32px; width: auto; }
             <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-mid); border-top: 1px solid var(--border);">
               <div>
                 <div style="font-size: 11px; letter-spacing: 0.18em; color: var(--red-bright); font-family: 'Bebas Neue', sans-serif; margin-bottom: 3px;">FLORIDA LOTTERY</div>
-                <div style="font-size: 13px; color: var(--white); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Find Your Fun · Scratch-Offs</div>
+                <div style="font-size: 13px; color: var(--text); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Find Your Fun · Scratch-Offs</div>
               </div>
               <span class="tag tag-pa" style="font-size:10px; letter-spacing:0.15em; padding:4px 10px; border-radius:2px; border:1px solid rgba(126,184,247,0.35); background:rgba(126,184,247,0.07); color:#7eb8f7; font-family:'Bebas Neue',sans-serif; white-space:nowrap;">PA</span>
             </div>
@@ -1769,7 +1783,7 @@ footer img { height: 32px; width: auto; }
             <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-mid); border-top: 1px solid var(--border);">
               <div>
                 <div style="font-size: 11px; letter-spacing: 0.18em; color: var(--red-bright); font-family: 'Bebas Neue', sans-serif; margin-bottom: 3px;">UNIVERSAL ORLANDO</div>
-                <div style="font-size: 13px; color: var(--white); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">"Lil' Bro" Brand Spot</div>
+                <div style="font-size: 13px; color: var(--text); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">"Lil' Bro" Brand Spot</div>
               </div>
               <span class="tag tag-pa" style="font-size:10px; letter-spacing:0.15em; padding:4px 10px; border-radius:2px; border:1px solid rgba(126,184,247,0.35); background:rgba(126,184,247,0.07); color:#7eb8f7; font-family:'Bebas Neue',sans-serif; white-space:nowrap;">PA</span>
             </div>
@@ -1789,7 +1803,7 @@ footer img { height: 32px; width: auto; }
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-mid); border-top: 1px solid var(--border);">
             <div>
               <div style="font-size: 11px; letter-spacing: 0.18em; color: var(--red-bright); font-family: 'Bebas Neue', sans-serif; margin-bottom: 3px;">UNIVERSAL ORLANDO / UDX</div>
-              <div style="font-size: 13px; color: var(--white); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Let Fear Consume You — Halloween Horror Nights 2026</div>
+              <div style="font-size: 13px; color: var(--text); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;">Let Fear Consume You — Halloween Horror Nights 2026</div>
             </div>
             <div style="display:flex; gap:6px; flex-shrink:0; margin-left:12px;">
               <span class="tag tag-camera" style="font-size:10px; letter-spacing:0.15em; padding:4px 10px; border-radius:2px; border:1px solid rgba(217,79,61,0.35); background:var(--red-dim); color:var(--red-bright); font-family:'Bebas Neue',sans-serif; white-space:nowrap;">Camera Utility</span>
