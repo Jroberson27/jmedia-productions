@@ -960,6 +960,7 @@ footer img { height: 32px; width: auto; }
     --bg-dark:  #f0eeec;
     --bg-mid:   #e8e5e2;
     --bg-light: #dedbd8;
+    --bg-panel: #e2dfdc;
     --white:    #0f0808;
     --text:     #1a1210;
     --text-mid: #1e1412;
@@ -1138,7 +1139,9 @@ footer img { height: 32px; width: auto; }
   [data-theme="light"] .vid-studio,
   [data-theme="light"] .vid-title        { color: #0f0808 !important; }
 
-    @media (max-width: 768px) {
+  
+  [data-theme="light"] .bg-5 { background: var(--bg-dark) !important; }
+  @media (max-width: 768px) {
     .credits-banner-split { grid-template-columns: 1fr !important; }
 
     /* Nav */
