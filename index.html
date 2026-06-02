@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JMEDIA Productions & Design</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 @font-face {
   font-family: 'Solenza';
@@ -1454,6 +1456,214 @@ footer img { height: 32px; width: auto; }
   .nav-link:hover {
     text-shadow: 0 0 12px rgba(217,79,61,0.5);
   }
+
+
+
+  /* ══════════════════════════════════════
+     RAW / AGGRESSIVE UI SYSTEM
+     Thick borders · Hard shadows · Mono
+  ══════════════════════════════════════ */
+
+  /* Global: kill all border-radius */
+  *, *::before, *::after { border-radius: 0 !important; }
+
+  /* Hard drop shadow utility */
+  .hard-shadow { box-shadow: 4px 4px 0 #000 !important; }
+
+  /* JetBrains Mono for meta/label text */
+  .credit-studio,
+  .credit-meta,
+  .label,
+  .hstat-label,
+  .role-desc,
+  .svc-desc,
+  .equip-list li,
+  .booking-detail,
+  .booking-role-name,
+  .filter-bar .fbtn,
+  .nav-link,
+  .hero-eyebrow,
+  .hero-sub {
+    font-family: 'JetBrains Mono', monospace !important;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── NAV — thick bottom border ── */
+  nav {
+    border-bottom: 3px solid var(--red) !important;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.8) !important;
+  }
+
+  /* ── CREDIT CARDS — thick left border, hard shadow ── */
+  .credit-card {
+    border: none !important;
+    border-left: 4px solid var(--red) !important;
+    border-top: none !important;
+    box-shadow: 6px 6px 0 #000 !important;
+    transition: transform 0.15s, box-shadow 0.15s !important;
+  }
+  .credit-card:hover {
+    transform: translate(-3px, -3px) !important;
+    box-shadow: 9px 9px 0 #000 !important;
+    background: var(--bg-light) !important;
+  }
+
+  /* ── SERVICE CARDS — thick top border ── */
+  .svc-card {
+    border: 3px solid var(--border2) !important;
+    border-top: 4px solid var(--red) !important;
+    box-shadow: 5px 5px 0 #000 !important;
+    transition: transform 0.15s, box-shadow 0.15s !important;
+  }
+  .svc-card:hover {
+    transform: translate(-3px, -3px) !important;
+    box-shadow: 8px 8px 0 #000 !important;
+    border-color: var(--red) !important;
+    border-top-color: var(--white) !important;
+  }
+
+  /* ── ROLE ROWS — thick left accent bar ── */
+  .role-row {
+    border-left: 4px solid var(--border2) !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: 2px solid var(--border) !important;
+    transition: border-color 0.15s, transform 0.15s !important;
+  }
+  .role-row:hover {
+    border-left-color: var(--red) !important;
+    transform: translateX(4px) !important;
+    background: var(--red-dim) !important;
+  }
+  .role-num {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+  }
+
+  /* ── EQUIP BLOCKS — thick border ── */
+  .equip-block {
+    border: 2px solid var(--border2) !important;
+    border-top: 4px solid var(--red) !important;
+    box-shadow: 4px 4px 0 #000 !important;
+    transition: transform 0.15s, box-shadow 0.15s !important;
+  }
+  .equip-block:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 6px 6px 0 #000 !important;
+    border-color: var(--red) !important;
+    background: var(--bg-light) !important;
+  }
+
+  /* ── TAGS — chunky mono badges ── */
+  .tag {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    padding: 5px 10px !important;
+    border-width: 2px !important;
+    box-shadow: 2px 2px 0 #000 !important;
+  }
+
+  /* ── HERO STATS — thick border boxes ── */
+  .hstat {
+    border: 2px solid var(--red) !important;
+    box-shadow: 4px 4px 0 rgba(180,30,15,0.8) !important;
+    backdrop-filter: none !important;
+  }
+
+  /* ── SECTION DIVIDERS — exposed raw lines ── */
+  .section-wrap {
+    border-top: 2px solid var(--border2) !important;
+  }
+
+  /* ── BOOK JORDAN BUTTON — aggressive ── */
+  .nav-cta, .btn-red, a.btn-red {
+    border: 3px solid var(--red) !important;
+    box-shadow: 4px 4px 0 #000 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.1em !important;
+    transition: transform 0.12s, box-shadow 0.12s !important;
+  }
+  .nav-cta:hover, .btn-red:hover, a.btn-red:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 6px 6px 0 #000 !important;
+  }
+
+  /* ── FILTER BUTTONS ── */
+  .fbtn {
+    border: 2px solid var(--border2) !important;
+    box-shadow: 2px 2px 0 #000 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    transition: transform 0.12s, box-shadow 0.12s !important;
+  }
+  .fbtn:hover, .fbtn.active {
+    border-color: var(--red) !important;
+    box-shadow: 3px 3px 0 var(--red) !important;
+    transform: translate(-1px, -1px) !important;
+  }
+
+  /* ── CREDITS GRID — exposed grid lines ── */
+  .credits-grid {
+    gap: 0 !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    border: 2px solid var(--border2) !important;
+    box-shadow: 6px 6px 0 #000 !important;
+  }
+  .credits-grid .credit-card {
+    border: none !important;
+    border-right: 2px solid var(--border2) !important;
+    border-bottom: 2px solid var(--border2) !important;
+    border-left: none !important;
+    box-shadow: none !important;
+  }
+  .credits-grid .credit-card:hover {
+    border-left: 4px solid var(--red) !important;
+    transform: none !important;
+    box-shadow: none !important;
+    background: var(--bg-light) !important;
+  }
+
+  /* ── VIDEO CAPTIONS ── */
+  .vid-caption, [style*="background: var(--bg-mid)"][style*="border-top"] {
+    border-top: 3px solid var(--red) !important;
+  }
+
+  /* ── BOOKING CTA ── */
+  .booking-cta {
+    border: 3px solid var(--border2) !important;
+    box-shadow: 6px 6px 0 #000 !important;
+    transition: transform 0.15s, box-shadow 0.15s !important;
+  }
+  .booking-cta:hover {
+    transform: translate(-3px, -3px) !important;
+    box-shadow: 9px 9px 0 #000 !important;
+    border-color: var(--red) !important;
+  }
+
+  /* ── MTR SECTION ── */
+  .mtr-platform {
+    border: 2px solid var(--border2) !important;
+    box-shadow: 3px 3px 0 #000 !important;
+  }
+
+  /* ══ LIGHT MODE OVERRIDES for aggressive system ══ */
+  [data-theme="light"] .credit-card { box-shadow: 6px 6px 0 rgba(0,0,0,0.3) !important; }
+  [data-theme="light"] .credit-card:hover { box-shadow: 9px 9px 0 rgba(0,0,0,0.3) !important; }
+  [data-theme="light"] .svc-card { box-shadow: 5px 5px 0 rgba(0,0,0,0.25) !important; }
+  [data-theme="light"] .equip-block { box-shadow: 4px 4px 0 rgba(0,0,0,0.2) !important; }
+  [data-theme="light"] .credits-grid { box-shadow: 6px 6px 0 rgba(0,0,0,0.2) !important; }
+  [data-theme="light"] .nav-cta, [data-theme="light"] a.btn-red { box-shadow: 4px 4px 0 rgba(0,0,0,0.3) !important; color: #fff !important; }
+  [data-theme="light"] .tag { box-shadow: 2px 2px 0 rgba(0,0,0,0.2) !important; }
+  [data-theme="light"] .fbtn { box-shadow: 2px 2px 0 rgba(0,0,0,0.15) !important; }
+  [data-theme="light"] .hstat { box-shadow: 4px 4px 0 rgba(0,0,0,0.2) !important; border-color: var(--red) !important; }
+  [data-theme="light"] .section-wrap { border-top-color: var(--border2) !important; }
+
 
 </style>
 </head>
