@@ -24,7 +24,7 @@
   [data-theme="light"] .work-card:hover, [data-theme="light"] .svc:hover { color:#f2ede6; }
   [data-theme="light"] .work-card:hover .work-cat, [data-theme="light"] .work-card:hover .work-num { color:#f2ede6; }
   * { margin:0; padding:0; box-sizing:border-box; }
-  html { font-size:16px; scroll-behavior:smooth; scroll-snap-type:y proximity; }
+  html { font-size:16px; scroll-behavior:smooth; }
   body { font-family:var(--font-mono); background:var(--bg); color:var(--text); line-height:1.4; -webkit-font-smoothing:antialiased; cursor:crosshair; overflow-x:hidden; }
   img { max-width:100%; display:block; }
   a { color:inherit; text-decoration:none; }
@@ -83,15 +83,16 @@
 
 
   /* ── FULL-BLEED REEL SHOWCASE ── */
-  .reel-showcase { border-bottom:var(--bt) solid var(--text); }
+  .reel-showcase { border-bottom:var(--bt) solid var(--text); position:relative; }
   .reel-panel {
-    position:relative; width:100%; height:88vh; min-height:520px;
+    position:sticky; top:0; width:100%; height:100vh; min-height:520px;
     overflow:hidden; background:#000;
-    border-bottom:var(--bt) solid var(--red);
-    scroll-snap-align:center;
   }
-  .reel-panel:last-child { border-bottom:none; }
-  .reel-embed { position:absolute; inset:0; pointer-events:none; }
+  .reel-embed {
+    position:absolute; inset:0; pointer-events:none;
+    will-change:transform, opacity; backface-visibility:hidden;
+    transform-origin:center center;
+  }
   .reel-embed iframe {
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
     width:100vw; height:56.25vw; min-height:100%; min-width:177.78vh; border:0;
@@ -125,7 +126,7 @@
     color:var(--text); opacity:0.6; animation:bob 1.6s ease-in-out infinite;
   }
   @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
-  @media (max-width:900px){ .reel-panel{height:60vh;min-height:340px;} .reel-overlay{padding:1.5rem;} }
+  @media (max-width:900px){ .reel-panel{height:80vh;min-height:380px;} .reel-overlay{padding:1.5rem;} }
 
   .feat-hero { border-bottom:var(--bt) solid var(--text); position:relative; }
   .feat-frame { position:relative; aspect-ratio:16/9; background:#000; overflow:hidden; }
@@ -409,29 +410,54 @@
     document.documentElement.setAttribute('data-theme', cur === 'light' ? 'dark' : 'light');
   }
 
-  // ── REEL SHOWCASE: play in view, pause off view ──
+  // ── REEL SHOWCASE: sticky-stack, play in view, scroll-driven scale/fade ──
   (function(){
-    const panels = document.querySelectorAll('.reel-panel');
-    if (!panels.length || typeof Vimeo === 'undefined') return;
+    const panels = [...document.querySelectorAll('.reel-panel')];
+    if (!panels.length) return;
+
+    // Vimeo play/pause control
     const players = [];
-    panels.forEach((panel, i) => {
-      const iframe = panel.querySelector('iframe');
-      try { players[i] = new Vimeo.Player(iframe); players[i].setMuted(true); } catch(e){}
-    });
-    const reelObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const i = [...panels].indexOf(entry.target);
-        if (i < 0 || !players[i]) return;
-        if (entry.isIntersecting && entry.intersectionRatio > 0.55) {
-          entry.target.classList.add('active');
-          players[i].play().catch(()=>{});
-        } else {
-          entry.target.classList.remove('active');
-          players[i].pause().catch(()=>{});
-        }
+    if (typeof Vimeo !== 'undefined') {
+      panels.forEach((panel, i) => {
+        const iframe = panel.querySelector('iframe');
+        try { players[i] = new Vimeo.Player(iframe); players[i].setMuted(true); } catch(e){}
       });
-    }, { threshold: [0, 0.55, 1] });
-    panels.forEach(p => reelObs.observe(p));
+      const reelObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const i = panels.indexOf(entry.target);
+          if (i < 0 || !players[i]) return;
+          if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+            entry.target.classList.add('active');
+            players[i].play().catch(()=>{});
+          } else {
+            entry.target.classList.remove('active');
+            players[i].pause().catch(()=>{});
+          }
+        });
+      }, { threshold: [0, 0.4, 1] });
+      panels.forEach(p => reelObs.observe(p));
+    }
+
+    // Scroll-driven scale + fade for the sticky stack
+    const embeds = panels.map(p => p.querySelector('.reel-embed'));
+    let ticking = false;
+    function onReelScroll(){
+      const vh = window.innerHeight;
+      panels.forEach((panel, i) => {
+        if (i === panels.length - 1) return; // last reel never gets covered
+        const top = panel.getBoundingClientRect().top;
+        const progress = Math.min(1, Math.max(0, -top / vh));
+        const scale = 1 - progress * 0.16;
+        const opacity = 1 - progress * 0.75;
+        embeds[i].style.transform = 'scale(' + scale.toFixed(4) + ')';
+        embeds[i].style.opacity = opacity.toFixed(3);
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(onReelScroll); ticking = true; }
+    }, { passive:true });
+    onReelScroll();
   })();
 
   const obs = new IntersectionObserver((entries) => {
