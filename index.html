@@ -130,6 +130,19 @@
   .stat-label { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; margin-top:0.5rem; }
 
 
+
+  .about { display:grid; grid-template-columns:0.85fr 1.15fr; border-bottom:var(--bt) solid var(--text); }
+  .about-photo { position:relative; border-right:var(--bt) solid var(--text); overflow:hidden; min-height:520px; }
+  .about-photo img { width:100%; height:100%; object-fit:cover; object-position:center top; filter:contrast(1.05); }
+  .about-photo-tag { position:absolute; bottom:0; left:0; right:0; padding:1.2rem 1.5rem; background:linear-gradient(to top, rgba(10,5,6,0.92), transparent); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--bone); font-weight:700; z-index:2; }
+  .about-content { padding:3.5rem 3rem; display:flex; flex-direction:column; justify-content:center; }
+  .about-eyebrow { display:inline-block; align-self:flex-start; padding:0.4rem 0.9rem; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; background:var(--red); color:var(--bone); margin-bottom:1.8rem; transform:rotate(-1.5deg); }
+  .about-headline { font-family:var(--font-display); font-size:clamp(2rem,3.5vw,3rem); text-transform:uppercase; line-height:0.95; margin-bottom:1.8rem; }
+  .about-content p { font-size:0.92rem; line-height:1.85; margin-bottom:1.1rem; opacity:0.88; }
+  .about-content p:last-child { margin-bottom:0; }
+  .about-content strong { color:var(--red); font-weight:700; }
+  @media (max-width:900px){ .about{grid-template-columns:1fr;} .about-photo{border-right:none;border-bottom:var(--bt) solid var(--text);min-height:380px;} .about-content{padding:2.5rem 1.5rem;} }
+
   .photo-strip { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:var(--bt) solid var(--text); }
   .photo-cell { position:relative; overflow:hidden; border-right:var(--bt) solid var(--text); aspect-ratio:4/5; }
   .photo-cell:last-child { border-right:none; }
@@ -201,6 +214,7 @@
   <a href="#" class="logo">J<b>MEDIA</b></a>
   <ul class="nav-links">
     <li><a href="#reels">Reel</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#featured">Work</a></li>
     <li><a href="#bts">Photos</a></li>
     <li><a href="#services">Services</a></li>
@@ -237,6 +251,22 @@
 <div class="reel-grid">
   <div class="reel-cell"><div class="reel-frame"><iframe src="https://player.vimeo.com/video/1197914099?h=875989dd40&title=0&byline=0&portrait=0" title="JMEDIA Reel V2" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe></div><div class="reel-bar"><div><div class="reel-cat">JMEDIA</div><div class="reel-name">Showreel</div></div><span class="tag fill">Reel</span></div></div>
   <div class="reel-cell"><div class="reel-frame"><iframe src="https://player.vimeo.com/video/1197918769?title=0&byline=0&portrait=0" title="JMEDIA Event Hype Reel" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe></div><div class="reel-bar"><div><div class="reel-cat">JMEDIA</div><div class="reel-name">Event Hype Reel</div></div><span class="tag fill">Reel</span></div></div>
+</div>
+
+<div class="section-header" id="about"><h2 class="section-title">About<br>Jordan</h2><div class="section-tag">The Story</div></div>
+<div class="about">
+  <div class="about-photo">
+    <img src="assets/about-portrait.jpg" alt="Jordan Roberson" loading="lazy">
+    <div class="about-photo-tag">Jordan Roberson · Founder</div>
+  </div>
+  <div class="about-content">
+    <span class="about-eyebrow">The Throughline</span>
+    <h2 class="about-headline">It Was Always<br>There</h2>
+    <p>For over fifteen years it has been the same three things. <strong>Performance, storytelling, and discipline.</strong> It started on a drumline and competitive stages where timing and precision were everything, and it has carried into every room since.</p>
+    <p>Before the camera became the focus, Jordan spent a decade in <strong>enterprise sales</strong>, including time at Accenture and as a founding sales hire driving revenue for a hospitality technology company. That work meant learning how brands actually think. What moves a decision maker, how a story has to land, and why the gap between good and forgettable usually comes down to execution.</p>
+    <p><strong>Hospitality sharpened it further.</strong> Boutique hotels and premium brands do not sell rooms. They sell a feeling, and capturing that on camera takes a different kind of attention.</p>
+    <p>Today that background lives in every frame. From Universal Orlando sets to commercial productions across Central Florida, the goal never changes. Understand the brand, the audience, and the moment, then deliver the shot that makes people stop scrolling.</p>
+  </div>
 </div>
 
 <div class="marquee"><div class="marquee-track">
