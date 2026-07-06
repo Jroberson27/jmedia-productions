@@ -271,7 +271,7 @@
       <span class="l"><span class="red">Without</span></span>
       <span class="l"><span class="stroke">Limits</span></span>
     </h1>
-    <p class="hero-description">15+ years experience. Universal Orlando partner. From camera operator to 1st AC across commercial, broadcast, and branded production.</p>
+    <p class="hero-description">15+ years experience. Universal Orlando partner. From camera operator to 1st AC across commercial, broadcast, and branded production. No fluff. No filler. Just the shot.</p>
     <div class="hero-actions">
       <a href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener" class="btn-brutal">Book Jordan</a>
       <a href="#featured" class="btn-brutal alt">See The Work</a>
@@ -289,26 +289,34 @@
 
 <div class="section-header" id="reels"><h2 class="section-title">The<br>Reel</h2><div class="section-tag">Showreel</div></div>
 <div class="reel-showcase">
-  <div class="reel-panel" data-vimeo="1197914099" data-hash="875989dd40">
-    <div class="reel-embed"><iframe id="reel-0" src="https://player.vimeo.com/video/1197914099?h=875989dd40&background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
+  <div class="reel-panel" data-youtube="TJWJgZUryKQ">
+    <div class="reel-embed"><iframe id="reel-0" src="https://www.youtube.com/embed/TJWJgZUryKQ?autoplay=1&mute=1&controls=0&loop=1&playlist=TJWJgZUryKQ&rel=0&modestbranding=1&enablejsapi=1" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
     <div class="reel-num">01</div>
+    <div class="reel-overlay"><div class="reel-overlay-inner">
+      <div><div class="reel-cat">JMEDIA · Short Film</div><div class="reel-name">Crysis</div></div>
+      <a class="reel-sound" href="https://www.youtube.com/watch?v=TJWJgZUryKQ" target="_blank" rel="noopener">♪ Watch With Sound</a>
+    </div></div>
+    <div class="reel-scroll-hint">Scroll ↓</div>
+  </div>
+  <div class="reel-panel" data-vimeo="1197914099" data-hash="875989dd40">
+    <div class="reel-embed"><iframe id="reel-1" src="https://player.vimeo.com/video/1197914099?h=875989dd40&background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
+    <div class="reel-num">02</div>
     <div class="reel-overlay"><div class="reel-overlay-inner">
       <div><div class="reel-cat">JMEDIA · Showreel</div><div class="reel-name">Showreel</div></div>
       <a class="reel-sound" href="https://vimeo.com/1197914099" target="_blank" rel="noopener">♪ Watch With Sound</a>
     </div></div>
-    <div class="reel-scroll-hint">Scroll ↓</div>
   </div>
   <div class="reel-panel" data-vimeo="1197918769" data-hash="1ed1c41a03">
-    <div class="reel-embed"><iframe id="reel-1" src="https://player.vimeo.com/video/1197918769?h=1ed1c41a03&background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
-    <div class="reel-num">02</div>
+    <div class="reel-embed"><iframe id="reel-2" src="https://player.vimeo.com/video/1197918769?h=1ed1c41a03&background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
+    <div class="reel-num">03</div>
     <div class="reel-overlay"><div class="reel-overlay-inner">
       <div><div class="reel-cat">JMEDIA · Event</div><div class="reel-name">Event Hype Reel</div></div>
       <a class="reel-sound" href="https://vimeo.com/1197918769" target="_blank" rel="noopener">♪ Watch With Sound</a>
     </div></div>
   </div>
   <div class="reel-panel" data-vimeo="1202297658">
-    <div class="reel-embed"><iframe id="reel-2" src="https://player.vimeo.com/video/1202297658?background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
-    <div class="reel-num">03</div>
+    <div class="reel-embed"><iframe id="reel-3" src="https://player.vimeo.com/video/1202297658?background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
+    <div class="reel-num">04</div>
     <div class="reel-overlay"><div class="reel-overlay-inner">
       <div><div class="reel-cat">JMEDIA · Reel</div><div class="reel-name">Sunset Walk Reel</div></div>
       <a class="reel-sound" href="https://vimeo.com/1202297658" target="_blank" rel="noopener">♪ Watch With Sound</a>
@@ -423,28 +431,31 @@
     const panels = [...document.querySelectorAll('.reel-panel')];
     if (!panels.length) return;
 
-    // Vimeo play/pause control
+    // Vimeo play/pause control (Vimeo panels only)
     const players = [];
     if (typeof Vimeo !== 'undefined') {
       panels.forEach((panel, i) => {
+        if (!panel.dataset.vimeo) return;
         const iframe = panel.querySelector('iframe');
         try { players[i] = new Vimeo.Player(iframe); players[i].setMuted(true); } catch(e){}
       });
-      const reelObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          const i = panels.indexOf(entry.target);
-          if (i < 0 || !players[i]) return;
-          if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
-            entry.target.classList.add('active');
-            players[i].play().catch(()=>{});
-          } else {
-            entry.target.classList.remove('active');
-            players[i].pause().catch(()=>{});
-          }
-        });
-      }, { threshold: [0, 0.4, 1] });
-      panels.forEach(p => reelObs.observe(p));
     }
+
+    // Intersection observer for ALL panels (overlay animation + Vimeo play/pause)
+    const reelObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const i = panels.indexOf(entry.target);
+        if (i < 0) return;
+        if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+          entry.target.classList.add('active');
+          if (players[i]) players[i].play().catch(()=>{});
+        } else {
+          entry.target.classList.remove('active');
+          if (players[i]) players[i].pause().catch(()=>{});
+        }
+      });
+    }, { threshold: [0, 0.4, 1] });
+    panels.forEach(p => reelObs.observe(p));
 
     // Scroll-driven scale + fade for the sticky stack
     const embeds = panels.map(p => p.querySelector('.reel-embed'));
