@@ -290,7 +290,7 @@
 <div class="section-header" id="reels"><h2 class="section-title">The<br>Reel</h2><div class="section-tag">Showreel</div></div>
 <div class="reel-showcase">
   <div class="reel-panel" data-youtube="TJWJgZUryKQ">
-    <div class="reel-embed"><iframe id="reel-0" src="https://www.youtube.com/embed/TJWJgZUryKQ?autoplay=1&mute=1&controls=0&loop=1&playlist=TJWJgZUryKQ&rel=0&modestbranding=1&enablejsapi=1" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
+    <div class="reel-embed"><iframe id="reel-0" src="https://www.youtube.com/embed/TJWJgZUryKQ?autoplay=1&mute=1&controls=0&loop=1&playlist=TJWJgZUryKQ&rel=0&modestbranding=1&enablejsapi=1&vq=hd2160" allow="autoplay;fullscreen;picture-in-picture" frameborder="0"></iframe></div>
     <div class="reel-num">01</div>
     <div class="reel-overlay"><div class="reel-overlay-inner">
       <div><div class="reel-cat">JMEDIA · Short Film</div><div class="reel-name">Crysis</div></div>
@@ -431,33 +431,68 @@
     const panels = [...document.querySelectorAll('.reel-panel')];
     if (!panels.length) return;
 
-    // Vimeo play/pause control (Vimeo panels only)
-    const players = [];
+    const vimeoPlayers = [];
+
+    // ── YouTube IFrame API — force highest quality ──
+    const ytPanel = panels.find(p => p.dataset.youtube);
+    if (ytPanel) {
+      const forceHD = function(player) {
+        try {
+          player.setPlaybackQuality('hd2160');
+          if (typeof player.setPlaybackQualityRange === 'function') {
+            player.setPlaybackQualityRange('hd2160', 'highres');
+          }
+        } catch(e){}
+      };
+      window.onYouTubeIframeAPIReady = function() {
+        const iframe = ytPanel.querySelector('iframe');
+        new YT.Player(iframe, {
+          events: {
+            onReady: function(e) { forceHD(e.target); },
+            onPlaybackQualityChange: function(e) {
+              const q = e.target.getPlaybackQuality();
+              if (q !== 'hd2160' && q !== 'highres') {
+                forceHD(e.target);
+              }
+            }
+          }
+        });
+      };
+      const ytScript = document.createElement('script');
+      ytScript.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(ytScript);
+    }
+
+    // ── Vimeo players — init + force 1080p ──
     if (typeof Vimeo !== 'undefined') {
       panels.forEach((panel, i) => {
         if (!panel.dataset.vimeo) return;
         const iframe = panel.querySelector('iframe');
-        try { players[i] = new Vimeo.Player(iframe); players[i].setMuted(true); } catch(e){}
+        try {
+          vimeoPlayers[i] = new Vimeo.Player(iframe);
+          vimeoPlayers[i].setMuted(true);
+          vimeoPlayers[i].setQuality('2160p').catch(() => vimeoPlayers[i].setQuality('1080p').catch(() => {}));
+        } catch(e){}
       });
     }
 
-    // Intersection observer for ALL panels (overlay animation + Vimeo play/pause)
+    // ── Intersection observer for ALL panels (overlay + Vimeo play/pause) ──
     const reelObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const i = panels.indexOf(entry.target);
         if (i < 0) return;
         if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
           entry.target.classList.add('active');
-          if (players[i]) players[i].play().catch(()=>{});
+          if (vimeoPlayers[i]) vimeoPlayers[i].play().catch(()=>{});
         } else {
           entry.target.classList.remove('active');
-          if (players[i]) players[i].pause().catch(()=>{});
+          if (vimeoPlayers[i]) vimeoPlayers[i].pause().catch(()=>{});
         }
       });
     }, { threshold: [0, 0.4, 1] });
     panels.forEach(p => reelObs.observe(p));
 
-    // Scroll-driven scale + fade for the sticky stack
+    // ── Scroll-driven scale + fade for the sticky stack ──
     const embeds = panels.map(p => p.querySelector('.reel-embed'));
     let ticking = false;
     function onReelScroll(){
