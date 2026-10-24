@@ -2,389 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JMEDIA · Social content for owner led businesses</title>
-<meta name="description" content="JMEDIA plans, films, edits, publishes and reports on a steady stream of strategic social content for owner led businesses. Your part is about two hours a quarter.">
+<meta name="description" content="JMEDIA plans, films, edits, posts and reports on social content built from your own story. Your part is about two hours a quarter.">
 <meta name="theme-color" content="#0B0B0D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0B0B0D;
-  --surface:#16161A;
-  --ink:#F4F1EA;
-  --ink-2:#A3A3A8;
-  --line:rgba(244,241,234,.1);
-  --accent:#d94f3d;          /* JMEDIA brand red: buttons, highlights, key numbers only */
-  --accent-ink:#0B0B0D;
-  --gutter:clamp(20px,5vw,64px);
-  --maxw:1240px;
-  --h-nav:68px;
-  --ease:cubic-bezier(.22,.61,.36,1);
-  --font:"Inter Tight",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.55;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased}
-img{display:block;max-width:100%}
-a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-::selection{background:var(--accent);color:var(--accent-ink)}
-
-/* ---------- type ---------- */
-.h1{font-size:clamp(2.6rem,9.6vw,5.4rem);line-height:.98;font-weight:600;letter-spacing:-.035em;margin:0}
-.h2{font-size:clamp(2rem,6.4vw,3.6rem);line-height:1.02;font-weight:600;letter-spacing:-.03em;margin:0}
-.h3{font-size:1.25rem;line-height:1.2;font-weight:600;letter-spacing:-.015em;margin:0}
-.eyebrow{font-size:.74rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin:0 0 1.2rem}
-.lede{font-size:clamp(1.05rem,2.6vw,1.25rem);color:var(--ink-2);max-width:40ch;margin:1.3rem 0 0}
-.hl{color:var(--accent)}
-
-/* ---------- buttons: one style, soft glow on hover ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;
-  min-height:52px;padding:0 1.7em;border-radius:999px;font-size:1rem;font-weight:600;letter-spacing:-.005em;
-  background:var(--accent);color:var(--accent-ink);
-  transition:box-shadow .45s var(--ease),transform .45s var(--ease)}
-.btn:hover{box-shadow:0 0 0 1px var(--accent),0 12px 44px -6px color-mix(in srgb,var(--accent) 70%,transparent);transform:translateY(-1px)}
-.btn svg{transition:transform .4s var(--ease)}
-.btn:hover svg{transform:translateX(3px)}
-.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px rgba(244,241,234,.3)}
-.btn--ghost:hover{box-shadow:inset 0 0 0 1px var(--ink),0 12px 40px -10px rgba(244,241,234,.25)}
-.btn--sm{min-height:42px;padding:0 1.2em;font-size:.9rem}
-.btn--block{width:100%}
-
-/* ---------- nav ---------- */
-.nav{position:fixed;inset:0 0 auto;z-index:50;height:var(--h-nav);
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 var(--gutter);
-  transition:background .4s var(--ease),border-color .4s;border-bottom:1px solid transparent}
-.nav.is-solid{background:rgba(11,11,13,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line)}
-.brand{font-size:1.05rem;letter-spacing:.38em;text-transform:uppercase;font-weight:600;white-space:nowrap}
-.brand b{font-weight:600;color:var(--accent)}
-.nav__links{display:none;align-items:center;gap:2rem}
-.nav__links a:not(.btn){font-size:.9rem;color:var(--ink-2);transition:color .3s}
-.nav__links a:not(.btn):hover{color:var(--ink)}
-.nav__right{display:flex;align-items:center;gap:.6rem}
-.burger{display:flex;flex-direction:column;gap:5px;padding:12px 4px 12px 10px}
-.burger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:transform .4s var(--ease),opacity .3s}
-.menu-open .burger span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-.menu-open .burger span:nth-child(2){opacity:0}
-.menu-open .burger span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.menu{position:fixed;inset:0;z-index:40;background:var(--bg);display:grid;align-content:center;padding:var(--h-nav) var(--gutter) 0;
-  opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s}
-.menu.is-open{opacity:1;visibility:visible}
-.menu ul{list-style:none;margin:0;padding:0}
-.menu li a{display:block;padding:.35rem 0;font-size:2.2rem;font-weight:600;letter-spacing:-.03em}
-.menu li a:hover{color:var(--accent)}
-.menu .btn{margin-top:2rem}
-@media(min-width:900px){
-  .nav__links{display:flex}
-  .burger,.nav__right .btn{display:none}
-}
-
-/* ---------- layout ---------- */
-.wrap{max-width:var(--maxw);margin:0 auto}
-.section{padding:clamp(96px,14vh,170px) var(--gutter)}
-.section__head{max-width:46rem;margin-bottom:clamp(48px,8vh,88px)}
-
-/* ---------- phone ---------- */
-.phone{--w:240px;position:relative;width:var(--w);aspect-ratio:9/19;flex:none;
-  border-radius:calc(var(--w) * .16);padding:calc(var(--w) * .032);
-  background:linear-gradient(145deg,#2a2a30,#121216 60%);
-  box-shadow:0 0 0 1px rgba(255,255,255,.09) inset,0 1px 0 rgba(255,255,255,.12) inset,
-    0 50px 90px -40px rgba(0,0,0,.95),0 30px 60px -30px rgba(0,0,0,.7);
-  container-type:inline-size}
-.phone::before{content:"";position:absolute;z-index:6;left:50%;top:calc(var(--w) * .058);transform:translateX(-50%);
-  width:30%;height:calc(var(--w) * .085);border-radius:99px;background:#000}
-.screen{position:relative;height:100%;border-radius:calc(var(--w) * .13);overflow:hidden;background:#000;
-  container-type:size;isolation:isolate}
-.screen iframe.live{opacity:1}
-.screen > img,.screen > .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.screen iframe{position:absolute;z-index:4;top:50%;left:50%;border:0;pointer-events:none;opacity:0;transition:opacity .8s var(--ease);
-  width:max(100cqw,177.78cqh);height:max(100cqh,56.25cqw);transform:translate(-50%,-50%)}
-/* status bar */
-.sb{position:absolute;z-index:5;inset:0 0 auto;display:flex;justify-content:space-between;align-items:center;
-  padding:5.6cqw 8cqw 0;font-size:4.2cqw;font-weight:600;color:#fff}
-.sb i{display:flex;gap:1.6cqw}
-.sb i::before,.sb i::after{content:"";display:block;width:4.6cqw;height:2.8cqw;border-radius:1cqw;background:#fff;opacity:.9}
-.sb i::after{width:7cqw}
-
-/* screen: interview with burned in captions */
-.s-interview > img{object-position:48% 50%;filter:brightness(1.15) saturate(.92) contrast(1.05)}
-.s-interview::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.78),transparent 48%)}
-.cap{position:absolute;z-index:3;left:7cqw;right:16cqw;bottom:14cqw;margin:0;
-  font-size:7.4cqw;line-height:1.08;font-weight:700;letter-spacing:-.02em;color:#fff;text-transform:uppercase;
-  text-shadow:0 .6cqw 2cqw rgba(0,0,0,.6)}
-.cap span{color:var(--ink);background:var(--accent);color:var(--accent-ink);padding:0 1.4cqw;border-radius:1.2cqw;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-.side{position:absolute;z-index:3;right:4.5cqw;bottom:16cqw;display:flex;flex-direction:column;gap:6cqw;align-items:center}
-.side svg{width:8.4cqw;height:8.4cqw;fill:#fff;filter:drop-shadow(0 .5cqw 1cqw rgba(0,0,0,.5))}
-.handle{position:absolute;z-index:3;left:7cqw;bottom:6.5cqw;display:flex;align-items:center;gap:2.4cqw;font-size:4.4cqw;font-weight:600;color:#fff}
-.handle::before{content:"";width:7.4cqw;height:7.4cqw;border-radius:50%;background:linear-gradient(135deg,#f4f1ea,#a3a3a8)}
-
-/* screen: cinematic b roll with play */
-.s-broll .fill{background:
-  radial-gradient(70% 45% at 70% 62%,rgba(242,163,58,.55),transparent 70%),
-  radial-gradient(60% 40% at 25% 30%,rgba(217,79,61,.35),transparent 70%),
-  linear-gradient(180deg,#1b2430 0%,#2b2a33 45%,#4a2a20 78%,#120c0a 100%)}
-.s-broll .fill::after{content:"";position:absolute;inset:0;background:
-  linear-gradient(to bottom,#000 0 13%,transparent 13% 87%,#000 87%)}
-.s-broll .fill::before{content:"";position:absolute;left:-10%;right:-10%;top:58%;height:20%;
-  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.65));transform:skewY(-6deg)}
-.play{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:20cqw;height:20cqw;border-radius:50%;
-  display:grid;place-items:center;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
-.play::after{content:"";margin-left:1.4cqw;border-left:6.4cqw solid #fff;border-top:3.8cqw solid transparent;border-bottom:3.8cqw solid transparent}
-.scrub{position:absolute;z-index:3;left:7cqw;right:7cqw;bottom:16cqw;height:.9cqw;border-radius:2cqw;background:rgba(255,255,255,.25)}
-.scrub::before{content:"";position:absolute;inset:0 62% 0 0;border-radius:inherit;background:#fff}
-
-/* screen: quote card */
-.s-quote{background:var(--surface);display:flex;flex-direction:column;justify-content:center;padding:0 9cqw}
-.s-quote .mark{font-size:30cqw;line-height:.6;font-weight:700;color:var(--accent);height:16cqw}
-.s-quote blockquote{margin:0;font-size:8.6cqw;line-height:1.12;font-weight:600;letter-spacing:-.025em;color:var(--ink)}
-.s-quote cite{display:block;margin-top:7cqw;font-style:normal;font-size:4.2cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
-.s-quote::after{content:"";position:absolute;left:9cqw;right:9cqw;bottom:12cqw;height:1px;background:var(--line)}
-
-/* screen: profile feed */
-.s-feed{background:#0f0f12;padding-top:17cqw}
-.pf{display:flex;align-items:center;gap:4cqw;padding:0 6cqw}
-.pf__av{width:19cqw;height:19cqw;border-radius:50%;flex:none;padding:.9cqw;background:conic-gradient(var(--accent),#f2a33a,var(--accent))}
-.pf__av::after{content:"";display:block;width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,#3a3a42,#1c1c22);border:.9cqw solid #0f0f12}
-.pf__stats{flex:1;display:flex;justify-content:space-between}
-.pf__stat{display:flex;flex-direction:column;align-items:center;gap:1.4cqw;font-size:3.4cqw;color:var(--ink-2)}
-.pf__stat b{display:block;width:9cqw;height:3.6cqw;border-radius:1cqw;background:rgba(244,241,234,.75)}
-.pf__stat--up b{width:auto;height:auto;background:none;color:var(--accent);font-size:5cqw;line-height:1;display:flex;align-items:center;gap:1cqw}
-.pf__stat--up b::before{content:"";width:9cqw;height:3.6cqw;border-radius:1cqw;background:var(--ink);animation:grow 3.6s var(--ease) infinite alternate}
-@keyframes grow{from{width:6cqw}to{width:11cqw}}
-.pf__name{padding:4cqw 6cqw 0;font-size:4.2cqw;font-weight:600}
-.pf__bio{margin:1.6cqw 6cqw 0;height:2.6cqw;width:62%;border-radius:1cqw;background:rgba(244,241,234,.18)}
-.pf__btn{margin:4cqw 6cqw 4cqw;height:8.4cqw;border-radius:2cqw;background:var(--accent)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8cqw}
-.grid i{display:block;aspect-ratio:4/5;background:linear-gradient(160deg,#3b2a26,#18181d)}
-.grid i:nth-child(3n+2){background:linear-gradient(160deg,#2b3340,#141418)}
-.grid i:nth-child(4n){background:linear-gradient(160deg,#5a2a22,#1a1012)}
-.grid i:nth-child(5){background:linear-gradient(160deg,#7a5530,#1c1410)}
-.likes{position:absolute;z-index:3;left:6cqw;right:6cqw;bottom:6cqw;display:flex;align-items:center;gap:2.4cqw;
-  padding:3.2cqw 4cqw;border-radius:4cqw;background:rgba(22,22,26,.92);box-shadow:0 2cqw 6cqw rgba(0,0,0,.5);font-size:3.8cqw;color:var(--ink)}
-.likes svg{width:5.4cqw;height:5.4cqw;fill:var(--accent);flex:none}
-.likes span{color:var(--ink-2)}
-
-/* screen: analytics */
-.s-stats{background:#0f0f12;padding:18cqw 7cqw 0}
-.s-stats .t{font-size:4cqw;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
-.s-stats .big{display:flex;align-items:center;gap:3cqw;margin-top:2.4cqw;font-size:9cqw;font-weight:700;letter-spacing:-.03em}
-.s-stats .pill{font-size:3.6cqw;font-weight:600;color:var(--accent-ink);background:var(--accent);padding:1cqw 2.6cqw;border-radius:9cqw}
-.s-stats svg{display:block;width:100%;height:auto;margin-top:7cqw;overflow:visible}
-.s-stats .line{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
-  stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 2.4s var(--ease)}
-.in .s-stats .line,.s-stats.in .line,.hero .s-stats .line{stroke-dashoffset:0}
-.bars{display:flex;align-items:flex-end;gap:2cqw;height:24cqw;margin-top:8cqw}
-.bars i{flex:1;border-radius:1.2cqw 1.2cqw 0 0;background:rgba(244,241,234,.16)}
-.bars i:last-child{background:var(--accent)}
-.legend{display:flex;justify-content:space-between;margin-top:2cqw;font-size:3.2cqw;color:var(--ink-2)}
-
-/* ---------- 1 · hero ---------- */
-.hero{position:relative;padding:calc(var(--h-nav) + clamp(40px,8vh,90px)) var(--gutter) clamp(80px,12vh,140px);overflow:hidden}
-.hero::before{content:"";position:absolute;z-index:-1;left:50%;top:58%;width:min(1100px,140vw);aspect-ratio:1;transform:translate(-50%,-50%);
-  background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%);pointer-events:none}
-.hero__grid{display:grid;gap:clamp(56px,8vh,80px);align-items:center}
-.hero__cta{margin-top:2.2rem;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.fan{position:relative;display:flex;justify-content:center;align-items:center;height:calc(min(48vw,250px) * 19 / 9 + 48px)}
-.fan .phone{position:absolute;--w:min(42vw,220px)}
-.fan .phone:nth-child(2){--w:min(48vw,250px);z-index:3}
-.fan .phone:nth-child(1){transform:translateX(-58%) rotate(-8deg) scale(.92);z-index:2}
-.fan .phone:nth-child(3){transform:translateX(58%) rotate(8deg) scale(.92);z-index:2}
-.fan .float{animation:float 7s ease-in-out infinite}
-.fan .phone:nth-child(1) .float,.fan .phone:nth-child(3) .float{animation-duration:8s}
-.fan .phone:nth-child(1) .float{animation-delay:-2.5s}
-.fan .phone:nth-child(3) .float{animation-delay:-5s}
-/* the float moves the whole device, so wrap rotation (outer) and float (inner) apart */
-.fan .phone{padding:0;background:none;box-shadow:none;border-radius:0}
-.fan .phone::before{display:none}
-.fan .float{position:relative;width:100%;height:100%;border-radius:calc(var(--w) * .16);padding:calc(var(--w) * .032);
-  background:linear-gradient(145deg,#2a2a30,#121216 60%);
-  box-shadow:0 0 0 1px rgba(255,255,255,.09) inset,0 1px 0 rgba(255,255,255,.12) inset,0 50px 90px -40px rgba(0,0,0,.95),0 30px 60px -30px rgba(0,0,0,.7)}
-.fan .float::before{content:"";position:absolute;z-index:6;left:50%;top:calc(var(--w) * .058);transform:translateX(-50%);
-  width:30%;height:calc(var(--w) * .085);border-radius:99px;background:#000}
-@keyframes float{0%,100%{translate:0 0}50%{translate:0 -14px}}
-@media(min-width:960px){
-  .hero{min-height:100svh;display:grid;align-items:center}
-  .hero__grid{grid-template-columns:1.05fr .95fr}
-  .fan{height:600px}
-  .fan .phone{--w:230px}
-  .fan .phone:nth-child(2){--w:262px}
-}
-
-/* ---------- 2 · process ---------- */
-.steps{display:grid;gap:clamp(56px,9vh,80px);counter-reset:s}
-.step{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
-.step .phone{--w:min(38vw,170px)}
-.step__num{display:block;font-size:.8rem;font-weight:600;letter-spacing:.14em;color:var(--accent);margin-bottom:.9rem}
-.step p{margin:.8rem 0 0;color:var(--ink-2);font-size:.98rem;max-width:34ch}
-@media(min-width:900px){
-  .steps{grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.4vw,36px)}
-  .step{grid-template-columns:1fr;align-content:start;gap:30px}
-  .step .phone{--w:min(100%,230px);order:-1}
-  .step p{max-width:none}
-}
-.callout{margin-top:clamp(56px,9vh,96px);display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;
-  padding:22px 24px;border-radius:20px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
-.callout__icon{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;
-  background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
-.callout p{margin:0;flex:1;min-width:230px;color:var(--ink-2)}
-.callout strong{color:var(--ink);font-weight:600}
-
-/* ---------- 3 · packages ---------- */
-.plans{display:grid;gap:16px}
-@media(min-width:900px){.plans{grid-template-columns:repeat(3,1fr);align-items:stretch}}
-.plan{position:relative;display:flex;flex-direction:column;padding:32px 26px 26px;border-radius:24px;background:var(--surface);
-  box-shadow:inset 0 0 0 1px var(--line)}
-.plan--rec{box-shadow:inset 0 0 0 1.5px var(--accent),0 30px 80px -40px color-mix(in srgb,var(--accent) 60%,transparent)}
-@media(min-width:900px){.plan--rec{transform:translateY(-14px)}}
-.plan__badge{position:absolute;top:-13px;left:26px;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--accent-ink);background:var(--accent);padding:6px 12px;border-radius:99px}
-.plan h3{font-size:1.6rem;font-weight:600;letter-spacing:-.025em;margin:0}
-.plan ul{list-style:none;margin:22px 0 28px;padding:0;display:flex;flex-direction:column;gap:12px;flex:1}
-.plan li{position:relative;padding-left:28px;color:var(--ink);font-size:.98rem}
-.plan li::before{content:"";position:absolute;left:0;top:.38em;width:16px;height:16px;border-radius:50%;
-  background:color-mix(in srgb,var(--accent) 18%,transparent)}
-.plan li::after{content:"";position:absolute;left:5px;top:calc(.38em + 4px);width:5px;height:8px;border:solid var(--accent);border-width:0 1.6px 1.6px 0;transform:rotate(45deg)}
-.plan li.base{color:var(--ink-2)}
-.plans__note{margin:28px 0 0;color:var(--ink-2);font-size:.95rem;max-width:60ch}
-/* slots waiting on real content: visible on purpose so nothing ships as fact */
-.tbd,.proof figcaption .tbd{color:#f2a33a;border-bottom:1px dashed rgba(242,163,58,.6)}
-
-/* ---------- 4 · proof ---------- */
-.proof{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
-  margin-inline:calc(var(--gutter) * -1);padding:10px var(--gutter) 30px;scrollbar-width:none}
-.proof::-webkit-scrollbar{display:none}
-.proof figure{margin:0;flex:none;scroll-snap-align:center;display:flex;flex-direction:column;gap:18px}
-.proof .phone{--w:min(64vw,250px)}
-.proof figcaption b{display:block;font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
-.proof figcaption span{display:block;margin-top:.3rem;font-size:.92rem;color:var(--ink-2)}
-@media(min-width:900px){.proof{justify-content:center;gap:clamp(24px,3vw,48px);overflow:visible}
-  .proof figure:nth-child(2){transform:translateY(40px)}}
-
-/* ---------- 5 · final cta ---------- */
-.final{text-align:center;padding-block:clamp(110px,16vh,190px)}
-.final .wrap{max-width:44rem}
-.final .lede{margin-inline:auto}
-.final .btn{margin-top:2.2rem}
-
-/* ---------- footer ---------- */
-.foot{border-top:1px solid var(--line);padding:48px var(--gutter) 36px;color:var(--ink-2);font-size:.92rem}
-.foot__row{display:flex;flex-wrap:wrap;gap:24px 40px;justify-content:space-between;align-items:flex-start}
-.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:12px 26px}
-.foot a:hover{color:var(--ink)}
-.foot__base{margin-top:36px;font-size:.8rem}
-
-/* ---------- reveal ---------- */
-[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-[data-reveal].in{opacity:1;transform:none}
-[data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition-duration:.01ms!important}
-  [data-reveal]{opacity:1;transform:none}
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
-<!-- ======================= NAV ======================= -->
+<div class="progress" id="progress"></div>
+
+<!-- ======================= HEADER (shared) ======================= -->
 <header class="nav" id="nav">
+  <div class="nav__side">
+    <a class="nav__link" href="#process">How it works</a>
+    <a class="nav__link" href="#packages">Packages</a>
+  </div>
   <a class="brand" href="#top" aria-label="JMEDIA home">J<b>MEDIA</b></a>
-  <nav class="nav__links" aria-label="Main">
-    <a href="#process">Process</a>
-    <a href="#packages">Packages</a>
-    <a href="#work">Work</a>
-    <a href="about.html">About</a>
-    <a class="btn btn--sm" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a>
-  </nav>
-  <div class="nav__right">
-    <a class="btn btn--sm" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book a call</a>
+  <div class="nav__side nav__side--r">
+    <a class="nav__link" href="about.html">About</a>
+    <a class="nav__link nav__link--cta" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book a call</a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
 </header>
-<div class="menu" id="menu" aria-hidden="true">
-  <ul>
-    <li><a href="#process">Process</a></li>
+
+<nav class="menu" id="menu" aria-hidden="true">
+  <ul class="menu__list">
+    <li><a href="#top">Home</a></li>
+    <li><a href="#process">How it works</a></li>
     <li><a href="#packages">Packages</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="about.html">About Jordan</a></li>
+    <li class="menu__cta"><a class="btn btn--accent" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a></li>
   </ul>
-  <a class="btn btn--block" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a>
-</div>
-
-<main id="top">
+</nav>
 
 <!-- ======================= 1 · HERO ======================= -->
-<section class="hero">
-  <div class="wrap hero__grid">
-    <div>
-      <p class="eyebrow" data-reveal>Social content for owner led businesses</p>
-      <h1 class="h1" data-reveal>Grow on social with your own story. <span class="hl">We handle every post.</span></h1>
-      <p class="lede" data-reveal data-d="1">JMEDIA plans, films, edits, publishes and reports on a steady stream of strategic content for your channels, so you can keep running the business.</p>
-      <div class="hero__cta" data-reveal data-d="2">
-        <a class="btn" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call
-          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg></a>
-      </div>
-    </div>
-
-    <div class="fan" aria-hidden="true" data-reveal data-d="1">
-      <!-- left: cinematic b roll -->
-      <div class="phone"><div class="float"><div class="screen s-broll">
-        <div class="fill"></div>
-        <div class="sb"><span>9:41</span><i></i></div>
-        <div class="play"></div><div class="scrub"></div>
-      </div></div></div>
-      <!-- centre: owner interview with captions -->
-      <div class="phone"><div class="float"><div class="screen s-interview">
-        <img src="assets/hero-poster.jpg" alt="" loading="eager">
-        <div class="sb"><span>9:41</span><i></i></div>
-        <p class="cap">Understand the brand, the audience, <span>and the moment.</span></p>
-        <div class="side">
-          <svg viewBox="0 0 24 24"><path d="M12 21.4 10.6 20C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.6 11.5L12 21.4z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M21 3 3 10.5l7 2.5 2.5 7L21 3z"/></svg>
+<section class="hero hero--home" id="top">
+  <div class="hero__inner">
+    <div class="wrap home__grid">
+      <div>
+        <p class="eyebrow" data-reveal>Social content for owner led businesses</p>
+        <h1 class="display hero__title" data-reveal>Grow on social<br>with your<br><span class="hl">own story</span></h1>
+        <p class="hero__copy" data-reveal data-reveal-delay="1">You're the reason people choose your business, so you're the best reason to follow it. We plan it, film it, edit it, post it and report on it. You keep running the place.</p>
+        <div class="hero__cta" data-reveal data-reveal-delay="2">
+          <a class="btn btn--accent" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a>
         </div>
-        <div class="handle">yourbusiness</div>
-      </div></div></div>
-      <!-- right: profile with a rising follower count -->
-      <div class="phone"><div class="float"><div class="screen s-feed">
-        <div class="sb"><span>9:41</span><i></i></div>
-        <div class="pf">
-          <div class="pf__av"></div>
-          <div class="pf__stats">
+      </div>
+
+      <div class="fan" aria-hidden="true" data-reveal data-reveal-delay="1">
+        <div class="fan__item"><div class="phone"><div class="screen s-broll">
+          <div class="fill"></div>
+          <div class="sb"><span>9:41</span><i></i></div>
+          <div class="play"></div><div class="scrub"></div>
+        </div></div></div>
+        <div class="fan__item"><div class="phone"><div class="screen s-interview">
+          <img src="assets/hero-poster.jpg" alt="">
+          <div class="sb"><span>9:41</span><i></i></div>
+          <p class="cap">Understand the brand, the audience, <span>and the moment.</span></p>
+          <div class="side">
+            <svg viewBox="0 0 24 24"><path d="M12 21.4 10.6 20C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.6 11.5L12 21.4z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M21 3 3 10.5l7 2.5 2.5 7L21 3z"/></svg>
+          </div>
+          <div class="handle">yourbusiness</div>
+        </div></div></div>
+        <div class="fan__item"><div class="phone"><div class="screen s-feed">
+          <div class="sb"><span>9:41</span><i></i></div>
+          <div class="pf"><div class="pf__av"></div><div class="pf__stats">
             <div class="pf__stat"><b></b>Posts</div>
             <div class="pf__stat pf__stat--up"><b>▲</b>Followers</div>
             <div class="pf__stat"><b></b>Following</div>
-          </div>
-        </div>
-        <div class="pf__name">yourbusiness</div>
-        <div class="pf__bio"></div>
-        <div class="pf__btn"></div>
-        <div class="grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="likes"><svg viewBox="0 0 24 24"><path d="M12 21.4 10.6 20C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.6 11.5L12 21.4z"/></svg>New followers <span>this week</span></div>
-      </div></div></div>
+          </div></div>
+          <div class="pf__name">yourbusiness</div><div class="pf__bio"></div><div class="pf__btn"></div>
+          <div class="grid9"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="likes"><svg viewBox="0 0 24 24"><path d="M12 21.4 10.6 20C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.6 11.5L12 21.4z"/></svg>New followers this week</div>
+        </div></div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ======================= 2 · PROCESS ======================= -->
-<section class="section" id="process">
+<!-- ======================= 2 · THE PROBLEM ======================= -->
+<section class="section problem" id="problem">
+  <div class="wrap statement">
+    <div>
+      <p class="eyebrow" data-reveal>Sound familiar?</p>
+      <h2 class="h2" data-reveal>You know you<br>should be <span class="hl">posting</span></h2>
+    </div>
+    <div>
+      <p class="lede" data-reveal data-reveal-delay="1">Your phone can shoot it. What it can't do is plan the month, show up every week, and turn a busy owner into a story people want to follow. So the feed goes quiet while the business stays busy.</p>
+      <p class="lede" data-reveal data-reveal-delay="2"><strong>That's the part JMEDIA takes over.</strong> Strategy, filming, editing, publishing and reporting, all handled, so your channels keep moving whether you have a free afternoon or not.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 3 · HOW IT WORKS ======================= -->
+<section class="section" id="process" style="padding-top:0">
   <div class="wrap">
     <div class="section__head">
       <p class="eyebrow" data-reveal>How it works</p>
-      <h2 class="h2" data-reveal>From one conversation to a full quarter of posts</h2>
+      <h2 class="h2" data-reveal>Here's what a quarter<br>with JMEDIA looks like</h2>
     </div>
 
     <div class="steps">
       <div class="step" data-reveal>
-        <div>
-          <span class="step__num">01</span>
-          <h3 class="h3">We plan</h3>
-          <p>A quick strategy call each quarter sets who we are reaching, what we will say, and which channels we are growing.</p>
+        <div class="step__body">
+          <span class="num">01 · We plan</span>
+          <h3 class="h3">A strategy built around you</h3>
+          <p>One quick call each quarter. We decide who you're talking to, what you'll say, and which channels we're growing.</p>
         </div>
         <div class="phone" aria-hidden="true"><div class="screen s-stats">
           <div class="sb"><span>9:41</span><i></i></div>
@@ -396,11 +125,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         </div></div>
       </div>
 
-      <div class="step" data-reveal data-d="1">
-        <div>
-          <span class="step__num">02</span>
-          <h3 class="h3">We film</h3>
-          <p>One filmed interview with you. Your story, in your own words, becomes the raw material for the quarter.</p>
+      <div class="step" data-reveal data-reveal-delay="1">
+        <div class="step__body">
+          <span class="num">02 · We film</span>
+          <h3 class="h3">Your story, in your words</h3>
+          <p>One sit down interview with you. Everything we post that quarter is built from that conversation.</p>
         </div>
         <div class="phone" aria-hidden="true"><div class="screen s-interview">
           <img src="assets/hero-poster.jpg" alt="" loading="lazy">
@@ -410,11 +139,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         </div></div>
       </div>
 
-      <div class="step" data-reveal data-d="2">
-        <div>
-          <span class="step__num">03</span>
-          <h3 class="h3">We create</h3>
-          <p>We cut that interview into captioned clips, quote posts and short edits, each shaped for the platform it lives on.</p>
+      <div class="step" data-reveal data-reveal-delay="2">
+        <div class="step__body">
+          <span class="num">03 · We create</span>
+          <h3 class="h3">A quarter of content, ready to go</h3>
+          <p>We cut that interview into captioned clips, quote posts and short edits, each one shaped for the platform it lands on.</p>
         </div>
         <div class="phone" aria-hidden="true"><div class="screen s-quote">
           <div class="sb"><span>9:41</span><i></i></div>
@@ -424,155 +153,172 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         </div></div>
       </div>
 
-      <div class="step" data-reveal data-d="3">
-        <div>
-          <span class="step__num">04</span>
-          <h3 class="h3">We post</h3>
-          <p>We publish to your channels on a steady schedule, then report back on how your reach is growing.</p>
+      <div class="step" data-reveal data-reveal-delay="3">
+        <div class="step__body">
+          <span class="num">04 · We post</span>
+          <h3 class="h3">Out the door, and reported back</h3>
+          <p>We publish on a steady schedule and send you a report on how your reach is growing. You never have to open the app to post.</p>
         </div>
         <div class="phone" aria-hidden="true"><div class="screen s-feed">
           <div class="sb"><span>9:41</span><i></i></div>
-          <div class="pf">
-            <div class="pf__av"></div>
-            <div class="pf__stats">
-              <div class="pf__stat"><b></b>Posts</div>
-              <div class="pf__stat pf__stat--up"><b>▲</b>Followers</div>
-              <div class="pf__stat"><b></b>Following</div>
-            </div>
-          </div>
-          <div class="pf__name">yourbusiness</div>
-          <div class="pf__bio"></div>
-          <div class="pf__btn"></div>
-          <div class="grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="pf"><div class="pf__av"></div><div class="pf__stats">
+            <div class="pf__stat"><b></b>Posts</div>
+            <div class="pf__stat pf__stat--up"><b>▲</b>Followers</div>
+            <div class="pf__stat"><b></b>Following</div>
+          </div></div>
+          <div class="pf__name">yourbusiness</div><div class="pf__bio"></div><div class="pf__btn"></div>
+          <div class="grid9"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
           <div class="likes"><svg viewBox="0 0 24 24"><path d="M12 21.4 10.6 20C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.6 11.5L12 21.4z"/></svg>New post published</div>
         </div></div>
       </div>
     </div>
 
-    <div class="callout" data-reveal>
-      <span class="callout__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
-      <p><strong>Your part is about two hours a quarter.</strong> One filmed interview and one quick strategy call. Everything else runs without you.</p>
+    <div class="commit" data-reveal>
+      <div>
+        <div class="stat__rule"></div>
+        <div class="stat__value"><span class="odo" data-odo="2"></span><span class="stat__suffix">hours a quarter</span></div>
+      </div>
+      <p><strong>About two hours each quarter is all we need from you:</strong> one filmed interview and one quick strategy call. Everything else happens without you.</p>
     </div>
   </div>
 </section>
 
-<!-- ======================= 3 · PACKAGES ======================= -->
-<section class="section" id="packages" style="padding-top:0">
+<!-- ======================= 4 · PACKAGES ======================= -->
+<section class="section" id="packages" style="background:var(--bg-2)">
   <div class="wrap">
     <div class="section__head">
       <p class="eyebrow" data-reveal>Packages</p>
-      <h2 class="h2" data-reveal>Built for owners whose story is the brand</h2>
-      <p class="lede" data-reveal data-d="1">Specialty practices, local service companies, founder led restaurants and real estate teams. Every package runs on the same quarterly interview and strategy call.</p>
+      <h2 class="h2" data-reveal>Pick how fast<br>you want to grow</h2>
+      <p class="lede" data-reveal data-reveal-delay="1" style="margin-top:1.6rem">Built for owners whose story is the brand, from specialty practices and local service companies to founder led restaurants and real estate teams.</p>
     </div>
 
     <div class="plans">
       <article class="plan" data-reveal>
-        <h3>Starter</h3>
+        <span class="num">01</span>
+        <h3 class="h3">Starter</h3>
         <ul>
-          <li class="base">Quarterly filmed owner interview</li>
-          <li class="base">Quarterly strategy call</li>
-          <li class="base">Editing, publishing and reporting handled</li>
+          <li>Quarterly filmed owner interview</li>
+          <li>Quarterly strategy call</li>
+          <li>Editing, publishing and reporting, handled</li>
           <li><span class="tbd">Starter deliverables to confirm</span></li>
         </ul>
-        <a class="btn btn--ghost btn--block" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book a call</a>
+        <a class="btn btn--ghost btn--sm" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book a call</a>
       </article>
-      <article class="plan plan--rec" data-reveal data-d="1">
-        <span class="plan__badge">Recommended</span>
-        <h3>Growth</h3>
+      <article class="plan plan--rec" data-reveal data-reveal-delay="1">
+        <span class="num">02 · Recommended</span>
+        <h3 class="h3">Growth</h3>
         <ul>
-          <li class="base">Quarterly filmed owner interview</li>
-          <li class="base">Quarterly strategy call</li>
-          <li class="base">Editing, publishing and reporting handled</li>
+          <li>Quarterly filmed owner interview</li>
+          <li>Quarterly strategy call</li>
+          <li>Editing, publishing and reporting, handled</li>
           <li><span class="tbd">Growth deliverables to confirm</span></li>
         </ul>
-        <a class="btn btn--block" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book a call</a>
+        <a class="btn btn--accent btn--sm" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book a call</a>
       </article>
-      <article class="plan" data-reveal data-d="2">
-        <h3>Authority</h3>
+      <article class="plan" data-reveal data-reveal-delay="2">
+        <span class="num">03</span>
+        <h3 class="h3">Authority</h3>
         <ul>
-          <li class="base">Quarterly filmed owner interview</li>
-          <li class="base">Quarterly strategy call</li>
-          <li class="base">Editing, publishing and reporting handled</li>
+          <li>Quarterly filmed owner interview</li>
+          <li>Quarterly strategy call</li>
+          <li>Editing, publishing and reporting, handled</li>
           <li><span class="tbd">Authority deliverables to confirm</span></li>
         </ul>
-        <a class="btn btn--ghost btn--block" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book a call</a>
+        <a class="btn btn--ghost btn--sm" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book a call</a>
       </article>
     </div>
+    <p class="plans__note" data-reveal><strong>Every package runs on the same quarterly interview and strategy call,</strong> so your part never grows as your content does.</p>
   </div>
 </section>
 
-<!-- ======================= 4 · PROOF ======================= -->
-<section class="section" id="work" style="padding-top:0">
+<!-- ======================= 5 · WORK (client clips go in these screens) ======================= -->
+<section class="section" id="work">
   <div class="wrap">
     <div class="section__head">
       <p class="eyebrow" data-reveal>Work</p>
-      <h2 class="h2" data-reveal>Shot, cut and delivered by JMEDIA</h2>
+      <h2 class="h2" data-reveal>Made for<br>the feed</h2>
     </div>
-    <div class="proof" id="proof" data-reveal>
-      <figure>
-        <div class="phone"><div class="screen s-broll">
-          <div class="fill"></div><div class="play"></div>
-          <iframe title="JMEDIA Showreel" data-src="https://player.vimeo.com/video/1197914099?h=875989dd40&background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;picture-in-picture" tabindex="-1"></iframe>
-        </div></div>
-        <figcaption><b>Showreel</b><span class="tbd">Client result to add</span></figcaption>
-      </figure>
-      <figure>
-        <div class="phone"><div class="screen s-broll">
-          <div class="fill"></div><div class="play"></div>
-          <iframe title="Event Hype Reel" data-src="https://player.vimeo.com/video/1197918769?h=1ed1c41a03&background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;picture-in-picture" tabindex="-1"></iframe>
-        </div></div>
-        <figcaption><b>Event Hype Reel</b><span class="tbd">Client result to add</span></figcaption>
-      </figure>
-      <figure>
-        <div class="phone"><div class="screen s-broll">
-          <div class="fill"></div><div class="play"></div>
-          <iframe title="Sunset Walk Reel" data-src="https://player.vimeo.com/video/1202297658?background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay;picture-in-picture" tabindex="-1"></iframe>
-        </div></div>
-        <figcaption><b>Sunset Walk Reel</b><span class="tbd">Client result to add</span></figcaption>
-      </figure>
+    <div class="proof" data-reveal>
+      <div class="phone"><div class="screen screen--blank" data-slot="client-clip-1"></div></div>
+      <div class="phone"><div class="screen screen--blank" data-slot="client-clip-2"></div></div>
+      <div class="phone"><div class="screen screen--blank" data-slot="client-clip-3"></div></div>
     </div>
   </div>
 </section>
 
-<!-- ======================= 5 · FINAL CTA ======================= -->
-<section class="section final">
-  <div class="wrap">
-    <h2 class="h2" data-reveal>Tell us about your business</h2>
-    <p class="lede" data-reveal data-d="1">A quick intro call to hear your story and find the package that fits.</p>
-    <a class="btn" data-reveal data-d="2" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call
-      <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg></a>
+<!-- ======================= 6 · FINAL CALL ======================= -->
+<section class="band" id="band" data-media>
+  <img src="assets/hero-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+  <div class="scrim scrim--full"></div>
+  <div class="band__inner">
+    <h2 class="h2" data-reveal>Ready to show up<br>on the feed?</h2>
+    <p class="lede" data-reveal data-reveal-delay="1">Book a quick intro call. Tell us about your business and we'll map out what your first quarter could look like.</p>
+    <a class="btn btn--accent" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener" data-reveal data-reveal-delay="2">Book an intro call</a>
   </div>
 </section>
 
-</main>
-
+<!-- ======================= FOOTER (shared) ======================= -->
 <footer class="foot">
   <div class="wrap">
-    <div class="foot__row">
-      <a class="brand" href="#top">J<b>MEDIA</b></a>
-      <ul>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#packages">Packages</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="about.html">About Jordan</a></li>
-        <li><a href="mailto:info@j-mediaproductions.com">info@j-mediaproductions.com</a></li>
-      </ul>
+    <div class="foot__cols">
+      <div class="foot__about">
+        <p class="foot__brand">J<b>MEDIA</b></p>
+        <p class="body" style="font-size:.9rem;max-width:34ch">Social content for owner led businesses. Orlando FL.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#process">How it works</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="about.html">About Jordan</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a></li>
+          <li><a href="mailto:info@j-mediaproductions.com">info@j-mediaproductions.com</a></li>
+        </ul>
+      </div>
     </div>
-    <p class="foot__base">© <span id="yr">2026</span> JMEDIA Productions Inc. · Orlando FL</p>
+    <div class="foot__base">
+      <span>© <span id="yr">2026</span> JMEDIA Productions Inc.</span>
+      <span>Orlando FL</span>
+    </div>
   </div>
 </footer>
 
 <script>
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  /* nav turns solid once you leave the top */
-  var nav = document.getElementById('nav');
-  function onScroll(){ nav.classList.toggle('is-solid', window.scrollY > 24); }
-  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  /* header: hide on scroll down, solid past the hero */
+  var nav = document.getElementById('nav'), last = 0;
+  function onNav(){
+    var y = window.scrollY;
+    nav.classList.toggle('is-solid', y > window.innerHeight * .6);
+    nav.classList.toggle('is-hidden', y > last && y > 240 && !document.body.classList.contains('menu-open'));
+    last = y;
+  }
+  /* progress bar */
+  var bar = document.getElementById('progress');
+  function onProgress(){
+    var h = root.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (h > 0 ? window.scrollY / h : 0) + ')';
+  }
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function(){ onNav(); onProgress(); ticking = false; });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
 
-  /* mobile menu */
+  /* overlay menu */
   var burger = document.getElementById('burger'), menu = document.getElementById('menu');
   function toggleMenu(force){
     var open = force !== undefined ? force : !document.body.classList.contains('menu-open');
@@ -580,7 +326,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     menu.classList.toggle('is-open', open);
     menu.setAttribute('aria-hidden', String(!open));
     burger.setAttribute('aria-expanded', String(open));
-    document.documentElement.style.overflow = open ? 'hidden' : '';
+    root.style.overflow = open ? 'hidden' : '';
+    [].forEach.call(menu.querySelectorAll('a'), function(a, i){
+      a.style.transitionDelay = open ? (0.06 * i + 0.08) + 's' : '0s';
+    });
   }
   burger.addEventListener('click', function(){ toggleMenu(); });
   menu.addEventListener('click', function(e){ if (e.target.closest('a')) toggleMenu(false); });
@@ -589,30 +338,37 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   /* fade up on scroll */
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: .12 });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: .12 });
   document.querySelectorAll('[data-reveal]').forEach(function(el){
     if (el.getBoundingClientRect().top < window.innerHeight) requestAnimationFrame(function(){ el.classList.add('in'); });
     else io.observe(el);
   });
 
-  /* proof clips load only when the row is close */
-  var proof = document.getElementById('proof');
-  new IntersectionObserver(function(entries, obs){
-    if (!entries[0].isIntersecting) return;
-    proof.querySelectorAll('iframe[data-src]').forEach(function(f){
-      f.addEventListener('load', function(){ f.classList.add('live'); });
-      f.src = f.getAttribute('data-src'); f.removeAttribute('data-src');
+  /* odometer roll for the two hours */
+  document.querySelectorAll('.odo').forEach(function(el){
+    var target = el.getAttribute('data-odo'); el.innerHTML = ''; el.setAttribute('aria-label', target);
+    target.split('').forEach(function(ch){
+      var col = document.createElement('span'); col.className = 'odo__col';
+      var strip = document.createElement('span'); strip.className = 'odo__strip';
+      for (var i = 0; i <= 9; i++){ var d = document.createElement('span'); d.textContent = i; strip.appendChild(d); }
+      col.appendChild(strip); el.appendChild(col); col.dataset.target = ch;
     });
-    obs.disconnect();
-  }, { rootMargin: '600px 0px' }).observe(proof);
+    new IntersectionObserver(function(entries, obs){
+      if (!entries[0].isIntersecting) return;
+      el.querySelectorAll('.odo__col').forEach(function(col, i){
+        var s = col.firstChild; if (reduce) s.style.transition = 'none';
+        s.style.transitionDelay = (i * 0.09) + 's'; s.style.transform = 'translateY(' + (-col.dataset.target) + 'em)';
+      });
+      obs.disconnect();
+    }, { threshold: .6 }).observe(el);
+  });
 
   /* smooth anchors */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click', function(e){
-      var id = a.getAttribute('href'); if (id.length < 2) { e.preventDefault(); window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); return; }
-      var t = document.querySelector(id); if (!t) return;
+      var t = document.querySelector(a.getAttribute('href')); if (!t) return;
       e.preventDefault();
-      window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 60, behavior: reduce ? 'auto' : 'smooth' });
+      t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     });
   });
 })();
