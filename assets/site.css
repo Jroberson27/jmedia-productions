@@ -627,3 +627,8 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
 @media(min-width:761px) and (max-width:1180px){.nav__side .nav__link:not(.nav__link--cta){display:none}}
 
 @media(min-width:760px){.vcard--wide{grid-column:1/-1}}
+
+/* every section hands off to the intro call */
+.section__cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:clamp(40px,6vh,64px);
+  padding-top:1.6rem;border-top:1px solid var(--line)}
+.section__cta p{margin:0;flex:1 1 320px;color:var(--ink-dim);font-size:1rem;max-width:56ch}
