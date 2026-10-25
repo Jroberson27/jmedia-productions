@@ -588,3 +588,42 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .problem .lede + .lede{margin-top:1.2rem}
 
 @media(prefers-reduced-motion:reduce){.fan .phone{animation:none}}
+
+/* ============================================================
+   REVISION BRIEF COMPONENTS (same Glide idiom)
+   ============================================================ */
+
+/* featured work: landscape cards, JMEDIA produced vs crew credits */
+.work__label{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-dim);font-weight:500;
+  margin:0 0 1.4rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.work-grid + .work__label{margin-top:clamp(56px,8vh,96px)}
+.work-grid{display:grid;gap:clamp(28px,4vh,44px) clamp(14px,2vw,26px);grid-template-columns:1fr}
+@media(min-width:760px){.work-grid{grid-template-columns:repeat(2,1fr)}}
+.vcard{display:flex;flex-direction:column;gap:1.1rem;color:inherit}
+.vcard__frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
+.vcard__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;opacity:0;transition:opacity .8s var(--ease)}
+.vcard__frame.media-live iframe{opacity:1}
+.vcard__frame img{transition:transform 1.4s var(--ease)}
+a.vcard:hover .vcard__frame img{transform:scale(1.05)}
+.vcard__meta{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
+.vcard__meta .card__kicker{margin:0 0 .6rem}
+.vcard__role{margin:.7rem 0 0;font-size:.86rem;color:var(--ink-dim)}
+
+/* process heading and the optional ongoing step */
+.process__title{margin:clamp(72px,11vh,130px) 0 clamp(32px,5vh,56px)}
+.credit--ongoing{border-top:2px solid var(--accent)}
+.credit--ongoing .num{color:var(--accent)}
+
+/* engagement options: two columns */
+@media(min-width:900px){.plans--2{grid-template-columns:repeat(2,1fr)}}
+.plan__lede{margin:1rem 0 0;color:var(--ink-dim);font-size:.98rem;max-width:44ch}
+
+/* founder block on the homepage */
+.founder{align-items:center}
+@media(min-width:960px){.founder .detail__media{position:relative;top:auto;aspect-ratio:4/5}}
+.founder .detail__media img{object-position:40% 30%}
+
+/* the header carries five links on desktop: keep it to one line */
+@media(min-width:761px) and (max-width:1180px){.nav__side .nav__link:not(.nav__link--cta){display:none}}
+
+@media(min-width:760px){.vcard--wide{grid-column:1/-1}}
