@@ -513,7 +513,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 15%,transparent),transparent 70%);pointer-events:none}
 .hero--home .hero__inner{position:relative;inset:auto}
 .home__grid{display:grid;gap:clamp(36px,6vh,60px);align-items:end}
-.hero--home .display{font-size:clamp(2.1rem,6.2vw,5.6rem)}
+.hero--home .display{font-size:clamp(2.1rem,8.4vw,4.4rem)}
+@media(min-width:960px){.hero--home .display{font-size:clamp(2.6rem,4.3vw,4.4rem)}}
 .fan{position:relative;z-index:1;height:calc(min(46vw,240px) * 19 / 9 + 30px);display:flex;justify-content:center}
 .fan__item{position:absolute;top:0}
 .fan__item .phone{--w:min(40vw,210px)}
@@ -548,11 +549,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 
 /* your part: the proof point, sized as a supporting stat */
-.commit{margin-top:clamp(64px,10vh,120px);display:grid;gap:clamp(18px,3vw,48px);align-items:end}
-.commit .stat__value{color:var(--accent)}
-.commit p{margin:0;color:var(--ink-dim);max-width:46ch}
+.commit{margin-top:clamp(56px,8vh,96px);max-width:52ch}
+.commit .stat__rule{background:var(--accent);height:2px;width:48px;margin-bottom:1.2rem}
+.commit p{margin:0;color:var(--ink-dim)}
 .commit p strong{color:var(--ink);font-weight:500}
-@media(min-width:900px){.commit{grid-template-columns:auto 1fr}}
+
+/* ---------- what it takes to stand out ---------- */
+.edge{display:grid;gap:clamp(36px,5vh,64px) clamp(20px,3vw,44px);grid-template-columns:1fr}
+@media(min-width:760px){.edge{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1200px){.edge{grid-template-columns:repeat(4,1fr)}}
+.edge .credit p{max-width:42ch}
 
 /* ---------- packages ---------- */
 .plans{display:grid;gap:clamp(44px,6vh,64px) clamp(20px,3vw,44px);grid-template-columns:1fr}
