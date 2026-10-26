@@ -763,3 +763,8 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
 /* wide photos take the row's height on desktop instead of doubling it */
 .pgrid__item img{position:absolute;inset:0}
 @media(min-width:900px){.pgrid__item--wide{aspect-ratio:auto}}
+
+.feature-video__cap{margin:1rem 0 0;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim)}
+.feature-video__cap span{color:var(--ink)}
+.feature-video{margin-bottom:clamp(40px,6vh,72px)}
+.feature-video--second{margin-bottom:clamp(56px,8vh,96px)}
