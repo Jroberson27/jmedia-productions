@@ -632,3 +632,18 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
 .section__cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:clamp(40px,6vh,64px);
   padding-top:1.6rem;border-top:1px solid var(--line)}
 .section__cta p{margin:0;flex:1 1 320px;color:var(--ink-dim);font-size:1rem;max-width:56ch}
+
+/* partners: logo wall, name shown until the official logo file is added */
+.partners{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);
+  border-top:1px solid var(--line);border-left:1px solid var(--line)}
+@media(min-width:900px){.partners{grid-template-columns:repeat(3,1fr)}}
+.partner{display:grid;place-items:center;min-height:clamp(110px,14vw,170px);padding:22px;text-align:center;
+  border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.partner img{display:none;max-width:72%;max-height:64px;width:auto;height:auto;object-fit:contain;
+  filter:grayscale(1) brightness(1.6);opacity:.85;transition:opacity .4s,filter .4s}
+.partner.has-logo img{display:block}
+.partner.has-logo .partner__name{display:none}
+.partner:hover img{filter:none;opacity:1}
+.partner__name{font-size:clamp(.72rem,1.1vw,.86rem);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);font-weight:500;line-height:1.5}
+/* the header now carries six links on desktop */
+@media(min-width:761px) and (max-width:1280px){.nav__side .nav__link:not(.nav__link--cta){display:none}}

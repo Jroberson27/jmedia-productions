@@ -21,6 +21,7 @@
     <a class="nav__link" href="#work">Work</a>
     <a class="nav__link" href="#services">Services</a>
     <a class="nav__link" href="#approach">Approach</a>
+    <a class="nav__link" href="#partners">Partners</a>
   </div>
   <a class="brand" href="#top" aria-label="JMEDIA home">J<b>MEDIA</b></a>
   <div class="nav__side nav__side--r">
@@ -35,6 +36,7 @@
     <li><a href="#work">Work</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#approach">Approach</a></li>
+    <li><a href="#partners">Partners</a></li>
     <li><a href="about.html">About</a></li>
     <li class="menu__cta"><a class="btn btn--accent" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a></li>
   </ul>
@@ -156,7 +158,47 @@
   </div>
 </section>
 
-<!-- ======================= 3 · BUSINESS CHALLENGES ======================= -->
+<!-- ======================= 3 · PARTNERS (logo files go in assets/partners/<name>.svg or .png) ======================= -->
+<section class="section section--tight" id="partners">
+  <div class="wrap">
+    <div class="section__head" style="margin-bottom:clamp(32px,5vh,56px)">
+      <p class="eyebrow" data-reveal>Partners</p>
+      <h2 class="h2" data-reveal>Brands we've<br><span class="hl">worked with</span></h2>
+    </div>
+    <ul class="partners">
+      <li class="partner" data-reveal>
+        <img src="assets/partners/universal-orlando.svg" alt="Universal Orlando" loading="lazy" decoding="async" data-alt="assets/partners/universal-orlando.png">
+        <span class="partner__name">Universal Orlando</span>
+      </li>
+      <li class="partner" data-reveal data-reveal-delay="1">
+        <img src="assets/partners/orlando-informer.svg" alt="Orlando Informer" loading="lazy" decoding="async" data-alt="assets/partners/orlando-informer.png">
+        <span class="partner__name">Orlando Informer</span>
+      </li>
+      <li class="partner" data-reveal data-reveal-delay="2">
+        <img src="assets/partners/get-away-today.svg" alt="Get Away Today" loading="lazy" decoding="async" data-alt="assets/partners/get-away-today.png">
+        <span class="partner__name">Get Away Today</span>
+      </li>
+      <li class="partner" data-reveal>
+        <img src="assets/partners/legoland.svg" alt="LEGOLAND" loading="lazy" decoding="async" data-alt="assets/partners/legoland.png">
+        <span class="partner__name">LEGOLAND</span>
+      </li>
+      <li class="partner" data-reveal data-reveal-delay="1">
+        <img src="assets/partners/merlin-entertainments.svg" alt="Merlin Entertainments" loading="lazy" decoding="async" data-alt="assets/partners/merlin-entertainments.png">
+        <span class="partner__name">Merlin Entertainments</span>
+      </li>
+      <li class="partner" data-reveal data-reveal-delay="2">
+        <img src="assets/partners/tampa-school-of-real-estate.svg" alt="Tampa School of Real Estate" loading="lazy" decoding="async" data-alt="assets/partners/tampa-school-of-real-estate.png">
+        <span class="partner__name">Tampa School of Real Estate</span>
+      </li>
+    </ul>
+    <div class="section__cta" data-reveal>
+      <p>Want your brand in this company? Let's talk about what you're working on.</p>
+      <a class="btn btn--accent btn--sm" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 4 · BUSINESS CHALLENGES ======================= -->
 <section class="section" id="challenges" style="background:var(--bg-2)">
   <div class="wrap">
     <div class="statement section__head" style="max-width:none">
@@ -190,7 +232,7 @@
   </div>
 </section>
 
-<!-- ======================= 4 · SERVICES ======================= -->
+<!-- ======================= 5 · SERVICES ======================= -->
 <section class="section" id="services">
   <div class="wrap">
     <div class="section__head">
@@ -226,7 +268,7 @@
   </div>
 </section>
 
-<!-- ======================= 5 · APPROACH + PROCESS ======================= -->
+<!-- ======================= 6 · APPROACH + PROCESS ======================= -->
 <section class="section" id="approach" style="background:var(--bg-2)">
   <div class="wrap">
     <div class="section__head">
@@ -273,7 +315,7 @@
   </div>
 </section>
 
-<!-- ======================= 6 · FOUNDER ======================= -->
+<!-- ======================= 7 · FOUNDER ======================= -->
 <section class="section" id="founder" style="background:var(--bg-2)">
   <div class="wrap detail founder">
     <figure class="detail__media" data-media data-reveal style="margin:0">
@@ -294,7 +336,7 @@
   </div>
 </section>
 
-<!-- ======================= 7 · FINAL CTA ======================= -->
+<!-- ======================= 8 · FINAL CTA ======================= -->
 <section class="band" id="band" data-media>
   <img src="assets/hero-poster.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <div class="scrim scrim--full"></div>
@@ -322,6 +364,7 @@
           <li><a href="#work">Work</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#approach">Approach</a></li>
+    <li><a href="#partners">Partners</a></li>
           <li><a href="about.html">About Jordan</a></li>
         </ul>
       </div>
@@ -415,6 +458,15 @@
     img.addEventListener('load', function(){ if (img.naturalWidth <= 120) fallback(); });
     img.addEventListener('error', fallback);
     img.src = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
+  });
+
+  /* partner logos: try the svg, then the png, otherwise keep the name */
+  document.querySelectorAll('.partner img').forEach(function(img){
+    img.addEventListener('load', function(){ img.parentElement.classList.add('has-logo'); });
+    img.addEventListener('error', function(){
+      var alt = img.getAttribute('data-alt');
+      if (alt){ img.removeAttribute('data-alt'); img.src = alt; } else { img.remove(); }
+    });
   });
 
   /* smooth anchors */
