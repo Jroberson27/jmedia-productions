@@ -63,8 +63,8 @@
     <div class="wrap home__grid">
       <div>
         <p class="eyebrow" data-reveal>Creative production and ongoing content for businesses</p>
-        <h1 class="display hero__title" data-reveal>Video that shows customers why your business is <span class="hl">worth choosing</span></h1>
-        <p class="hero__copy" data-reveal data-reveal-delay="1">JMEDIA <strong>plans, films and edits professional video</strong> for businesses, then keeps the creative going with <strong>fresh content for your website, social channels and campaigns</strong>. One partner from strategy through delivery, led by Jordan Roberson, who has spent <strong>fifteen years in video production</strong>.</p>
+        <h1 class="display hero__title hero__title--j" data-reveal aria-label="Just create."><span aria-hidden="true"><span class="j">J</span>UST<br><span class="rotator" id="rotator"><span class="rotator__w is-on">CREATE<span class="j">.</span></span><span class="rotator__w">ORIGINAL<span class="j">.</span></span><span class="rotator__w">CINEMATIC<span class="j">.</span></span></span></span></h1>
+        <p class="hero__copy" data-reveal data-reveal-delay="1">JMEDIA <strong>creates professional video for businesses</strong>, then keeps <strong>fresh content</strong> coming for your website, social channels and campaigns.</p>
         <div class="hero__cta" data-reveal data-reveal-delay="2">
           <a class="btn btn--accent" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a>
           <a class="btn btn--ghost" href="#work">See the work</a>
@@ -314,14 +314,44 @@
     </div>
 
     <h3 class="h3 process__title" data-reveal>How a project runs</h3>
-    <div class="credits">
-      <div class="credit" data-reveal><span class="num">01</span><h4>Discovery</h4><p>We learn the business, the audience, what's working today and <strong>what the content needs to do</strong>.</p></div>
-      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">02</span><h4>Creative planning</h4><p>Concepts, scripts or shot lists, locations, people on camera and a schedule, <strong>all agreed before the shoot</strong>. Some projects feature the owner, others feature the team, customers or the product. <strong>The story decides.</strong></p></div>
-      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">03</span><h4>Production</h4><p>A professionally run shoot, <strong>planned so your team's time is used well</strong>.</p></div>
-      <div class="credit" data-reveal><span class="num">04</span><h4>Postproduction</h4><p>Editing, color, sound, graphics and captions, <strong>with time built in for your feedback</strong>.</p></div>
-      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">05</span><h4>Delivery</h4><p>Final files <strong>formatted for every place they will run</strong>, from your website to each social platform.</p></div>
-      <div class="credit credit--ongoing" data-reveal data-reveal-delay="2"><span class="num">06 · Ongoing content support</span><h4>Publishing and optimization</h4><p>We schedule and publish the content, <strong>review how it performs</strong> and use what we learn to shape the next round.</p></div>
-    </div>
+    <ol class="run" id="run">
+      <li class="run__step" style="--i:0">
+        <span class="run__num" aria-hidden="true">01</span>
+        
+        <h4><span class="sr">Step 1: </span>Discovery</h4>
+        <p>We learn the business, the audience, what's working today and <strong>what the content needs to do</strong>.</p>
+      </li>
+      <li class="run__step" style="--i:1">
+        <span class="run__num" aria-hidden="true">02</span>
+        
+        <h4><span class="sr">Step 2: </span>Creative planning</h4>
+        <p>Concepts, scripts or shot lists, locations, people on camera and a schedule, <strong>all agreed before the shoot</strong>. Some projects feature the owner, others feature the team, customers or the product. <strong>The story decides.</strong></p>
+      </li>
+      <li class="run__step" style="--i:2">
+        <span class="run__num" aria-hidden="true">03</span>
+        
+        <h4><span class="sr">Step 3: </span>Production</h4>
+        <p>A professionally run shoot, <strong>planned so your team's time is used well</strong>.</p>
+      </li>
+      <li class="run__step" style="--i:0">
+        <span class="run__num" aria-hidden="true">04</span>
+        
+        <h4><span class="sr">Step 4: </span>Postproduction</h4>
+        <p>Editing, color, sound, graphics and captions, <strong>with time built in for your feedback</strong>.</p>
+      </li>
+      <li class="run__step" style="--i:1">
+        <span class="run__num" aria-hidden="true">05</span>
+        
+        <h4><span class="sr">Step 5: </span>Delivery</h4>
+        <p>Final files <strong>formatted for every place they will run</strong>, from your website to each social platform.</p>
+      </li>
+      <li class="run__step run__step--ongoing" style="--i:2">
+        <span class="run__num" aria-hidden="true">06</span>
+        <span class="run__tag">Ongoing content support</span>
+        <h4><span class="sr">Step 6: </span>Publishing and optimization</h4>
+        <p>We schedule and publish the content, <strong>review how it performs</strong> and use what we learn to shape the next round.</p>
+      </li>
+    </ol>
     <p class="plans__note" data-reveal><strong>Steps one through five are part of every project.</strong> Step six is for businesses that want ongoing content support.</p>
     <div class="section__cta" data-reveal>
       <p><strong>Want to see how a project would run for your business?</strong> We'll walk through it together.</p>
@@ -371,6 +401,7 @@
     <div class="foot__cols">
       <div class="foot__about">
         <p class="foot__brand">J<b>MEDIA</b></p>
+        <p class="foot__motto"><span class="j">J</span>ust create.</p>
         <p class="body" style="font-size:.9rem;max-width:34ch">Creative production and ongoing content for businesses. Orlando FL.</p>
       </div>
       <div>
@@ -474,6 +505,32 @@
     img.addEventListener('error', fallback);
     img.src = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
   });
+
+  /* hero: JUST + a cycling word */
+  var rot = document.getElementById('rotator');
+  if (rot && !reduce){
+    var words = [].slice.call(rot.children), at = 0;
+    setInterval(function(){
+      if (document.hidden) return;
+      var cur = words[at]; at = (at + 1) % words.length; var nxt = words[at];
+      cur.classList.remove('is-on'); cur.classList.add('is-out');
+      nxt.classList.remove('is-out'); nxt.classList.add('is-on');
+      setTimeout(function(){ cur.classList.remove('is-out'); }, 800);
+    }, 2600);
+  }
+
+  /* process: each step lights up as it reaches the middle of the screen */
+  var runSteps = [].slice.call(document.querySelectorAll('.run__step'));
+  if (reduce){ runSteps.forEach(function(el){ el.classList.add('is-in','is-lit'); }); }
+  else {
+    var seen = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-in'); seen.unobserve(en.target); } });
+    }, { threshold: .15 });
+    var lit = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-lit'); lit.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -15% 0px', threshold: .35 });
+    runSteps.forEach(function(el){ seen.observe(el); lit.observe(el); });
+  }
 
   /* smooth anchors */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
