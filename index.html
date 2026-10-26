@@ -72,27 +72,26 @@
         </div>
       </div>
 
-      <div class="fan" aria-hidden="true" data-reveal data-reveal-delay="1">
-        <div class="fan__item"><div class="phone"><div class="screen s-broll">
-          <div class="fill"></div>
+      <div class="fan" aria-hidden="true">
+        <div class="fan__item"><div class="phone"><div class="screen ph ph--b">
           <div class="sb"><span>9:41</span><i></i></div>
-          <div class="play"></div><div class="scrub"></div>
+          <div class="ph__ui"><i></i><i></i><i></i></div>
         </div></div></div>
-        <div class="fan__item"><div class="phone"><div class="screen s-interview">
-          <img src="assets/hero-poster.jpg" alt="">
+        <div class="fan__item"><div class="phone"><div class="screen ph ph--main">
+          <!-- social reel goes here: set src to the compilation (9:16 MP4) and remove "hidden" -->
+          <video class="ph__video" muted loop playsinline autoplay preload="none" hidden></video>
           <div class="sb"><span>9:41</span><i></i></div>
-          <p class="cap">Understand the brand, the audience, <span>and the moment.</span></p>
-          <div class="handle">yourbusiness</div>
+          <span class="ph__j">J</span>
+          <div class="ph__bar"><i></i></div>
         </div></div></div>
-        <div class="fan__item"><div class="phone"><div class="screen s-quote">
+        <div class="fan__item"><div class="phone"><div class="screen ph ph--c">
           <div class="sb"><span>9:41</span><i></i></div>
-          <div class="mark">“</div>
-          <blockquote>Deliver the shot that makes people stop scrolling.</blockquote>
-          <cite>Jordan Roberson · JMEDIA</cite>
+          <div class="ph__ui"><i></i><i></i><i></i></div>
         </div></div></div>
       </div>
     </div>
   </div>
+  <div class="scroll-cue"><span>Scroll</span><i></i></div>
 </section>
 
 <!-- ======================= 2 · FEATURED VIDEOS (self hosted: autoplay, muted, no player branding) ======================= -->
@@ -443,6 +442,7 @@
   </div>
 </footer>
 
+<script src="assets/motion.js"></script>
 <script>
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
