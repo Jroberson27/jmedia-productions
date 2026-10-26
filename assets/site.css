@@ -647,3 +647,18 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
 .partner__name{font-size:clamp(.72rem,1.1vw,.86rem);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);font-weight:500;line-height:1.5}
 /* the header now carries six links on desktop */
 @media(min-width:761px) and (max-width:1280px){.nav__side .nav__link:not(.nav__link--cta){display:none}}
+
+/* highlights: key details in body copy step up to full ink */
+.hero__copy strong,.lede strong,.body strong,.credit p strong,.trio__item p strong,.detail__step p strong,
+.section__cta p strong,.vcard__role strong,.plans__note strong,.card__copy p strong{color:var(--ink);font-weight:600}
+.section__cta p strong{display:inline}
+
+/* partner logos: one color marks on the dark wall, name underneath */
+.partner{gap:14px;align-content:center}
+.partner img{display:block;max-width:min(72%,210px);max-height:70px;filter:none;opacity:.82}
+.partner:hover img{opacity:1}
+.partner__name{display:block;font-size:.62rem;letter-spacing:.24em;color:var(--ink-dim);opacity:.8}
+.partner.has-logo img{display:block}.partner.has-logo .partner__name{display:block}
+
+.partner img{max-width:min(78%,250px);max-height:88px}
+@media(max-width:760px){.partner img{max-height:62px}}
