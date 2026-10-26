@@ -662,3 +662,6 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
 
 .partner img{max-width:min(78%,250px);max-height:88px}
 @media(max-width:760px){.partner img{max-height:62px}}
+
+/* every logo carries its own name, so the label is for screen readers only */
+.partner .partner__name,.partner.has-logo .partner__name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
