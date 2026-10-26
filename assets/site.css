@@ -799,3 +799,8 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
   .feat__copy{padding-right:84px}
 }
 @media(prefers-reduced-motion:reduce){.feat{--p:1}.feat__copy,.feat__sound{opacity:1;transform:none}}
+
+/* inline feature (inside a section): same behavior, framed to the content width */
+.feat--inline{margin:0 0 clamp(56px,8vh,96px)}
+.feat--inline .feat__frame{height:auto;min-height:0;aspect-ratio:16/9}
+.feat--inline .feat__sound{opacity:1}
