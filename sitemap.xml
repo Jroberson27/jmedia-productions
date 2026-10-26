@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://jmedia-productions.vercel.app/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://jmedia-productions.vercel.app/assets/og.jpg</image:loc></image:image>
+    <video:video>
+      <video:thumbnail_loc>https://jmedia-productions.vercel.app/assets/featured/hhn-hype-poster.jpg</video:thumbnail_loc>
+      <video:title>HHN Hype 2026</video:title>
+      <video:description>Halloween Horror Nights hype reel filmed and edited by JMEDIA.</video:description>
+      <video:content_loc>https://jmedia-productions.vercel.app/assets/featured/hhn-hype-hd.mp4</video:content_loc>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://jmedia-productions.vercel.app/assets/featured/sunset-reel-poster.jpg</video:thumbnail_loc>
+      <video:title>Sunset Reel</video:title>
+      <video:description>Cinematic sunset reel filmed and edited by JMEDIA.</video:description>
+      <video:content_loc>https://jmedia-productions.vercel.app/assets/featured/sunset-reel-hd.mp4</video:content_loc>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://jmedia-productions.vercel.app/realestate.html</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://jmedia-productions.vercel.app/assets/realestate/re-01.jpg</image:loc></image:image>
+    <video:video>
+      <video:thumbnail_loc>https://jmedia-productions.vercel.app/assets/tsre/tsre-event-poster.jpg</video:thumbnail_loc>
+      <video:title>Tampa School of Real Estate August 2026 event</video:title>
+      <video:description>Event video of the Tampa School of Real Estate August 2026 event, filmed and edited by JMEDIA.</video:description>
+      <video:content_loc>https://jmedia-productions.vercel.app/assets/tsre/tsre-event.mp4</video:content_loc>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://jmedia-productions.vercel.app/about.html</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://jmedia-productions.vercel.app/assets/about-portrait.jpg</image:loc></image:image>
+  </url>
+</urlset>

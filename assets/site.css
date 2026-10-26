@@ -891,3 +891,6 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
   .fan__item:nth-child(2) .phone{--w:min(38vw,230px)}
   .hero--home{padding-top:calc(var(--h-nav) + 8px)}
 }
+
+/* SEO h1 styled as the hero eyebrow */
+h1.eyebrow{font-size:.7rem;line-height:1.5;font-weight:500;margin:0 0 1.4em}

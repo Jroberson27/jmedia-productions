@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jmedia-productions.vercel.app/sitemap.xml
