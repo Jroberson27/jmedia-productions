@@ -68,7 +68,7 @@
         <p class="hero__copy" data-reveal data-reveal-delay="1">JMEDIA <strong>creates professional video for businesses</strong>, then keeps <strong>fresh content</strong> coming for your website, social channels and campaigns.</p>
         <div class="hero__cta" data-reveal data-reveal-delay="2">
           <a class="btn btn--accent" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a>
-          <a class="btn btn--ghost" href="#work">See the work</a>
+          <a class="btn btn--ghost" href="#featured">See the work</a>
         </div>
       </div>
 
@@ -95,6 +95,34 @@
   </div>
 </section>
 
+<!-- ======================= 2 · FEATURED VIDEOS (self hosted: autoplay, muted, no player branding) ======================= -->
+<section class="featured" id="featured" aria-label="Featured videos">
+  <article class="feat" data-feat>
+    <div class="feat__frame">
+      <video class="feat__video" muted loop playsinline preload="none" poster="assets/featured/hhn-hype-poster.jpg"
+        data-hd="assets/featured/hhn-hype-hd.mp4" data-sd="assets/featured/hhn-hype-sd.mp4" style="object-position:50% 50%" aria-label="HHN Hype 2026"></video>
+      <div class="scrim scrim--bottom"></div>
+      <div class="feat__copy">
+        <p class="eyebrow">Featured · 01</p>
+        <h2 class="feat__title">HHN Hype<br><span class="hl">2026</span></h2>
+      </div>
+      <button class="feat__sound" type="button" aria-pressed="false" aria-label="Turn sound on for HHN Hype 2026"><svg class="i-off" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M17 9l4 6M21 9l-4 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg class="i-on" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sound</span></button>
+    </div>
+  </article>
+  <article class="feat" data-feat>
+    <div class="feat__frame">
+      <video class="feat__video" muted loop playsinline preload="none" poster="assets/featured/sunset-reel-poster.jpg"
+        data-hd="assets/featured/sunset-reel-hd.mp4" data-sd="assets/featured/sunset-reel-sd.mp4" style="object-position:50% 55%" aria-label="Sunset Reel"></video>
+      <div class="scrim scrim--bottom"></div>
+      <div class="feat__copy">
+        <p class="eyebrow">Featured · 02</p>
+        <h2 class="feat__title">Sunset<br><span class="hl">Reel</span></h2>
+      </div>
+      <button class="feat__sound" type="button" aria-pressed="false" aria-label="Turn sound on for Sunset Reel"><svg class="i-off" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M17 9l4 6M21 9l-4 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg class="i-on" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sound</span></button>
+    </div>
+  </article>
+</section>
+
 <!-- ======================= 2 · FEATURED WORK ======================= -->
 <section class="section" id="work">
   <div class="wrap">
@@ -102,20 +130,6 @@
       <p class="eyebrow" data-reveal>Selected work</p>
       <h2 class="h2" data-reveal>Work you<br>can <span class="hl">watch</span></h2>
       <p class="lede" data-reveal data-reveal-delay="1" style="margin-top:1.6rem"><strong>Projects produced by JMEDIA</strong> come first. Below them are larger productions Jordan worked on as part of the <strong>camera and production crew</strong>, with his role listed on each.</p>
-    </div>
-
-    <div class="feature-video" data-reveal>
-      <div class="feature-video__frame" style="aspect-ratio:426/214">
-        <iframe src="https://player.vimeo.com/video/1220003318?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="Sunset Reel" loading="lazy" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <p class="feature-video__cap"><span>Sunset Reel</span></p>
-    </div>
-
-    <div class="feature-video feature-video--second" data-reveal>
-      <div class="feature-video__frame" style="aspect-ratio:16/9">
-        <iframe src="https://player.vimeo.com/video/1239532670?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="HHN Hype 2026" loading="lazy" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <p class="feature-video__cap"><span>HHN Hype 2026</span></p>
     </div>
 
     <p class="work__label" data-reveal>Produced by JMEDIA</p>
@@ -531,6 +545,44 @@
     }, { rootMargin: '0px 0px -15% 0px', threshold: .35 });
     runSteps.forEach(function(el){ seen.observe(el); lit.observe(el); });
   }
+
+  /* featured videos: lazy source pick, autoplay in view, sound toggle, scroll linked frame */
+  (function(){
+    var feats = [].slice.call(document.querySelectorAll('[data-feat]'));
+    if (!feats.length) return;
+    var conn = navigator.connection || {};
+    var big = (window.innerWidth * (window.devicePixelRatio || 1)) > 1500 && !conn.saveData;
+    feats.forEach(function(f){
+      var v = f.querySelector('video'), btn = f.querySelector('.feat__sound');
+      function load(){ if (!v.getAttribute('src')){ v.src = v.getAttribute(big ? 'data-hd' : 'data-sd'); v.preload = 'auto'; } }
+      new IntersectionObserver(function(es){ if (es[0].isIntersecting) load(); }, { rootMargin: '100% 0px' }).observe(f);
+      new IntersectionObserver(function(es){
+        var on = es[0].isIntersecting;
+        f.classList.toggle('is-on', on);
+        if (on && !reduce){ load(); var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); }
+        else if (!on){ v.pause(); if (!v.muted){ v.muted = true; btn.setAttribute('aria-pressed','false'); f.classList.remove('has-sound'); } }
+      }, { threshold: .35 }).observe(f);
+      btn.addEventListener('click', function(){
+        load();
+        var turnOn = v.muted;
+        feats.forEach(function(o){ var ov = o.querySelector('video'); ov.muted = true; o.classList.remove('has-sound'); o.querySelector('.feat__sound').setAttribute('aria-pressed','false'); });
+        if (turnOn){ v.muted = false; f.classList.add('has-sound'); btn.setAttribute('aria-pressed','true'); var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); }
+      });
+    });
+    if (reduce) return;
+    var tick = false;
+    function frame(){
+      var vh = window.innerHeight;
+      feats.forEach(function(f){
+        var r = f.getBoundingClientRect();
+        var p = Math.max(0, Math.min(1, (vh - r.top) / (vh * .75)));
+        f.style.setProperty('--p', p.toFixed(3));
+      });
+      tick = false;
+    }
+    window.addEventListener('scroll', function(){ if (!tick){ tick = true; requestAnimationFrame(frame); } }, { passive: true });
+    window.addEventListener('resize', frame); frame();
+  })();
 
   /* smooth anchors */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
