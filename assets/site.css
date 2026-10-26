@@ -703,3 +703,24 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
   color:#0B0B0D;background:var(--accent)}
 .run__step--ongoing{background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 14%,#1E1E23),#1E1E23 60%)}
 @media(prefers-reduced-motion:reduce){.run__step{opacity:1;transform:none}}
+
+/* ============ PHOTO GALLERIES (industry pages) ============ */
+.pgrid{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:900px){.pgrid{grid-template-columns:repeat(3,1fr);gap:14px}}
+.pgrid__item{position:relative;display:block;padding:0;aspect-ratio:3/2;overflow:hidden;background:#000;cursor:zoom-in}
+.pgrid__item--wide{grid-column:span 2}
+.pgrid__item img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s var(--ease);filter:brightness(.92)}
+.pgrid__item:hover img{transform:scale(1.05);filter:brightness(1.05)}
+.pgrid__item::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--accent);transition:box-shadow .35s var(--ease)}
+.pgrid__item:hover::after,.pgrid__item:focus-visible::after{box-shadow:inset 0 0 0 2px var(--accent)}
+@media(max-width:600px){.pgrid__item--wide{grid-column:1/-1}}
+.tsre__logo{display:block;width:min(220px,60%);height:auto;margin:0 0 1.4rem;opacity:.9}
+
+/* photo viewer */
+.lightbox--photo{padding:clamp(56px,8vh,90px) clamp(12px,6vw,96px)}
+.lb__img{max-width:100%;max-height:calc(100svh - 140px);width:auto;height:auto;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb__nav{position:absolute;top:50%;transform:translateY(-50%)}
+.lb__nav--prev{left:clamp(8px,2vw,28px)}.lb__nav--next{right:clamp(8px,2vw,28px)}
+@media(max-width:760px){.lb__nav{top:auto;bottom:16px;transform:none}}
+.partner__link{display:grid;place-items:center;width:100%;height:100%}
+@media(max-width:899px){.pgrid--listings .pgrid__item:last-child{grid-column:1/-1}}
