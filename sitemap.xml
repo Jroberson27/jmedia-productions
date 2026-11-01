@@ -36,4 +36,16 @@
     <priority>0.7</priority>
     <image:image><image:loc>https://jmedia-productions.vercel.app/assets/about-portrait.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://jmedia-productions.vercel.app/get-away-today.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://jmedia-productions.vercel.app/assets/gat/gat-01.jpg</image:loc></image:image>
+    <video:video>
+      <video:thumbnail_loc>https://jmedia-productions.vercel.app/assets/gat/gat-reel-poster.jpg</video:thumbnail_loc>
+      <video:title>Get Away Today at LEGOLAND Florida Resort reel</video:title>
+      <video:description>Vertical reel filmed, hosted and edited by JMEDIA for Get Away Today at LEGOLAND Florida Resort.</video:description>
+      <video:content_loc>https://jmedia-productions.vercel.app/assets/gat/gat-reel-hd.mp4</video:content_loc>
+    </video:video>
+  </url>
 </urlset>

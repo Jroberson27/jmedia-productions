@@ -916,3 +916,56 @@ h1.eyebrow{font-size:.7rem;line-height:1.5;font-weight:500;margin:0 0 1.4em}
   .hero--home .fan__item[data-pos="r"]{--tx:50%;--ty:6%;--rot:9deg;--s:.81}
 }
 @media(prefers-reduced-motion:reduce){.hero--home .fan__item,.hero--home .fan__item .screen{transition:none}}
+
+/* ============ CLIENT PROJECT PAGES ============ */
+.client__logo{display:block;width:min(240px,62%);height:auto;margin:0 0 1.4rem;opacity:.92}
+/* project facts: what a buyer asks first, answered in one scan */
+.facts{margin:0;display:grid;grid-template-columns:1fr;border-top:1px solid var(--line)}
+@media(min-width:760px){.facts{grid-template-columns:repeat(2,1fr);column-gap:clamp(24px,4vw,64px)}}
+@media(min-width:1100px){.facts{grid-template-columns:repeat(3,1fr)}}
+.facts__row{padding:1.4rem 0 1.5rem;border-bottom:1px solid var(--line)}
+.facts dt{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);font-weight:500;margin:0 0 .7rem}
+.facts dd{margin:0;color:var(--ink);font-size:clamp(1rem,1.2vw,1.12rem);line-height:1.45;max-width:34ch}
+/* a logo standing in for a number */
+.stat--logo .stat__value{height:clamp(3rem,7vw,6.6rem);align-items:center}
+.stat--logo .stat__value img{height:78%;width:auto;max-width:100%;object-fit:contain}
+#results .stat__label{max-width:30ch;line-height:1.6}
+/* vertical reel beside its story */
+.reelcase{display:grid;gap:clamp(40px,6vw,96px);grid-template-columns:1fr;align-items:center}
+@media(min-width:900px){.reelcase{grid-template-columns:.9fr 1.1fr}}
+.reelcase__stage{display:grid;place-items:center;position:relative}
+.reelcase__stage::before{content:"";position:absolute;width:min(560px,120%);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 18%,transparent),transparent 72%);pointer-events:none}
+.reelcase__phone{--w:clamp(230px,min(26vw,44svh),330px)}
+.reelcase__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.reelcase .feat__sound.reelcase__sound{opacity:1;right:auto;left:50%;bottom:calc(var(--w) * -.24);transform:translateX(-50%)}
+.reelcase__phone.has-sound .feat__sound .i-on{display:block}.reelcase__phone.has-sound .feat__sound .i-off{display:none}
+.reelcase__phone.has-sound .feat__sound{border-color:var(--accent)}
+@media(max-width:899px){.reelcase__stage{margin-bottom:clamp(40px,8vw,60px)}}
+.reelcase__copy .lede{max-width:48ch}
+@media(max-width:899px){.pgrid--gat .pgrid__item:last-child{grid-column:1/-1}}
+
+/* ============ HOMEPAGE: client projects ============ */
+.projects{display:grid;gap:clamp(28px,4vh,44px)}
+.proj{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,48px);align-items:center;color:inherit}
+@media(min-width:900px){.proj{grid-template-columns:1.15fr .85fr}}
+.proj__media{position:relative;aspect-ratio:16/10;overflow:hidden;background:#000}
+.proj__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.proj:hover .proj__media img{transform:scale(1.04)}
+.proj__badge{position:absolute;left:16px;bottom:16px;z-index:2;padding:8px 12px;background:rgba(11,11,13,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  font-size:.62rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);border:1px solid color-mix(in srgb,var(--accent) 55%,transparent)}
+.proj__body .card__kicker{margin:0 0 .8rem}
+.proj__body .h3{margin:0 0 1.2rem;line-height:1.25}
+.proj__body .facts{grid-template-columns:1fr;margin:0 0 1.6rem}
+.proj__body .facts__row{padding:.85rem 0 .9rem;display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;align-items:baseline}
+.proj__body .facts dt{margin:0}
+.proj__body .facts dd{font-size:.95rem;color:var(--ink-dim);max-width:none}
+.proj__body .facts dd strong{color:var(--ink);font-weight:600}
+@media(max-width:480px){.proj__body .facts__row{grid-template-columns:1fr;gap:.35rem}}
+#reel{overflow-x:clip}
+#results .stat__value{gap:0}#results .stat__plus{margin-left:.02em}
+/* the LEGOLAND sign sits behind the headline on narrow screens: deepen the scrim there */
+@media(max-width:760px){.hero--gat .scrim--bottom{background:linear-gradient(to top,rgba(4,5,7,.94) 0%,rgba(4,5,7,.82) 48%,rgba(4,5,7,.25) 78%,transparent 92%)}}
+.hero--gat .scrim--bottom{background:linear-gradient(to top,rgba(4,5,7,.9) 0%,rgba(4,5,7,.45) 40%,transparent 70%),
+  linear-gradient(90deg,rgba(4,5,7,.88) 0%,rgba(4,5,7,.62) 34%,rgba(4,5,7,.12) 62%,transparent 78%)}
+@media(max-width:760px){.hero--gat .scrim--bottom{background:linear-gradient(to top,rgba(4,5,7,.96) 0%,rgba(4,5,7,.9) 58%,rgba(4,5,7,.35) 82%,transparent 96%)}}
