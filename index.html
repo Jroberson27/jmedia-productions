@@ -200,17 +200,18 @@
 
       <div class="fan" aria-hidden="true">
         <div class="fan__item"><div class="phone"><div class="screen ph ph--b">
+          <video class="ph__video" muted loop playsinline preload="none" poster="assets/reels/kids-resort-reel.jpg" data-src="assets/reels/kids-resort-reel.mp4"></video>
           <div class="sb"><span>9:41</span><i></i></div>
           <div class="ph__ui"><i></i><i></i><i></i></div>
         </div></div></div>
         <div class="fan__item"><div class="phone"><div class="screen ph ph--main">
-          <!-- social reel goes here: set src to the compilation (9:16 MP4) and remove "hidden" -->
-          <video class="ph__video" muted loop playsinline autoplay preload="none" hidden></video>
+          <video class="ph__video" muted loop playsinline autoplay preload="auto" poster="assets/reels/drum-reel.jpg" src="assets/reels/drum-reel.mp4"></video>
           <div class="sb"><span>9:41</span><i></i></div>
           <span class="ph__j">J</span>
           <div class="ph__bar"><i></i></div>
         </div></div></div>
         <div class="fan__item"><div class="phone"><div class="screen ph ph--c">
+          <video class="ph__video" muted loop playsinline preload="none" poster="assets/reels/kids-ioa-reel.jpg" data-src="assets/reels/kids-ioa-reel.mp4"></video>
           <div class="sb"><span>9:41</span><i></i></div>
           <div class="ph__ui"><i></i><i></i><i></i></div>
         </div></div></div>
@@ -716,6 +717,23 @@
       e.preventDefault();
       t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     });
+  });
+})();
+</script>
+<script>
+/* hero phones: side reels load after the page, all pause off screen or for reduced motion */
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('.fan .ph__video'));
+  if(!vids.length) return;
+  var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(v){ if(calm) return; var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+  if(calm) vids.forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); });
+  window.addEventListener('load',function(){
+    vids.forEach(function(v){ if(v.dataset.src && !v.getAttribute('src')){ v.src=v.dataset.src; } });
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?play(e.target):e.target.pause(); }); });
+      vids.forEach(function(v){ io.observe(v); });
+    } else vids.forEach(play);
   });
 })();
 </script>
