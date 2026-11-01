@@ -199,18 +199,18 @@
       </div>
 
       <div class="fan" aria-hidden="true">
-        <div class="fan__item"><div class="phone"><div class="screen ph ph--b">
+        <div class="fan__item" data-pos="l"><div class="phone"><div class="screen ph ph--b">
           <video class="ph__video" muted loop playsinline preload="none" poster="assets/reels/kids-resort-reel.jpg" data-src="assets/reels/kids-resort-reel.mp4"></video>
           <div class="sb"><span>9:41</span><i></i></div>
           <div class="ph__ui"><i></i><i></i><i></i></div>
         </div></div></div>
-        <div class="fan__item"><div class="phone"><div class="screen ph ph--main">
+        <div class="fan__item" data-pos="c"><div class="phone"><div class="screen ph ph--main">
           <video class="ph__video" muted loop playsinline autoplay preload="auto" poster="assets/reels/drum-reel.jpg" src="assets/reels/drum-reel.mp4"></video>
           <div class="sb"><span>9:41</span><i></i></div>
           <span class="ph__j">J</span>
           <div class="ph__bar"><i></i></div>
         </div></div></div>
-        <div class="fan__item"><div class="phone"><div class="screen ph ph--c">
+        <div class="fan__item" data-pos="r"><div class="phone"><div class="screen ph ph--c">
           <video class="ph__video" muted loop playsinline preload="none" poster="assets/reels/oi-meetup-reel.jpg" data-src="assets/reels/oi-meetup-reel.mp4"></video>
           <div class="sb"><span>9:41</span><i></i></div>
           <div class="ph__ui"><i></i><i></i><i></i></div>
@@ -735,6 +735,27 @@
       vids.forEach(function(v){ io.observe(v); });
     } else vids.forEach(play);
   });
+})();
+</script>
+<script>
+/* hero carousel: every few seconds the right phone swings to centre, centre steps left, left slips behind to the right */
+(function(){
+  var fan=document.querySelector('.hero--home .fan'); if(!fan) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var items=[].slice.call(fan.querySelectorAll('.fan__item')), next={l:'r',c:'l',r:'c'}, timer=null, visible=true;
+  function step(){
+    items.forEach(function(it){
+      var p=next[it.dataset.pos];
+      if(p==='r'){ it.style.zIndex=0; setTimeout(function(){ it.style.zIndex=''; },1200); }
+      it.dataset.pos=p;
+      if(p==='c'){ var v=it.querySelector('video'); if(v){ try{v.currentTime=0;}catch(e){} var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); } }
+    });
+  }
+  function start(){ if(!timer && visible && !document.hidden) timer=setInterval(step,5200); }
+  function stop(){ clearInterval(timer); timer=null; }
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){ visible=es[0].isIntersecting; visible?start():stop(); }).observe(fan);
+  document.addEventListener('visibilitychange',function(){ document.hidden?stop():start(); });
+  start();
 })();
 </script>
 </body>

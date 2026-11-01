@@ -895,3 +895,24 @@ a.vcard:hover .vcard__frame img{transform:scale(1.05)}
 
 /* SEO h1 styled as the hero eyebrow */
 h1.eyebrow{font-size:.7rem;line-height:1.5;font-weight:500;margin:0 0 1.4em}
+
+/* ============ HERO PHONE CAROUSEL ============
+   every phone is centre size; position comes from data-pos so the three can trade places */
+.hero--home .fan__item .phone,.hero--home .fan__item:nth-child(2) .phone{--w:min(38vw,230px)}
+.hero--home .fan__item{--tx:0%;--ty:0%;--rot:0deg;--s:1;
+  transform:translateX(var(--tx)) translateY(var(--ty)) rotate(var(--rot)) scale(var(--s));
+  transition:transform 1.15s cubic-bezier(.65,0,.2,1),z-index 0s .5s;will-change:transform}
+.hero--home .fan__item .screen{transition:filter 1.15s ease}
+.hero--home .fan__item[data-pos="c"]{z-index:3}
+.hero--home .fan__item[data-pos="l"]{--tx:-47%;--ty:7%;--rot:-8deg;--s:.84;z-index:2}
+.hero--home .fan__item[data-pos="r"]{--tx:47%;--ty:7%;--rot:8deg;--s:.84;z-index:1}
+.hero--home .fan__item:not([data-pos="c"]) .screen{filter:brightness(.72) saturate(.9)}
+.hero--home .fan__item[data-pos="l"]{translate:calc(var(--hp,0) * -70px) calc(var(--hp,0) * 50px)}
+.hero--home .fan__item[data-pos="c"]{translate:0 calc(var(--hp,0) * -60px)}
+.hero--home .fan__item[data-pos="r"]{translate:calc(var(--hp,0) * 70px) calc(var(--hp,0) * 50px)}
+@media(min-width:960px){
+  .hero--home .fan__item .phone,.hero--home .fan__item:nth-child(2) .phone{--w:clamp(260px,min(22vw,38svh),370px)}
+  .hero--home .fan__item[data-pos="l"]{--tx:-50%;--ty:6%;--rot:-9deg;--s:.81}
+  .hero--home .fan__item[data-pos="r"]{--tx:50%;--ty:6%;--rot:9deg;--s:.81}
+}
+@media(prefers-reduced-motion:reduce){.hero--home .fan__item,.hero--home .fan__item .screen{transition:none}}
