@@ -133,7 +133,7 @@
       <div class="facts__row" data-reveal><dt>Objective</dt><dd>Sell more family vacation packages and grow brand awareness</dd></div>
       <div class="facts__row" data-reveal><dt>JMEDIA handled</dt><dd>Concept, photography, filming, on camera hosting and editing</dd></div>
       <div class="facts__row" data-reveal><dt>Delivered</dt><dd>Destination photography, a vertical reel and a YouTube video</dd></div>
-      <div class="facts__row" data-reveal><dt>Where it ran</dt><dd>Social and YouTube, then syndicated through LEGOLAND Florida Resort's marketing</dd></div>
+      <div class="facts__row" data-reveal><dt>Where it ran</dt><dd>YouTube and Instagram on Get Away Today's accounts and ours, then syndicated through LEGOLAND Florida Resort's marketing</dd></div>
     </dl>
   </div>
 </section>
@@ -191,8 +191,28 @@
   </div>
 </section>
 
-<!-- ======================= 5 · PHOTOGRAPHY ======================= -->
-<section class="section" id="photos" style="background:var(--bg-2)">
+<!-- ======================= 5 · THE YOUTUBE VIDEO ======================= -->
+<section class="section" id="video" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="statement section__head" style="max-width:none">
+      <div>
+        <p class="eyebrow" data-reveal>The YouTube video</p>
+        <h2 class="h2" data-reveal>Is LEGOLAND Florida<br><span class="hl">worth it in 2026?</span></h2>
+      </div>
+      <p class="lede" data-reveal data-reveal-delay="1">An <strong>honest family review</strong> of the park, with a ride on <strong>Galacticoaster</strong> along the way. The reel is cut for a quick scroll. This video gives a family planning the trip <strong>the full walkthrough</strong>.</p>
+    </div>
+    <div class="yt" data-reveal>
+      <button class="yt__facade" type="button" data-yt-embed="jc9lbKbAPT0" aria-label="Play the YouTube video: Is LEGOLAND Florida Worth It in 2026? Our Honest Family Review plus Galacticoaster">
+        <img src="https://i.ytimg.com/vi/jc9lbKbAPT0/maxresdefault.jpg" alt="" loading="lazy" decoding="async">
+        <span class="yt__play" aria-hidden="true"><svg width="22" height="24" viewBox="0 0 22 24" fill="none"><path d="M21 12 1 23.5V.5L21 12Z" fill="currentColor"/></svg></span>
+      </button>
+    </div>
+    <p class="feature-video__cap" data-reveal><span>Is LEGOLAND Florida Worth It in 2026?</span> · Our Honest Family Review + Galacticoaster</p>
+  </div>
+</section>
+
+<!-- ======================= 6 · PHOTOGRAPHY ======================= -->
+<section class="section" id="photos">
   <div class="wrap">
     <div class="statement section__head" style="max-width:none">
       <div>
@@ -390,6 +410,21 @@
     var oio = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ run(en.target); oio.unobserve(en.target); } }); }, { threshold: .6 });
     odos.forEach(function(el){ oio.observe(el); });
   })();
+
+
+  /* YouTube: thumbnail first, the player loads on click */
+  document.querySelectorAll('[data-yt-embed]').forEach(function(b){
+    var id = b.getAttribute('data-yt-embed'), im = b.querySelector('img');
+    im.addEventListener('load', function(){ if (im.naturalWidth <= 120) im.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; });
+    im.addEventListener('error', function(){ if (im.src.indexOf('maxres') > -1) im.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; });
+    b.addEventListener('click', function(){
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+      f.title = 'Is LEGOLAND Florida Worth It in 2026? Our Honest Family Review + Galacticoaster';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true;
+      b.parentNode.replaceChild(f, b); f.focus();
+    });
+  });
 
   /* smooth anchors */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
