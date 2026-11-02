@@ -83,6 +83,7 @@
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 
 <div class="progress" id="progress"></div>
 
@@ -115,6 +116,8 @@
   </ul>
 </nav>
 
+<main id="main" tabindex="-1">
+
 <!-- ======================= 1 · HERO ======================= -->
 <section class="hero" id="top" data-media>
   <img class="poster" src="assets/hero-poster.jpg" alt="" aria-hidden="true" fetchpriority="high">
@@ -133,7 +136,7 @@
       </div>
     </div>
   </div>
-  <div class="scroll-cue"><span>Scroll</span><i></i></div>
+  <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
 </section>
 
 <!-- ======================= 2 · THE REEL (stepped rail) ======================= -->
@@ -306,18 +309,18 @@
       <h2 class="h2" data-reveal>On-Set<br>History</h2>
     </div>
     <div class="credits">
-      <div class="credit" data-reveal><span class="num">01 · New Destiny Christian Center</span><h4>Live Broadcast + Camera Op</h4><p>Camera Operator / Director</p><p class="roles">Director · Camera · Jib / Crane</p></div>
-      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">02 · Majestic Life Church</span><h4>Live Broadcast Production</h4><p>Director · Multi-Cam</p></div>
-      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">03 · Universal Orlando / UDX</span><h4>Halloween Horror Nights</h4><p>Camera Utility · 1st AC</p></div>
-      <div class="credit" data-reveal><span class="num">04 · Universal Orlando / UDX</span><h4>Grinch Social Campaign</h4><p>Camera Utility</p></div>
-      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">05 · Akins Parker Creative</span><h4>Abacus Headshot Campaign</h4><p>Camera Assist</p></div>
-      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">06 · Universal Orlando / UDX</span><h4>Epic Universe Asset Shoots</h4><p>Production Assistant</p></div>
-      <div class="credit" data-reveal><span class="num">07 · Universal Orlando / UDX</span><h4>Epic Universe Grand Opening</h4><p>Production Assistant</p></div>
-      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">08 · Universal Orlando / UDX</span><h4>Universal × Coca-Cola</h4><p>Production Assistant</p></div>
-      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">09 · Cutters Studios / Pinnacle</span><h4>Coventry Direct</h4><p>Production Assistant · Commercial</p></div>
-      <div class="credit" data-reveal><span class="num">10 · Biscuit Filmworks</span><h4>Foot Locker</h4><p>Production Assistant</p></div>
-      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">11 · Durable Goods</span><h4>Heinz</h4><p>Production Assistant · Commercial</p></div>
-      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">12 · Adidas</span><h4>Adidas Campaign</h4><p>Production Assistant</p></div>
+      <div class="credit" data-reveal><span class="num">01 · New Destiny Christian Center</span><h3>Live Broadcast + Camera Op</h3><p>Camera Operator / Director</p><p class="roles">Director · Camera · Jib / Crane</p></div>
+      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">02 · Majestic Life Church</span><h3>Live Broadcast Production</h3><p>Director · Multi-Cam</p></div>
+      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">03 · Universal Orlando / UDX</span><h3>Halloween Horror Nights</h3><p>Camera Utility · 1st AC</p></div>
+      <div class="credit" data-reveal><span class="num">04 · Universal Orlando / UDX</span><h3>Grinch Social Campaign</h3><p>Camera Utility</p></div>
+      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">05 · Akins Parker Creative</span><h3>Abacus Headshot Campaign</h3><p>Camera Assist</p></div>
+      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">06 · Universal Orlando / UDX</span><h3>Epic Universe Asset Shoots</h3><p>Production Assistant</p></div>
+      <div class="credit" data-reveal><span class="num">07 · Universal Orlando / UDX</span><h3>Epic Universe Grand Opening</h3><p>Production Assistant</p></div>
+      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">08 · Universal Orlando / UDX</span><h3>Universal × Coca-Cola</h3><p>Production Assistant</p></div>
+      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">09 · Cutters Studios / Pinnacle</span><h3>Coventry Direct</h3><p>Production Assistant · Commercial</p></div>
+      <div class="credit" data-reveal><span class="num">10 · Biscuit Filmworks</span><h3>Foot Locker</h3><p>Production Assistant</p></div>
+      <div class="credit" data-reveal data-reveal-delay="1"><span class="num">11 · Durable Goods</span><h3>Heinz</h3><p>Production Assistant · Commercial</p></div>
+      <div class="credit" data-reveal data-reveal-delay="2"><span class="num">12 · Adidas</span><h3>Adidas Campaign</h3><p>Production Assistant</p></div>
     </div>
   </div>
 </section>
@@ -332,17 +335,17 @@
     <div class="stats stats--3">
       <div class="stat" data-reveal>
         <div class="stat__rule"></div>
-        <div class="stat__value"><span class="odo" data-odo="15"></span><span class="stat__plus">+</span></div>
+        <div class="stat__value"><span class="sr">15</span><span class="odo" data-odo="15" aria-hidden="true"></span><span class="stat__plus">+</span></div>
         <p class="stat__label">Years in video production</p>
       </div>
       <div class="stat" data-reveal data-reveal-delay="1">
         <div class="stat__rule"></div>
-        <div class="stat__value"><span class="odo" data-odo="100"></span><span class="stat__plus">+</span></div>
+        <div class="stat__value"><span class="sr">100</span><span class="odo" data-odo="100" aria-hidden="true"></span><span class="stat__plus">+</span></div>
         <p class="stat__label">Productions</p>
       </div>
       <div class="stat" data-reveal data-reveal-delay="2">
         <div class="stat__rule"></div>
-        <div class="stat__value"><span class="odo" data-odo="10"></span></div>
+        <div class="stat__value"><span class="sr">10</span><span class="odo" data-odo="10" aria-hidden="true"></span></div>
         <p class="stat__label">Years in business development</p>
       </div>
     </div>
@@ -363,7 +366,7 @@
         <p class="eyebrow" data-reveal>On Location</p>
       </div>
     </div>
-    <div class="carousel__track" id="carTrack" tabindex="0" aria-label="Behind the lens photos">
+    <div class="carousel__track" id="carTrack" tabindex="0" role="region" aria-label="Behind the lens photos">
       <figure class="gl-slide">
         <img src="assets/cam-red-1.jpg" alt="Camera ready on set" loading="lazy" decoding="async">
         <div class="scrim scrim--bottom"></div>
@@ -406,6 +409,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- ======================= 13 · FOOTER ======================= -->
 <footer class="foot">
   <div class="wrap">
@@ -416,7 +421,7 @@
         <p class="body" style="font-size:.9rem;max-width:34ch">Video production and ongoing content for businesses in Orlando, Tampa and across Central Florida.</p>
       </div>
       <div>
-        <h5>Explore</h5>
+        <h2 class="foot__h">Explore</h2>
         <ul>
           <li><a href="index.html#work">Work</a></li>
           <li><a href="index.html#services">Services</a></li>
@@ -428,7 +433,7 @@
         </ul>
       </div>
       <div>
-        <h5>Contact</h5>
+        <h2 class="foot__h">Contact</h2>
         <ul>
           <li><a href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a></li>
           <li><a href="mailto:info@j-mediaproductions.com">info@j-mediaproductions.com</a></li>
@@ -553,7 +558,6 @@
       col.appendChild(strip); el.appendChild(col);
       col.dataset.target = ch;
     });
-    el.setAttribute('aria-label', target);
   }
   function runOdo(el){
     [].forEach.call(el.querySelectorAll('.odo__col'), function(col, i){
@@ -601,7 +605,7 @@
   function railMedia(){
     players.forEach(function(p, n){
       if (!p) return;
-      if (railInView && n === railAt) p.play().catch(function(){});
+      if (railInView && n === railAt && !(window.jmMotionPaused && jmMotionPaused())) p.play().catch(function(){});
       else p.pause().catch(function(){});
     });
   }
@@ -760,5 +764,6 @@
   });
 })();
 </script>
+<script src="assets/a11y.js"></script>
 </body>
 </html>

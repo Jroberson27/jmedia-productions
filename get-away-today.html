@@ -63,6 +63,7 @@
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 
 <div class="progress" id="progress"></div>
 
@@ -95,6 +96,8 @@
   </ul>
 </nav>
 
+<main id="main" tabindex="-1">
+
 <!-- ======================= 1 · HERO ======================= -->
 <section class="hero hero--gat" id="top" data-media>
   <img class="poster" src="assets/gat/gat-01.jpg" alt="" aria-hidden="true" fetchpriority="high" style="object-position:50% 45%">
@@ -102,7 +105,7 @@
   <div class="hero__inner">
     <div class="wrap">
       <h1 class="eyebrow hero__kicker" data-reveal>Client project · Get Away Today at LEGOLAND Florida Resort</h1>
-      <p class="display hero__title" data-reveal aria-label="Just arrived."><span aria-hidden="true"><span class="j">J</span>UST<br>ARRIVED<span class="j">.</span></span></p>
+      <p class="display hero__title" data-reveal><span class="sr">Just arrived.</span><span aria-hidden="true"><span class="j">J</span>UST<br>ARRIVED<span class="j">.</span></span></p>
       <p class="hero__copy" data-reveal data-reveal-delay="1">Get Away Today has been booking family vacations for <strong>more than 30 years</strong>. They came to JMEDIA for photography at LEGOLAND Florida Resort and left with photos, <strong>a reel and a YouTube video</strong> that LEGOLAND carried into its own marketing.</p>
       <div class="hero__cta" data-reveal data-reveal-delay="2">
         <a class="btn btn--accent" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a>
@@ -110,7 +113,7 @@
       </div>
     </div>
   </div>
-  <div class="scroll-cue"><span>Scroll</span><i></i></div>
+  <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
 </section>
 
 <!-- ======================= 2 · THE PROJECT ======================= -->
@@ -152,12 +155,12 @@
     <div class="stats stats--3">
       <div class="stat" data-reveal>
         <div class="stat__rule"></div>
-        <div class="stat__value"><span class="odo" data-odo="40"></span><span class="stat__plus">K+</span></div>
+        <div class="stat__value"><span class="sr">40</span><span class="odo" data-odo="40" aria-hidden="true"></span><span class="stat__plus">K+</span></div>
         <p class="stat__label">Combined impressions</p>
       </div>
       <div class="stat" data-reveal data-reveal-delay="1">
         <div class="stat__rule"></div>
-        <div class="stat__value"><span class="odo" data-odo="3"></span></div>
+        <div class="stat__value"><span class="sr">3</span><span class="odo" data-odo="3" aria-hidden="true"></span></div>
         <p class="stat__label">Formats delivered: photos, reel, YouTube video</p>
       </div>
       <div class="stat stat--logo" data-reveal data-reveal-delay="2">
@@ -177,7 +180,7 @@
         <div class="screen">
           <video class="reelcase__video" muted loop playsinline preload="none" poster="assets/gat/gat-reel-poster.jpg"
             data-hd="assets/gat/gat-reel-hd.mp4" data-sd="assets/gat/gat-reel-sd.mp4" aria-label="Get Away Today reel filmed at LEGOLAND Florida Resort by JMEDIA"></video>
-          <div class="sb"><span>9:41</span><i></i></div>
+          <div class="sb" aria-hidden="true"><span>9:41</span><i></i></div>
         </div>
         <button class="feat__sound reelcase__sound" type="button" aria-pressed="false" aria-label="Turn sound on for the reel"><svg class="i-off" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M17 9l4 6M21 9l-4 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg class="i-on" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sound</span></button>
       </div>
@@ -238,6 +241,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- ======================= FOOTER (shared) ======================= -->
 <footer class="foot">
   <div class="wrap">
@@ -248,7 +253,7 @@
         <p class="body" style="font-size:.9rem;max-width:34ch">Video production and ongoing content for businesses in Orlando, Tampa and across Central Florida.</p>
       </div>
       <div>
-        <h5>Explore</h5>
+        <h2 class="foot__h">Explore</h2>
         <ul>
           <li><a href="index.html#work">Work</a></li>
           <li><a href="index.html#services">Services</a></li>
@@ -259,7 +264,7 @@
         </ul>
       </div>
       <div>
-        <h5>Contact</h5>
+        <h2 class="foot__h">Contact</h2>
         <ul>
           <li><a href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a></li>
           <li><a href="mailto:info@j-mediaproductions.com">info@j-mediaproductions.com</a></li>
@@ -396,7 +401,7 @@
   (function(){
     var odos = document.querySelectorAll('.odo'); if (!odos.length) return;
     odos.forEach(function(el){
-      var target = el.getAttribute('data-odo'); el.innerHTML = ''; el.setAttribute('aria-label', target);
+      var target = el.getAttribute('data-odo'); el.innerHTML = '';
       target.split('').forEach(function(ch){
         var col = document.createElement('span'); col.className = 'odo__col';
         var strip = document.createElement('span'); strip.className = 'odo__strip';
@@ -435,5 +440,6 @@
   });
 })();
 </script>
+<script src="assets/a11y.js"></script>
 </body>
 </html>

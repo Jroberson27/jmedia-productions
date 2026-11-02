@@ -79,6 +79,7 @@
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 
 <div class="progress" id="progress"></div>
 
@@ -111,6 +112,8 @@
   </ul>
 </nav>
 
+<main id="main" tabindex="-1">
+
 <!-- ======================= 1 · HERO ======================= -->
 <section class="hero" id="top" data-media>
   <img class="poster" src="assets/realestate/re-01.jpg" alt="" aria-hidden="true" fetchpriority="high" style="object-position:50% 40%">
@@ -118,7 +121,7 @@
   <div class="hero__inner">
     <div class="wrap">
       <h1 class="eyebrow hero__kicker" data-reveal>Real estate photography and video in Central Florida</h1>
-      <p class="display hero__title" data-reveal aria-label="Just listed."><span aria-hidden="true"><span class="j">J</span>UST<br>LISTED<span class="j">.</span></span></p>
+      <p class="display hero__title" data-reveal><span class="sr">Just listed.</span><span aria-hidden="true"><span class="j">J</span>UST<br>LISTED<span class="j">.</span></span></p>
       <p class="hero__copy" data-reveal data-reveal-delay="1">Listing photography, aerials and event coverage for <strong>agents, teams and real estate schools</strong>, from the front curb to the backyard pool.</p>
       <div class="hero__cta" data-reveal data-reveal-delay="2">
         <a class="btn btn--accent" href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a>
@@ -126,7 +129,7 @@
       </div>
     </div>
   </div>
-  <div class="scroll-cue"><span>Scroll</span><i></i></div>
+  <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
 </section>
 
 <!-- ======================= 2 · LISTING PHOTOGRAPHY ======================= -->
@@ -226,6 +229,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- ======================= FOOTER (shared) ======================= -->
 <footer class="foot">
   <div class="wrap">
@@ -236,7 +241,7 @@
         <p class="body" style="font-size:.9rem;max-width:34ch">Video production and ongoing content for businesses in Orlando, Tampa and across Central Florida.</p>
       </div>
       <div>
-        <h5>Explore</h5>
+        <h2 class="foot__h">Explore</h2>
         <ul>
           <li><a href="index.html#work">Work</a></li>
           <li><a href="index.html#services">Services</a></li>
@@ -247,7 +252,7 @@
         </ul>
       </div>
       <div>
-        <h5>Contact</h5>
+        <h2 class="foot__h">Contact</h2>
         <ul>
           <li><a href="https://calendar.app.google/BkgfP4EBCaa2ZVK66" target="_blank" rel="noopener">Book an intro call</a></li>
           <li><a href="mailto:info@j-mediaproductions.com">info@j-mediaproductions.com</a></li>
@@ -388,5 +393,6 @@
   });
 })();
 </script>
+<script src="assets/a11y.js"></script>
 </body>
 </html>
