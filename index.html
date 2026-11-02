@@ -212,7 +212,7 @@
           <div class="ph__bar"><i></i></div>
         </div></div></div>
         <div class="fan__item" data-pos="r"><div class="phone"><div class="screen ph ph--c">
-          <video class="ph__video" muted loop playsinline preload="none" poster="assets/reels/oi-meetup-reel.jpg" data-src="assets/reels/oi-meetup-reel.mp4"></video>
+          <video class="ph__video" muted loop playsinline preload="none" poster="assets/reels/fall-into-magic-reel.jpg" data-src="assets/reels/fall-into-magic-reel.mp4"></video>
           <div class="sb"><span>9:41</span><i></i></div>
           <div class="ph__ui"><i></i><i></i><i></i></div>
         </div></div></div>
@@ -775,7 +775,7 @@
       if(p==='c'){ var v=it.querySelector('video'); if(v){ try{v.currentTime=0;}catch(e){} var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); } }
     });
   }
-  function start(){ if(!timer && visible && !document.hidden) timer=setInterval(step,5200); }
+  function start(){ if(!timer && visible && !document.hidden) timer=setInterval(step,2000); }
   function stop(){ clearInterval(timer); timer=null; }
   if('IntersectionObserver' in window) new IntersectionObserver(function(es){ visible=es[0].isIntersecting; visible?start():stop(); }).observe(fan);
   document.addEventListener('visibilitychange',function(){ document.hidden?stop():start(); });
