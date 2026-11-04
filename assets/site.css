@@ -1033,3 +1033,19 @@ main:focus{outline:none}
 .hero h1.eyebrow{max-width:min(36em,100%)}
 section[tabindex="-1"]:focus,main:focus,[id][tabindex="-1"]:focus:not(button):not(a){outline:none}
 @media(max-width:380px){.nav__side--r{gap:.9rem}.motion-toggle{width:40px;height:40px}}
+
+/* ============ HOMEPAGE INTRO (assets/intro.js) ============ */
+.intro-ov{display:none}
+html.intro .intro-ov,html.intro-out .intro-ov{display:block;position:fixed;inset:0;z-index:150;pointer-events:none}
+.intro__shade{position:absolute;inset:0;background:#0B0B0D}
+.intro__panel{position:absolute;inset:0;transform:translate3d(105%,0,0);will-change:transform}
+.intro__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.15);filter:brightness(.55) saturate(1.2)}
+/* the sharp reel: phone screen shaped, full screen height (width and left are set by intro.js) */
+.intro__frame{position:absolute;top:0;left:calc(50% - 23vh);width:46vh;height:100%;overflow:hidden;background:#000;
+  transform-origin:50% 50%;will-change:transform}
+.intro__fg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* until the intro starts, the hero waits out of sight (intro.js then animates each piece in) */
+html.intro:not(.intro-live) .hero--home .home__grid > div:first-child,
+html.intro:not(.intro-live) .nav,html.intro:not(.intro-live) .hero--home .scroll-cue,
+html.intro:not(.intro-live) .hero--home .fan__item:not([data-pos="c"]){opacity:0}
+html.intro body{overflow:hidden}

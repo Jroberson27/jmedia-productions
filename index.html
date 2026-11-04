@@ -151,8 +151,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<script>
+/* homepage intro: decide before first paint, so the hero never flashes in early */
+(function(){
+  try {
+    var d = document.documentElement;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (location.hash) return;
+    if (localStorage.getItem('jm-motion-paused') === '1') return;
+    if (sessionStorage.getItem('jm-intro-seen') === '1') return;
+    d.classList.add('intro');
+    /* if the intro script never arrives, the page still shows itself */
+    setTimeout(function(){ d.classList.remove('intro'); var o = document.getElementById('intro'); if (o) o.remove(); }, 4000);
+  } catch(e){}
+})();
+</script>
+<link rel="preload" as="image" href="assets/reels/kids-resort-reel.jpg">
+<link rel="preload" as="image" href="assets/reels/fall-into-magic-reel.jpg">
+<link rel="preload" as="image" href="assets/reels/drum-reel.jpg">
 </head>
 <body>
+<div class="intro-ov" id="intro" aria-hidden="true">
+  <div class="intro__shade"></div>
+  <div class="intro__panel"><img class="intro__bg" src="assets/reels/kids-resort-reel-blur.jpg" alt=""><div class="intro__frame"><img class="intro__fg" src="assets/reels/kids-resort-reel.jpg" alt=""></div></div>
+  <div class="intro__panel"><img class="intro__bg" src="assets/reels/fall-into-magic-reel-blur.jpg" alt=""><div class="intro__frame"><img class="intro__fg" src="assets/reels/fall-into-magic-reel.jpg" alt=""></div></div>
+  <div class="intro__panel intro__panel--land"><img class="intro__bg" src="assets/reels/drum-reel-blur.jpg" alt=""><div class="intro__frame"><img class="intro__fg" src="assets/reels/drum-reel.jpg" alt=""></div></div>
+</div>
+</div>
 <a class="skip" href="#main">Skip to main content</a>
 
 <div class="progress" id="progress"></div>
@@ -675,6 +700,7 @@
     var words = [].slice.call(rot.children), at = 0;
     setInterval(function(){
       if (document.hidden || (window.jmMotionPaused && jmMotionPaused())) return;
+      if (document.documentElement.classList.contains('intro') || (window.jmIntroUntil && Date.now() < window.jmIntroUntil)) return;
       var cur = words[at]; at = (at + 1) % words.length; var nxt = words[at];
       cur.classList.remove('is-on'); cur.classList.add('is-out');
       nxt.classList.remove('is-out'); nxt.classList.add('is-on');
@@ -768,6 +794,7 @@
   var items=[].slice.call(fan.querySelectorAll('.fan__item')), next={l:'r',c:'l',r:'c'}, timer=null, visible=true;
   function step(){
     if(window.jmMotionPaused && jmMotionPaused()) return;
+    if(document.documentElement.classList.contains('intro') || (window.jmIntroUntil && Date.now() < window.jmIntroUntil)) return;
     items.forEach(function(it){
       var p=next[it.dataset.pos];
       if(p==='r'){ it.style.zIndex=0; setTimeout(function(){ it.style.zIndex=''; },1200); }
@@ -783,5 +810,6 @@
 })();
 </script>
 <script src="assets/a11y.js"></script>
+<script src="assets/intro.js"></script>
 </body>
 </html>
